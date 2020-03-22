@@ -28,12 +28,7 @@
     <!-- /왼쪽 메뉴바 -->
 
     <!-- header -->
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-      style="border:3px solid yellow"
-    >
+    <v-app-bar :clipped-left="clipped" fixed app style="border:1px solid grey">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-avatar right class="ml-3 mr-3" size="36px">
         <v-img alt="Avatar" src="/g.png" contain />
