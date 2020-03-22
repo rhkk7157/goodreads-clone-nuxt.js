@@ -28,7 +28,7 @@
     <!-- /왼쪽 메뉴바 -->
 
     <!-- header -->
-    <v-app-bar :clipped-left="clipped" fixed app style="border:3px solid grey">
+    <v-app-bar :clipped-left="clipped" fixed app style="border:2px solid grey">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-avatar right class="ml-3 mr-3" size="36px">
         <v-img alt="Avatar" src="/g.png" contain />
@@ -41,7 +41,7 @@
     <!-- /header -->
 
     <v-content style="border:1px solid red" class="fill-height bg" fluid>
-      <v-container style="border:5px solid red">
+      <v-container style="border:3px solid red">
         <nuxt />
       </v-container>
     </v-content>
@@ -50,9 +50,7 @@
       <v-list>
         <v-list-item @click.native="right = !right">
           <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
+            <v-icon light>mdi-repeat</v-icon>
           </v-list-item-action>
           <v-list-item-title>Switch drawer (click me)</v-list-item-title>
         </v-list-item>
