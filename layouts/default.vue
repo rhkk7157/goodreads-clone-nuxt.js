@@ -34,8 +34,24 @@
         <v-img alt="Avatar" src="/g.png" contain />
       </v-avatar>
       <v-toolbar-title v-text="title" />
-
       <v-spacer />
+      <v-spacer />
+      <!-- -->
+      <v-form style="border:2px solid grey">
+        <v-container>
+          <v-row>
+            <v-col cols="12" sm="6" md="3">
+              <v-text-field lavel="ID"></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="3">
+              <v-text-field lavel="Password"></v-text-field>
+            </v-col>
+            <v-col>
+              <v-btn>로그인</v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
     </v-app-bar>
     <!-- <v-img src="/goodreads.png" style="max-width:100%" contain /> -->
     <!-- /header -->
