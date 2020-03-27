@@ -28,7 +28,7 @@
     <!-- /왼쪽 메뉴바 -->
 
     <!-- header -->
-    <v-app-bar :clipped-left="clipped" fixed app style="border:1px solid grey">
+    <v-app-bar :clipped-left="clipped" fixed app color="blue">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-avatar right class="ml-3 mr-3" size="36px">
         <v-img alt="Avatar" src="/g.png" contain />
@@ -37,7 +37,7 @@
       <v-spacer />
       <v-spacer />
       <!-- -->
-      <v-form style="border:2px solid grey">
+      <v-form>
         <v-container>
           <v-row>
             <v-col cols="12" sm="6" md="3">
@@ -56,8 +56,10 @@
     <!-- <v-img src="/goodreads.png" style="max-width:100%" contain /> -->
     <!-- /header -->
 
-    <v-content style="border:1px solid red" class="fill-height bg" fluid>
-      <v-container style="border:3px solid red">
+    <v-content class="fill-height bg" justify-space-between>
+      <v-container>
+        <v-btn color="purple">A</v-btn>
+        <!-- <v-btn color="purple">B</v-btn> -->
         <nuxt />
       </v-container>
     </v-content>
@@ -94,8 +96,13 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: 'Art',
+          to: '/DashboardLayout/Art'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Music',
+          to: '/DashboardLayout/Music'
         }
       ],
       miniVariant: false,

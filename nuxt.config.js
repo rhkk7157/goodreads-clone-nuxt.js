@@ -1,4 +1,5 @@
 const colors = require('vuetify/es5/util/colors').default
+// const baseURL = 'http://localhost:3000'
 
 module.exports = {
   mode: 'universal',
@@ -80,5 +81,6 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-  }
+  },
+  serverMiddleware: [{ path: '/api', handler: '~api/routes/index.js' }]
 }
