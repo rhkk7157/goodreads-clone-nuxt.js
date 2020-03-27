@@ -28,16 +28,16 @@
     <!-- /왼쪽 메뉴바 -->
 
     <!-- header -->
-    <v-app-bar :clipped-left="clipped" fixed app color="grey">
+    <v-app-bar :clipped-left="clipped" app color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-avatar right class="ml-3 mr-3" size="36px">
         <v-img alt="Avatar" src="/g.png" contain />
       </v-avatar>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-spacer />
-      <!-- -->
-      <v-form>
+      <v-btn class="ma-2">SignUp</v-btn>
+      <v-btn @click="login" class="ma-2">SignIn</v-btn>
+      <!-- <v-form>
         <v-container>
           <v-row>
             <v-col cols="12" sm="6" md="3">
@@ -51,71 +51,25 @@
             </v-col>
           </v-row>
         </v-container>
-      </v-form>
+      </v-form> -->
     </v-app-bar>
-    <!-- <v-img src="/goodreads.png" style="max-width:100%" contain /> -->
-    <!-- /header -->
 
     <v-content>
       <v-container fluid grid-list-xl>
-        <v-layout row justify-center>
+        <!-- <v-layout row justify-center>
           <v-flex xs1>
-            <v-card color="default">
-              <v-btn>one</v-btn>
-              <!-- <v-card-text>one</v-card-text> -->
-            </v-card>
+            <v-btn color="purple">한식</v-btn>
           </v-flex>
-          <v-flex xs2>
-            <v-card dark color="default">
-              <v-card-text>two</v-card-text>
-            </v-card>
+          <v-flex xs1>
+            <v-btn color="purple">분식</v-btn>
           </v-flex>
-          <v-flex xs2>
-            <v-card dark color="default">
-              <v-card-text>three</v-card-text>
-            </v-card>
+          <v-flex xs1>
+            <v-btn color="purple">양식</v-btn>
           </v-flex>
-          <v-flex xs2>
-            <v-card dark color="default">
-              <v-card-text>4</v-card-text>
-            </v-card>
+          <v-flex xs1>
+            <v-btn color="purple">일식</v-btn>
           </v-flex>
-        </v-layout>
-        <!-- <v-layout align-center justify-center row fill-height> -->
-        <!-- <v-flex xs2>
-            <v-card dark color="primary">
-              <v-card-text>one</v-card-text>
-            </v-card>
-          </v-flex>
-          <v-flex xs2>
-            <v-card dark color="secondary">
-              <v-card-text>two</v-card-text>
-            </v-card>
-          </v-flex>
-          <v-flex xs2>
-            <v-card dark color="accent">
-              <v-card-text>three</v-card-text>
-            </v-card>
-          </v-flex> -->
-        <!-- <v-btn class="pa-2">A</v-btn>
-          <v-btn class="pa-2">A</v-btn>
-          <v-btn class="pa-2">A</v-btn>
         </v-layout> -->
-
-        <!-- <v-row justify-content> -->
-
-        <!-- <v-col
-            style="border:1px solid grey"
-          >
-            <v-btn color="" class="pa-2">A</v-btn>
-          </v-col> -->
-        <!-- <v-col cols="12" xs="2" sm="1">
-            <v-btn color="" class="pa-2">B</v-btn>
-          </v-col>
-          <v-col cols="12" xs="1" sm="1">
-            <v-btn color="" class="pa-2">C</v-btn>
-          </v-col> -->
-        <!-- </v-row> -->
         <nuxt />
       </v-container>
     </v-content>
@@ -133,12 +87,26 @@
 
     <v-footer :fixed="fixed" app>
       <span>&copy; Hyeri</span>
+      <v-switch
+        v-model="$vuetify.theme.dark"
+        :label="$vuetify.theme.dark ? 'dark' : 'light'"
+        class="pa-0 ma-0 ml-4"
+        color="primary"
+        hide-details
+        inset
+        dense
+      ></v-switch>
     </v-footer>
+    <SignInDialog ref="SignInDialog"></SignInDialog>
   </v-app>
 </template>
 
 <script>
+import SignInDialog from '../components/SignInDialog'
 export default {
+  components: {
+    SignInDialog
+  },
   data() {
     return {
       clipped: false,
@@ -152,19 +120,24 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Art',
-          to: '/DashboardLayout/Art'
+          title: '상점 등록하기',
+          to: '/DashboardLayout/InsertStore'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Music',
-          to: '/DashboardLayout/Music'
+          title: '한식',
+          to: '/DashboardLayout/KoreanFood'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'GoodReads-Clone'
+      title: '혜리'
+    }
+  },
+  methods: {
+    login() {
+      this.$refs.SignInDialog.open()
     }
   }
 }
