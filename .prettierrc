@@ -3,5 +3,6 @@
   "arrowParens": "always",
   "singleQuote": true,
   "editor.formatOnSave": true,
-  "prettier.printWidth": 60
+  "prettier.printWidth": 60,
+  "endOfLine": "auto"
 }
