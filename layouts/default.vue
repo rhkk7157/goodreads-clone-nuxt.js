@@ -28,7 +28,7 @@
     <!-- /왼쪽 메뉴바 -->
 
     <!-- header -->
-    <v-app-bar :clipped-left="clipped" fixed app color="blue">
+    <v-app-bar :clipped-left="clipped" fixed app color="grey">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-avatar right class="ml-3 mr-3" size="36px">
         <v-img alt="Avatar" src="/g.png" contain />
@@ -43,7 +43,7 @@
             <v-col cols="12" sm="6" md="3">
               <v-text-field label="ID"></v-text-field>
             </v-col>
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6" md="5">
               <v-text-field label="Password"></v-text-field>
             </v-col>
             <v-col>
@@ -56,14 +56,70 @@
     <!-- <v-img src="/goodreads.png" style="max-width:100%" contain /> -->
     <!-- /header -->
 
-    <v-content class="fill-height bg" justify-space-between>
-      <v-container>
-        <v-btn color="purple">A</v-btn>
-        <!-- <v-btn color="purple">B</v-btn> -->
+    <v-content>
+      <v-container fluid grid-list-xl>
+        <v-layout row justify-center>
+          <v-flex xs1>
+            <v-card color="default">
+              <v-btn>one</v-btn>
+              <!-- <v-card-text>one</v-card-text> -->
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card dark color="default">
+              <v-card-text>two</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card dark color="default">
+              <v-card-text>three</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card dark color="default">
+              <v-card-text>4</v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
+        <!-- <v-layout align-center justify-center row fill-height> -->
+        <!-- <v-flex xs2>
+            <v-card dark color="primary">
+              <v-card-text>one</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card dark color="secondary">
+              <v-card-text>two</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card dark color="accent">
+              <v-card-text>three</v-card-text>
+            </v-card>
+          </v-flex> -->
+        <!-- <v-btn class="pa-2">A</v-btn>
+          <v-btn class="pa-2">A</v-btn>
+          <v-btn class="pa-2">A</v-btn>
+        </v-layout> -->
+
+        <!-- <v-row justify-content> -->
+
+        <!-- <v-col
+            style="border:1px solid grey"
+          >
+            <v-btn color="" class="pa-2">A</v-btn>
+          </v-col> -->
+        <!-- <v-col cols="12" xs="2" sm="1">
+            <v-btn color="" class="pa-2">B</v-btn>
+          </v-col>
+          <v-col cols="12" xs="1" sm="1">
+            <v-btn color="" class="pa-2">C</v-btn>
+          </v-col> -->
+        <!-- </v-row> -->
         <nuxt />
       </v-container>
     </v-content>
-
+    <!-- <v-btn color="purple">A</v-btn> -->
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
