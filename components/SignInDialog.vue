@@ -61,9 +61,6 @@ export default {
     cancel() {
       this.dialog = false
     }
-    // loadData() {
-    //   console.log('1')
-    // }
   }
 }
 </script>

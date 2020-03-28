@@ -30,51 +30,35 @@
     <!-- header -->
     <v-app-bar :clipped-left="clipped" app color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-avatar right class="ml-3 mr-3" size="36px">
-        <v-img alt="Avatar" src="/g.png" contain />
-      </v-avatar>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn class="ma-2">SignUp</v-btn>
-      <v-btn @click="login" class="ma-2">SignIn</v-btn>
-      <!-- <v-form>
-        <v-container>
-          <v-row>
-            <v-col cols="12" sm="6" md="3">
-              <v-text-field label="ID"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="5">
-              <v-text-field label="Password"></v-text-field>
-            </v-col>
-            <v-col>
-              <v-btn>로그인</v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-form> -->
+      <v-tabs
+        :centered="true"
+        :icons-and-text="true"
+        fixed-tabs
+        background-color="primary"
+        dark
+      >
+        <v-tab>
+          Option
+        </v-tab>
+        <v-tab>
+          Another Selection
+        </v-tab>
+        <v-tab>
+          Items
+        </v-tab>
+        <v-tab>
+          Another Screen
+        </v-tab>
+      </v-tabs>
+      <v-btn @click="signup" class="ma-2">SignUp</v-btn>
+      <v-btn @click="signin" class="ma-2">SignIn</v-btn>
     </v-app-bar>
-
-    <v-content>
+    <v-content style="border:1px solid red">
       <v-container fluid grid-list-xl>
-        <!-- <v-layout row justify-center>
-          <v-flex xs1>
-            <v-btn color="purple">한식</v-btn>
-          </v-flex>
-          <v-flex xs1>
-            <v-btn color="purple">분식</v-btn>
-          </v-flex>
-          <v-flex xs1>
-            <v-btn color="purple">양식</v-btn>
-          </v-flex>
-          <v-flex xs1>
-            <v-btn color="purple">일식</v-btn>
-          </v-flex>
-        </v-layout> -->
         <nuxt />
       </v-container>
     </v-content>
-    <!-- <v-btn color="purple">A</v-btn> -->
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
+    <!-- <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
           <v-list-item-action>
@@ -83,7 +67,8 @@
           <v-list-item-title>Switch drawer (click me)</v-list-item-title>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
+    <!-- /header -->
 
     <v-footer :fixed="fixed" app>
       <span>&copy; Hyeri</span>
@@ -98,14 +83,17 @@
       ></v-switch>
     </v-footer>
     <SignInDialog ref="SignInDialog"></SignInDialog>
+    <SignUpDialog ref="SignUpDialog"></SignUpDialog>
   </v-app>
 </template>
 
 <script>
 import SignInDialog from '../components/SignInDialog'
+import SignUpDialog from '../components/SignUpDialog'
 export default {
   components: {
-    SignInDialog
+    SignInDialog,
+    SignUpDialog
   },
   data() {
     return {
@@ -125,19 +113,22 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: '한식',
+          title: '_blank',
           to: '/DashboardLayout/KoreanFood'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: '혜리'
+      title: '혜리고~~'
     }
   },
   methods: {
-    login() {
+    signin() {
       this.$refs.SignInDialog.open()
+    },
+    signup() {
+      this.$refs.SignUpDialog.open()
     }
   }
 }
