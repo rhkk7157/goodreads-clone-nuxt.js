@@ -34,7 +34,7 @@
     <!-- <v-btn @click="signup" class="ma-2">SignUp</v-btn>
       <v-btn @click="signin" class="ma-2">SignIn</v-btn> -->
     <v-card>
-      <v-card color="primary" style="border:4px solid black">
+      <v-card color="primary">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
         <v-card-title class="text-center justify-center py-1">
           <!-- <h1 class="font-weight-bold display-3 basil--text">예압</h1> -->

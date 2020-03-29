@@ -92,7 +92,9 @@ export default {
     dialog: false,
     newMemberSignUp: false,
     snsSignUp: false,
-    address: null
+    address: null,
+    password: null,
+    id: null
   }),
   methods: {
     open() {
