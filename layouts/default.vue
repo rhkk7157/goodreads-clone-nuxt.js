@@ -50,7 +50,7 @@
         color="primary"
         grow
       >
-        <v-tab v-for="item in items" :key="item">
+        <v-tab v-for="(item, i) in items" :key="i">
           {{ item.tab }}
         </v-tab>
       </v-tabs>
@@ -60,7 +60,7 @@
         <v-container fluid grid-list-xl>
           <!-- <nuxt /> -->
           <v-tabs-items v-model="MenuTab">
-            <v-tab-item v-for="item in items" :key="item">
+            <v-tab-item v-for="(item, i) in items" :key="i">
               <v-card color="basil" flat>
                 <v-card-text>{{ item.content }}</v-card-text>
                 <!-- <v-card-text>{{ text }}</v-card-text> -->
