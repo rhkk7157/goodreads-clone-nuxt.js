@@ -60,16 +60,15 @@
         <v-container fluid grid-list-xl>
           <!-- <nuxt /> -->
           <v-tabs-items v-model="MenuTab">
-            <v-tab-item v-for="item in items" :key="item">
-              <v-card md="3" color="basil" flat style="border:3px solid black">
-                <template v-slot:default="{ item }">
+            <!-- <v-tab-item v-for="(item,i) in items" :key="i"> -->
+            <!-- <v-card md="3" color="basil" flat> -->
+            <!-- <template v-slot:default="{ item }">
                   <span>{{ item }}</span>
-                </template>
-                <!-- <v-card-text>{{ item.content }}</v-card-text> -->
+                </template> -->
+            <!-- <v-card-text>{{ item.content }}</v-card-text> -->
             <v-tab-item v-for="(item, i) in items" :key="i">
               <v-card color="basil" flat>
                 <v-card-text>{{ item.content }}</v-card-text>
-                <!-- <v-card-text>{{ text }}</v-card-text> -->
               </v-card>
             </v-tab-item>
           </v-tabs-items>
