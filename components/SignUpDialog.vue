@@ -11,14 +11,13 @@
         <v-row>
           <v-switch
             v-model="newMemberSignUp"
-            label="신규 회원가입하기"
+            label="신규 회원가입"
             class="pa-0 ma-0 ml-4"
             color="primary"
             hide-details
             inset
             dense
-          >
-          </v-switch>
+          ></v-switch>
           <v-switch
             v-model="snsSignUp"
             label="SNS계정 회원가입"
@@ -27,8 +26,7 @@
             hide-details
             inset
             dense
-          >
-          </v-switch>
+          ></v-switch>
         </v-row>
       </v-container>
       <v-card-text v-show="newMemberSignUp">
@@ -59,8 +57,7 @@
             v-model="address"
             label="주소를 입력해주세요"
             prepend-icon="mdi-home"
-          >
-          </v-text-field>
+          ></v-text-field>
         </v-form>
         <v-card-actions>
           <v-btn color="primary" block dark>회원가입</v-btn>
@@ -69,7 +66,7 @@
 
       <!-- <v-card-title>
         SNS 계정 회원가입
-      </v-card-title> -->
+      </v-card-title>-->
       <v-card-text v-show="snsSignUp">
         <div class="my-2">
           <v-btn color="yellow" block>Kakao ID로 회원가입</v-btn>

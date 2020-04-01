@@ -56,14 +56,16 @@
       </v-tabs>
 
       <!-- </v-card-text> -->
-      <v-content style="border:3px solid red">
+      <v-content style="border:1px solid red">
         <v-container fluid grid-list-xl>
           <!-- <nuxt /> -->
           <v-tabs-items v-model="MenuTab">
             <v-tab-item v-for="item in items" :key="item">
-              <v-card color="basil" flat>
-                <v-card-text>{{ item.content }}</v-card-text>
-                <!-- <v-card-text>{{ text }}</v-card-text> -->
+              <v-card md="3" color="basil" flat style="border:3px solid black">
+                <template v-slot:default="{ item }">
+                  <span>{{ item }}</span>
+                </template>
+                <!-- <v-card-text>{{ item.content }}</v-card-text> -->
               </v-card>
             </v-tab-item>
           </v-tabs-items>
@@ -142,7 +144,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: '혜리고~~'
+      title: 'hyeri'
     }
   },
   methods: {
