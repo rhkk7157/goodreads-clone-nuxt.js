@@ -68,7 +68,10 @@
             <!-- <v-card-text>{{ item.content }}</v-card-text> -->
             <v-tab-item v-for="(item, i) in items" :key="i">
               <v-card color="basil" flat>
-                <v-card-text>{{ item.content }}</v-card-text>
+                <template v-slot:item.content="{ item }">
+                  <span>{{ item }}</span>
+                </template>
+                <!-- <v-card-text>{{ item.content }}</v-card-text> -->
               </v-card>
             </v-tab-item>
           </v-tabs-items>
@@ -119,10 +122,10 @@ export default {
       fixed: false,
       MenuTab: null,
       items: [
-        { tab: 'Fiction', content: 'Tab1 Content' },
-        { tab: 'Webtoon', content: 'Tab2 Content' },
-        { tab: 'Programming', content: 'Tab3 Content' },
-        { tab: 'Travel', content: 'Tab4 Content' }
+        { tab: '1', content: 'Tab1 Content' },
+        { tab: '2', content: 'Tab2 Content' },
+        { tab: '3', content: 'Tab3 Content' },
+        { tab: '4', content: 'Tab4 Content' }
       ],
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
