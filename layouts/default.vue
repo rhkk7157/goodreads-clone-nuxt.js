@@ -56,23 +56,15 @@
       <!-- </v-card-text> -->
       <v-content style="border:1px solid red">
         <v-container fluid grid-list-xl>
+          <MainItemDialog ref="MainItemDialog"></MainItemDialog>
           <!-- <nuxt /> -->
-          <v-tabs-items v-model="MenuTab">
-            <!-- <v-tab-item v-for="(item,i) in items" :key="i"> -->
-            <!-- <v-card md="3" color="basil" flat> -->
-            <!-- <template v-slot:default="{ item }">
-                  <span>{{ item }}</span>
-            </template>-->
-            <!-- <v-card-text>{{ item.content }}</v-card-text> -->
+          <!-- <v-tabs-items v-model="MenuTab">
             <v-tab-item v-for="(item, i) in items" :key="i">
               <v-card color="basil" flat>
-                <!-- <template v-slot:item.content="{ item }">
-                  <span>{{ item }}</span>
-                </template>-->
                 <v-card-text>{{ item.content }}</v-card-text>
               </v-card>
             </v-tab-item>
-          </v-tabs-items>
+          </v-tabs-items> -->
         </v-container>
       </v-content>
     </v-card>
@@ -108,10 +100,12 @@
 <script>
 import SignInDialog from '../components/SignInDialog'
 import SignUpDialog from '../components/SignUpDialog'
+import MainItemDialog from '../components/MainItemDialog'
 export default {
   components: {
     SignInDialog,
-    SignUpDialog
+    SignUpDialog,
+    MainItemDialog
   },
   data() {
     return {
