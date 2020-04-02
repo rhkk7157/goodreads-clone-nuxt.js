@@ -114,10 +114,10 @@ export default {
       fixed: false,
       MenuTab: null,
       items: [
-        { tab: '1', content: 'Tab1 Content' },
-        { tab: '2', content: 'Tab2 Content' },
-        { tab: '3', content: 'Tab3 Content' },
-        { tab: '4', content: 'Tab4 Content' }
+        { tab: 'A', content: 'Tab1 Content' },
+        { tab: 'B', content: 'Tab2 Content' },
+        { tab: 'C', content: 'Tab3 Content' },
+        { tab: 'D', content: 'Tab4 Content' }
       ],
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',

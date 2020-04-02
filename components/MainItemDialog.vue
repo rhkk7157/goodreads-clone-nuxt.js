@@ -4,98 +4,64 @@
       <v-card class="mx-auto" max-width="344" outlined>
         <v-list-item three-line>
           <v-list-item-content>
-            <div class="overline mb-4">OVERLINE</div>
-            <v-list-item-title class="headline mb-1"
-              >Headline 5</v-list-item-title
-            >
-            <v-list-item-subtitle
-              >Greyhound divisely hello coldly
-              fonwderfully</v-list-item-subtitle
-            >
+            <div class="overline mb-4">Sub title</div>
+            <v-list-item-title class="headline mb-1">Title</v-list-item-title>
+            <v-list-item-subtitle>Content</v-list-item-subtitle>
           </v-list-item-content>
-          <v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>
+          <v-list-item-avatar tile size="80">
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
+            ></v-img>
+          </v-list-item-avatar>
         </v-list-item>
-
         <v-card-actions>
           <v-btn text>Button</v-btn>
           <v-btn text>Button</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
-    <!-- <v-col cols="12" md="3">
-      <v-card class="mx-auto" max-width="344" outlined>
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="overline mb-4">OVERLINE</div>
-            <v-list-item-title class="headline mb-1"
-              >Headline 5</v-list-item-title
-            >
-            <v-list-item-subtitle
-              >Greyhound divisely hello coldly
-              fonwderfully</v-list-item-subtitle
-            >
-          </v-list-item-content>
-          <v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>
-        </v-list-item>
-
-        <v-card-actions>
-          <v-btn text>Button</v-btn>
-          <v-btn text>Button</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col cols="12" md="3">
-      <v-card class="mx-auto" max-width="344" outlined>
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="overline mb-4">OVERLINE</div>
-            <v-list-item-title class="headline mb-1"
-              >Headline 5</v-list-item-title
-            >
-            <v-list-item-subtitle
-              >Greyhound divisely hello coldly
-              fonwderfully</v-list-item-subtitle
-            >
-          </v-list-item-content>
-          <v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>
-        </v-list-item>
-
-        <v-card-actions>
-          <v-btn text>Button</v-btn>
-          <v-btn text>Button</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col cols="12" md="3">
-      <v-card class="mx-auto" max-width="344" outlined>
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="overline mb-4">OVERLINE</div>
-            <v-list-item-title class="headline mb-1"
-              >Headline 5</v-list-item-title
-            >
-            <v-list-item-subtitle
-              >Greyhound divisely hello coldly
-              fonwderfully</v-list-item-subtitle
-            >
-          </v-list-item-content>
-          <v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>
-        </v-list-item>
-
-        <v-card-actions>
-          <v-btn text>Button</v-btn>
-          <v-btn text>Button</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col> -->
+    <v-pagination
+      v-model="searchParams.page"
+      :length="pages"
+      @input="onPage"
+      @next="nextPage"
+      @previous="previousPage"
+      total-visible="12"
+    ></v-pagination>
   </v-row>
 </template>
 
 <script>
 export default {
   data: () => ({
-    total: 10
-  })
+    total: 10,
+    searchParams: {
+      page: 1,
+      limit: 10
+    }
+  }),
+  computed: {
+    pages() {
+      return this.searchParams.limit
+        ? Math.ceil(this.total / this.searchParams.limit)
+        : 0
+    }
+  },
+  methods: {
+    onPage(val) {
+      this.searchParams.page = val
+      this.loadData()
+    },
+    nextPage() {
+      this.searchParams.page++
+      this.loadData()
+    },
+    previousPage() {
+      this.searchParams.page--
+      this.loadData()
+    },
+    loadData() {}
+  }
 }
 </script>
 
