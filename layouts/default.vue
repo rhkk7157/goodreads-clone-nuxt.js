@@ -32,7 +32,7 @@
     <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
 
     <!-- <v-btn @click="signup" class="ma-2">SignUp</v-btn>
-      <v-btn @click="signin" class="ma-2">SignIn</v-btn> -->
+    <v-btn @click="signin" class="ma-2">SignIn</v-btn>-->
     <v-card>
       <v-card color="primary">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
@@ -50,9 +50,7 @@
         color="primary"
         grow
       >
-        <v-tab v-for="(item, i) in items" :key="i">
-          {{ item.tab }}
-        </v-tab>
+        <v-tab v-for="(item, i) in items" :key="i">{{ item.tab }}</v-tab>
       </v-tabs>
 
       <!-- </v-card-text> -->
@@ -64,14 +62,14 @@
             <!-- <v-card md="3" color="basil" flat> -->
             <!-- <template v-slot:default="{ item }">
                   <span>{{ item }}</span>
-                </template> -->
+            </template>-->
             <!-- <v-card-text>{{ item.content }}</v-card-text> -->
             <v-tab-item v-for="(item, i) in items" :key="i">
               <v-card color="basil" flat>
-                <template v-slot:item.content="{ item }">
+                <!-- <template v-slot:item.content="{ item }">
                   <span>{{ item }}</span>
-                </template>
-                <!-- <v-card-text>{{ item.content }}</v-card-text> -->
+                </template>-->
+                <v-card-text>{{ item.content }}</v-card-text>
               </v-card>
             </v-tab-item>
           </v-tabs-items>
@@ -87,7 +85,7 @@
           <v-list-item-title>Switch drawer (click me)</v-list-item-title>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer> -->
+    </v-navigation-drawer>-->
     <!-- /header -->
 
     <v-footer :fixed="fixed" app>
