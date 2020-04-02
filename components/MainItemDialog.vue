@@ -1,13 +1,6 @@
 <template>
   <v-row>
     <v-row>
-      <v-container>
-        <v-spacer />
-        <v-btn>click</v-btn>
-      </v-container>
-    </v-row>
-
-    <v-row style="border:1px solid blue">
       <v-col v-for="n in total" :key="n" cols="12" lg="3">
         <v-card class="mx-auto" max-width="344" outlined>
           <v-list-item three-line>
@@ -43,7 +36,7 @@
 <script>
 export default {
   data: () => ({
-    total: 5,
+    total: 7,
     searchParams: {
       page: 1,
       limit: 10

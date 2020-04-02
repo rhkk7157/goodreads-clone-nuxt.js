@@ -52,9 +52,12 @@
       >
         <v-tab v-for="(item, i) in items" :key="i">{{ item.tab }}</v-tab>
       </v-tabs>
-
       <!-- </v-card-text> -->
-      <v-content style="border:1px solid red">
+      <v-row v-cols="12" lg="3">
+        <v-spacer></v-spacer>
+        <v-btn @click="insertStore">click!!!!!!!!</v-btn>
+      </v-row>
+      <v-content>
         <v-container fluid grid-list-xl>
           <MainItemDialog ref="MainItemDialog"></MainItemDialog>
           <!-- <nuxt /> -->
@@ -94,6 +97,7 @@
     </v-footer>
     <SignInDialog ref="SignInDialog"></SignInDialog>
     <SignUpDialog ref="SignUpDialog"></SignUpDialog>
+    <InsertStore ref="InsertStore"></InsertStore>
   </v-app>
 </template>
 
@@ -101,11 +105,13 @@
 import SignInDialog from '../components/SignInDialog'
 import SignUpDialog from '../components/SignUpDialog'
 import MainItemDialog from '../components/MainItemDialog'
+import InsertStore from '../components/InsertStore'
 export default {
   components: {
     SignInDialog,
     SignUpDialog,
-    MainItemDialog
+    MainItemDialog,
+    InsertStore
   },
   data() {
     return {
@@ -151,6 +157,9 @@ export default {
     },
     signup() {
       this.$refs.SignUpDialog.open()
+    },
+    insertStore() {
+      this.$refs.InsertStore.open()
     }
   }
 }
