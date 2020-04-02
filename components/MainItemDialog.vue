@@ -1,25 +1,34 @@
 <template>
-  <v-row style="border:5px solid grey">
-    <v-col v-for="n in total" :key="n" cols="12" md="3">
-      <v-card class="mx-auto" max-width="344" outlined>
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="overline mb-4">Sub title</div>
-            <v-list-item-title class="headline mb-1">Title</v-list-item-title>
-            <v-list-item-subtitle>Content</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-avatar tile size="80">
-            <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-            ></v-img>
-          </v-list-item-avatar>
-        </v-list-item>
-        <v-card-actions>
-          <v-btn text>Button</v-btn>
-          <v-btn text>Button</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
+  <v-row>
+    <v-row>
+      <v-container>
+        <v-spacer />
+        <v-btn>click</v-btn>
+      </v-container>
+    </v-row>
+
+    <v-row style="border:1px solid blue">
+      <v-col v-for="n in total" :key="n" cols="12" lg="3">
+        <v-card class="mx-auto" max-width="344" outlined>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <div class="overline mb-4">Sub title</div>
+              <v-list-item-title class="headline mb-1">Title</v-list-item-title>
+              <v-list-item-subtitle>Content</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-avatar tile size="80">
+              <v-img
+                src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
+              ></v-img>
+            </v-list-item-avatar>
+          </v-list-item>
+          <v-card-actions>
+            <v-btn text>Button</v-btn>
+            <v-btn text>Button</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
     <v-pagination
       v-model="searchParams.page"
       :length="pages"
@@ -34,7 +43,7 @@
 <script>
 export default {
   data: () => ({
-    total: 10,
+    total: 5,
     searchParams: {
       page: 1,
       limit: 10
@@ -59,8 +68,7 @@ export default {
     previousPage() {
       this.searchParams.page--
       this.loadData()
-    },
-    loadData() {}
+    }
   }
 }
 </script>
