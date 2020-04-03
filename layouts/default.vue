@@ -55,7 +55,7 @@
       <!-- </v-card-text> -->
       <v-row v-cols="12" lg="3">
         <v-spacer></v-spacer>
-        <v-btn @click="insertStore">click!!!!!!!!</v-btn>
+        <v-btn @click="insertStore">click</v-btn>
       </v-row>
       <v-content>
         <v-container fluid grid-list-xl>
@@ -100,7 +100,6 @@
     <InsertStore ref="InsertStore"></InsertStore>
   </v-app>
 </template>
-
 <script>
 import SignInDialog from '../components/SignInDialog'
 import SignUpDialog from '../components/SignUpDialog'

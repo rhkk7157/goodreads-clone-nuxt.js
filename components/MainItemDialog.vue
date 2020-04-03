@@ -5,9 +5,9 @@
         <v-card class="mx-auto" max-width="344" outlined>
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="overline mb-4">Sub title</div>
+              <div class="overline mb-4">Theme</div>
               <v-list-item-title class="headline mb-1">Title</v-list-item-title>
-              <v-list-item-subtitle>Content</v-list-item-subtitle>
+              <v-list-item-subtitle>SubTitle</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-avatar tile size="80">
               <v-img
@@ -32,7 +32,6 @@
     ></v-pagination>
   </v-row>
 </template>
-
 <script>
 export default {
   data: () => ({
