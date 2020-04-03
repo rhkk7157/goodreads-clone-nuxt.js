@@ -33,6 +33,7 @@
           label="아이디저장"
           class="fill-height"
         ></v-checkbox>
+        <v-card-text v-html="errorMessage" style="border:2px solid red" />
       </v-card-actions>
       <v-card-actions>
         <!-- <v-checkbox
@@ -42,7 +43,8 @@
           class="fill-height"
         ></v-checkbox> -->
         <!-- <v-spacer /> -->
-        <v-btn color="primary" block dark>Login</v-btn>
+
+        <v-btn @click="signIn" color="primary" block dark>Login</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -54,7 +56,8 @@ export default {
     dialog: false,
     checkbox: false,
     id: null,
-    password: null
+    password: null,
+    errorMessage: ''
   }),
   methods: {
     open() {
@@ -66,7 +69,43 @@ export default {
     },
     cancel() {
       this.dialog = false
+    },
+    async signIn() {
+      if (!this.id) {
+        this.errorMessage = 'ID를 입력해주세요'
+        this.dialog = true
+        return
+      }
+      if (!this.password) {
+        this.errorMessage = 'Password를 입력해주세요'
+        this.dialog = true
+        return
+      }
+      try {
+        await this.$store
+          .dispatch('login', {
+            id: this.id,
+            password: this.password
+          })
+          .then(() => {
+            if (this.checkbox && this.$store.state.authUser) {
+              this.$cookies.set('authUser', this.$store.state.authUser)
+            } else {
+              this.$cookies.remove('authUser')
+            }
+            this.redirect()
+          })
+          .catch((error) => {
+            // const errorName = _.get(error, 'response.data.name', null)
+            console.log(error)
+          })
+      } catch (e) {
+        this.returnMsg = e.message
+      }
     }
+    // redirect() {
+    //   this.$router.push()
+    // }
   }
 }
 </script>

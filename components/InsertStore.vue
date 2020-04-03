@@ -46,7 +46,7 @@
           <v-select
             v-model="selectValue"
             :items="selectItems"
-            label="theme"
+            label="category"
             prepend-icon="mdi-format-list-bulleted"
             type="text"
             outlined

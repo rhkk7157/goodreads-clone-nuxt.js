@@ -1,5 +1,7 @@
 const colors = require('vuetify/es5/util/colors').default
 // const baseURL = 'http://localhost:3000'
+const bodyParser = require('body-parser')
+const session = require('express-session')
 
 module.exports = {
   mode: 'universal',
@@ -86,5 +88,19 @@ module.exports = {
      */
     extend(config, ctx) {}
   },
-  serverMiddleware: [{ path: '/api', handler: '~api/routes/index.js' }]
+  serverMiddleware: [
+    bodyParser.json(),
+    bodyParser.urlencoded({ extended: true }),
+    session({
+      secret: 'abcd12345',
+      resave: false,
+      saveUninitialized: false,
+      cookie: { maxAge: null }
+    }),
+    { path: '/api', handler: '~api/routes/index.js' }
+  ],
+  router: {
+    mode: 'history',
+    middleware: ['session-check']
+  }
 }

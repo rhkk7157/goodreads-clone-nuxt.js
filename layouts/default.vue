@@ -26,21 +26,33 @@
       </v-list>
     </v-navigation-drawer>
     <!-- /왼쪽 메뉴바 -->
-
     <!-- header -->
     <!-- <v-card-text :clipped-left="clipped" app color="primary"> -->
     <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
-
     <!-- <v-btn @click="signup" class="ma-2">SignUp</v-btn>
     <v-btn @click="signin" class="ma-2">SignIn</v-btn>-->
     <v-card>
       <v-card color="primary">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
         <v-card-title class="text-center justify-center py-1">
-          <!-- <h1 class="font-weight-bold display-3 basil--text">예압</h1> -->
           <v-spacer />
-          <v-btn @click="signup" class="ma-2">SignUp</v-btn>
-          <v-btn @click="signin" class="ma-2">SignIn</v-btn>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <div v-on="on" text style="cursor: pointer;">
+                <span class="font-weight-white">{{ adminUserName }} 님</span>
+              </div>
+            </template>
+            <v-list>
+              <v-divider />
+              <v-list-item @click="signOut">
+                <v-list-item-title>로그아웃</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-card-actions>
+            <v-btn @click="signup" class="ma-2">SignUp</v-btn>
+            <v-btn @click="signin" class="ma-2">SignIn</v-btn>
+          </v-card-actions>
         </v-card-title>
       </v-card>
       <v-tabs
@@ -52,11 +64,14 @@
       >
         <v-tab v-for="(item, i) in items" :key="i">{{ item.tab }}</v-tab>
       </v-tabs>
-      <!-- </v-card-text> -->
-      <v-row v-cols="12" lg="3">
-        <v-spacer></v-spacer>
-        <v-btn @click="insertStore">click</v-btn>
-      </v-row>
+
+      <v-card-title
+        class="text-center justify-center py-1"
+        style="border:3px solid red"
+      >
+        <v-spacer />
+        <v-btn @click="insertStore" class="ma-2">상품등록</v-btn>
+      </v-card-title>
       <v-content>
         <v-container fluid grid-list-xl>
           <MainItemDialog ref="MainItemDialog"></MainItemDialog>
@@ -67,7 +82,7 @@
                 <v-card-text>{{ item.content }}</v-card-text>
               </v-card>
             </v-tab-item>
-          </v-tabs-items> -->
+          </v-tabs-items>-->
         </v-container>
       </v-content>
     </v-card>
@@ -101,6 +116,7 @@
   </v-app>
 </template>
 <script>
+import _ from 'lodash'
 import SignInDialog from '../components/SignInDialog'
 import SignUpDialog from '../components/SignUpDialog'
 import MainItemDialog from '../components/MainItemDialog'
@@ -150,6 +166,12 @@ export default {
       title: 'hyeri'
     }
   },
+  computed: {
+    adminUserName() {
+      return _.get(this.$store.state, 'authUser.username', 'null') || 'null'
+    }
+  },
+
   methods: {
     signin() {
       this.$refs.SignInDialog.open()
@@ -159,6 +181,11 @@ export default {
     },
     insertStore() {
       this.$refs.InsertStore.open()
+    },
+    async signOut() {
+      await this.$store
+        .dispatch('logout')
+        .then(() => this.$router.push('/signin'))
     }
   }
 }
