@@ -65,10 +65,7 @@
         <v-tab v-for="(item, i) in items" :key="i">{{ item.tab }}</v-tab>
       </v-tabs>
 
-      <v-card-title
-        class="text-center justify-center py-1"
-        style="border:3px solid red"
-      >
+      <v-card-title class="text-center justify-center py-1">
         <v-spacer />
         <v-btn @click="insertStore" class="ma-2">상품등록</v-btn>
       </v-card-title>
@@ -183,9 +180,7 @@ export default {
       this.$refs.InsertStore.open()
     },
     async signOut() {
-      await this.$store
-        .dispatch('logout')
-        .then(() => this.$router.push('/signin'))
+      await this.$store.dispatch('logout').then(() => this.$router.push('/'))
     }
   }
 }

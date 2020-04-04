@@ -5,7 +5,6 @@ export const state = () => ({
 
 export const mutations = {
   LOGIN(state, user) {
-    console.log(user)
     state.authUser = user
   },
   LOGOUT() {

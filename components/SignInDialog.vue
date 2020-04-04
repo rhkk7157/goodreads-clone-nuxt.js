@@ -88,7 +88,8 @@ export default {
             password: this.password
           })
           .then(() => {
-            if (this.checkbox && this.$store.state.authUser) {
+            // console.log(this.$store.state.authUser.username)
+            if (this.$store.state.authUser) {
               this.$cookies.set('authUser', this.$store.state.authUser)
             } else {
               this.$cookies.remove('authUser')
@@ -102,10 +103,10 @@ export default {
       } catch (e) {
         this.returnMsg = e.message
       }
+    },
+    redirect() {
+      this.$router.push('/')
     }
-    // redirect() {
-    //   this.$router.push()
-    // }
   }
 }
 </script>
