@@ -28,6 +28,7 @@ router.get('/session', (req, res, next) => {
 })
 
 router.post('/signout', (req, res, next) => {
+  console.log('api/auth 로그아웃클릭')
   delete req.session.authUser
   res.json({ ok: true })
 })

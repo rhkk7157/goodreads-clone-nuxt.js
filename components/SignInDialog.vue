@@ -11,6 +11,7 @@
         <v-form>
           <v-text-field
             v-model="id"
+            @keydown.enter="signIn"
             label="아이디를 입력해주세요"
             name="login"
             prepend-icon="mdi-account"
@@ -19,6 +20,7 @@
           <v-text-field
             id="password"
             v-model="password"
+            @keydown.enter="signIn"
             label="비밀번호를 입력해주세요"
             name="password"
             prepend-icon="mdi-key"
@@ -41,7 +43,7 @@
           color="red"
           label="아이디 저장"
           class="fill-height"
-        ></v-checkbox> -->
+        ></v-checkbox>-->
         <!-- <v-spacer /> -->
 
         <v-btn @click="signIn" color="primary" block dark>Login</v-btn>

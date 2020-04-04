@@ -27,31 +27,33 @@
     </v-navigation-drawer>
     <!-- /왼쪽 메뉴바 -->
     <!-- header -->
-    <!-- <v-card-text :clipped-left="clipped" app color="primary"> -->
-    <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
-    <!-- <v-btn @click="signup" class="ma-2">SignUp</v-btn>
-    <v-btn @click="signin" class="ma-2">SignIn</v-btn>-->
     <v-card>
-      <v-card color="primary">
+      <v-card style="height:70px" color="primary">
         <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
         <v-card-title class="text-center justify-center py-1">
           <v-spacer />
-          <v-menu offset-y>
-            <template v-slot:activator="{ on }">
-              <div v-on="on" text style="cursor: pointer;">
-                <span class="font-weight-white">{{ adminUserName }} 님</span>
-              </div>
-            </template>
-            <v-list>
-              <v-divider />
-              <v-list-item @click="signOut">
-                <v-list-item-title>로그아웃</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
           <v-card-actions>
-            <v-btn @click="signup" class="ma-2">SignUp</v-btn>
-            <v-btn @click="signin" class="ma-2">SignIn</v-btn>
+            <div v-if="this.$store.state.authUser === null">
+              <v-btn @click="signup" class="ma-2">SignUp</v-btn>
+              <v-btn @click="signin" class="ma-2">SignIn</v-btn>
+            </div>
+            <div v-else>
+              <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                  <div v-on="on" text style="cursor: pointer; margin-top:5px">
+                    <span class="font-weight-white"
+                      >{{ adminUserName }} 님</span
+                    >
+                  </div>
+                </template>
+                <v-list>
+                  <v-divider />
+                  <v-list-item @click="signOut">
+                    <v-list-item-title>로그아웃</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
           </v-card-actions>
         </v-card-title>
       </v-card>
@@ -160,11 +162,18 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'hyeri'
+      title: 'hyeri',
+      user: null
     }
   },
   computed: {
     adminUserName() {
+      console.log('------------')
+      if (!this.$store.state.authUser) {
+        return
+      } else {
+        console.log('useroo')
+      }
       return _.get(this.$store.state, 'authUser.username', 'null') || 'null'
     }
   },
@@ -180,7 +189,13 @@ export default {
       this.$refs.InsertStore.open()
     },
     async signOut() {
-      await this.$store.dispatch('logout').then(() => this.$router.push('/'))
+      console.log('logout클릭')
+      await this.$store
+        .dispatch('logout')
+        .then(() => this.$router.push('/signin'))
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }
