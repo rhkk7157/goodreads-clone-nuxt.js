@@ -2,9 +2,6 @@ const router = require('express').Router()
 const authService = require('../../services/user.service')
 
 router.post('/signin', (req, res, next) => {
-  console.log('----------------1')
-  console.log(req.body)
-
   const id = req.body.id
   const password = req.body.password
 
@@ -27,9 +24,9 @@ router.get('/session', (req, res, next) => {
 })
 
 router.post('/signout', (req, res, next) => {
-  console.log('api/auth 로그아웃클릭')
   req.session.destroy()
-  // delete req.session.authUser
+  // delete req.session.authUsers
+  // res.redirect('/')
   res.json({ ok: true })
 })
 

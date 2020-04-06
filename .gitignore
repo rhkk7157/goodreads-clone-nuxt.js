@@ -88,3 +88,5 @@ sw.*
 
 # Vim swap files
 *.swp
+pages/DashboardLayout/KoreanFood.vue
+api/models/index.js

@@ -9,3 +9,5 @@ export default async function({ store, redirect, error, route, app }) {
     }
   }
 }
+
+// http://localhost:3000/signin

@@ -168,16 +168,12 @@ export default {
   },
   computed: {
     adminUserName() {
-      // console.log('------------header')
       // if (!this.$store.state.authUser) {
       //   return
       // }
       return _.get(this.$store.state, 'authUser.username', 'null') || 'null'
     }
   },
-  // mounted() {
-  //   console.log(this.$store.state.authUser)
-  // },
   methods: {
     signin() {
       this.$refs.SignInDialog.open()

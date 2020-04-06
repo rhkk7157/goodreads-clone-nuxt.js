@@ -8,12 +8,9 @@ export const mutations = {
     state.authUser = user
   },
   LOGOUT() {
-    console.log('------last')
     state.authUser = null
   },
   SET_USER(state, user) {
-    console.log('------------SET_USER')
-    console.log(user)
     state.authUser = user
   }
 }
@@ -25,7 +22,6 @@ export const actions = {
     if (req.session && req.session.authUser) {
       commit('SET_USER', req.session.authUser)
     } else {
-      console.log('--------0')
       commit('LOGOUT')
     }
   },
@@ -37,7 +33,6 @@ export const actions = {
     commit('LOGIN', data)
   },
   async logout({ commit }) {
-    console.log('store 로그아웃 클릭')
     await axios.post('/api/auth/signout').then(() => commit('LOGOUT'))
   }
 }

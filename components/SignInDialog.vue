@@ -38,14 +38,6 @@
         <v-card-text v-html="errorMessage" style="border:2px solid red" />
       </v-card-actions>
       <v-card-actions>
-        <!-- <v-checkbox
-          v-model="checkbox"
-          color="red"
-          label="아이디 저장"
-          class="fill-height"
-        ></v-checkbox>-->
-        <!-- <v-spacer /> -->
-
         <v-btn @click="signIn" color="primary" block dark>Login</v-btn>
       </v-card-actions>
     </v-card>
@@ -61,6 +53,12 @@ export default {
     password: null,
     errorMessage: ''
   }),
+  mounted() {
+    // console.log(route.path)
+    const authUser = this.$cookies.get('authUser')
+    this.id = (authUser && authUser.user_id) || null
+    this.checkbox = !!authUser
+  },
   methods: {
     open() {
       this.dialog = true
@@ -90,11 +88,11 @@ export default {
             password: this.password
           })
           .then(() => {
+            // 여기서else타고 redirect () 타야 로그아웃성공됨. default.vue에 이걸 넣어야할지도.
             // console.log(this.$store.state.authUser.username)
             if (this.$store.state.authUser) {
               this.$cookies.set('authUser', this.$store.state.authUser)
             } else {
-              console.log('cookies remove')
               this.$cookies.remove('authUser')
             }
             this.redirect()
