@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <!-- 왼쪽 메뉴바 -->
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -24,7 +24,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <!-- /왼쪽 메뉴바 -->
     <!-- header -->
     <v-card>
@@ -130,7 +130,7 @@ export default {
   data() {
     return {
       clipped: false,
-      drawer: false,
+      // drawer: false,
       fixed: false,
       MenuTab: null,
       items: [
@@ -159,11 +159,10 @@ export default {
       //     to: '/DashboardLayout/KoreanFood'
       //   }
       // ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'hyeri',
-      user: null
+      // miniVariant: false,
+      // right: true,
+      // rightDrawer: false,
+      title: 'hyeri'
     }
   },
   computed: {
