@@ -31,8 +31,6 @@ router.post('/signout', (req, res, next) => {
   req.session.destroy()
   // delete req.session.authUser
   res.json({ ok: true })
-
-  // console.log(req.session)
 })
 
 module.exports = router
