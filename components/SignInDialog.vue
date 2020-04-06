@@ -94,6 +94,7 @@ export default {
             if (this.$store.state.authUser) {
               this.$cookies.set('authUser', this.$store.state.authUser)
             } else {
+              console.log('cookies remove')
               this.$cookies.remove('authUser')
             }
             this.redirect()

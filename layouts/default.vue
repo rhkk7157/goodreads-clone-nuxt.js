@@ -168,16 +168,16 @@ export default {
   },
   computed: {
     adminUserName() {
-      console.log('------------')
-      if (!this.$store.state.authUser) {
-        return
-      } else {
-        console.log('useroo')
-      }
+      // console.log('------------header')
+      // if (!this.$store.state.authUser) {
+      //   return
+      // }
       return _.get(this.$store.state, 'authUser.username', 'null') || 'null'
     }
   },
-
+  // mounted() {
+  //   console.log(this.$store.state.authUser)
+  // },
   methods: {
     signin() {
       this.$refs.SignInDialog.open()
@@ -189,13 +189,7 @@ export default {
       this.$refs.InsertStore.open()
     },
     async signOut() {
-      console.log('logout클릭')
-      await this.$store
-        .dispatch('logout')
-        .then(() => this.$router.push('/signin'))
-        .catch((error) => {
-          console.log(error)
-        })
+      await this.$store.dispatch('logout').then(() => this.$router.push('/'))
     }
   }
 }

@@ -95,10 +95,10 @@ module.exports = {
     bodyParser.json(),
     bodyParser.urlencoded({ extended: true }),
     session({
-      secret: 'abcd12345',
+      secret: 'asadlfkj!@#!@#dfgasdg',
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: null }
+      cookie: { maxAge: 518400000 }
     }),
     { path: '/api', handler: '~api/routes/index.js' }
   ],
