@@ -32,7 +32,7 @@
       <v-card-text v-show="newMemberSignUp">
         <v-form>
           <v-text-field
-            v-model="id"
+            v-model="username"
             label="이름을 입력해주세요"
             prepend-icon="mdi-tag-text-outline"
             type="text"
@@ -60,13 +60,10 @@
           ></v-text-field>
         </v-form>
         <v-card-actions>
-          <v-btn color="primary" block dark>회원가입</v-btn>
+          <v-btn @click="signup" color="primary" block dark>회원가입</v-btn>
         </v-card-actions>
       </v-card-text>
 
-      <!-- <v-card-title>
-        SNS 계정 회원가입
-      </v-card-title>-->
       <v-card-text v-show="snsSignUp">
         <div class="my-2">
           <v-btn color="yellow" block>Kakao ID로 회원가입</v-btn>
@@ -91,7 +88,8 @@ export default {
     snsSignUp: false,
     address: null,
     password: null,
-    id: null
+    id: null,
+    username: null
   }),
   methods: {
     open() {
@@ -103,6 +101,27 @@ export default {
     },
     cancel() {
       this.diaglog = false
+    },
+    async signup() {
+      if (this.newMemberSignUp === true) {
+        const response = await this.$axios.get('/api/user/', {
+          params: {
+            id: this.id,
+            password: this.password,
+            username: this.username
+          }
+        })
+
+        if (response.status === 200) {
+          alert('가입성공.')
+          this.dialog = false
+        } else {
+          alert('에러.')
+        }
+      }
+    },
+    redirect() {
+      this.$router.push('/')
     }
   }
 }
