@@ -1,35 +1,7 @@
 <template>
   <v-app dark>
-    <!-- 왼쪽 메뉴바 -->
-    <!-- <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer> -->
-    <!-- /왼쪽 메뉴바 -->
-    <!-- header -->
     <v-card>
       <v-card style="height:70px" color="primary">
-        <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
         <v-card-title class="text-center justify-center py-1">
           <v-spacer />
           <v-card-actions>
@@ -81,7 +53,7 @@
                 <v-card-text>{{ item.content }}</v-card-text>
               </v-card>
             </v-tab-item>
-          </v-tabs-items>-->
+          </v-tabs-items> -->
         </v-container>
       </v-content>
     </v-card>
@@ -129,7 +101,7 @@ export default {
   },
   data() {
     return {
-      clipped: false,
+      // clipped: false,
       // drawer: false,
       fixed: false,
       MenuTab: null,
@@ -139,8 +111,6 @@ export default {
         { tab: 'C', content: 'Tab3 Content' },
         { tab: 'D', content: 'Tab4 Content' }
       ],
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
 
       // items: [
       //   {
@@ -167,9 +137,6 @@ export default {
   },
   computed: {
     adminUserName() {
-      // if (!this.$store.state.authUser) {
-      //   return
-      // }
       return _.get(this.$store.state, 'authUser.username', 'null') || 'null'
     }
   },
@@ -184,7 +151,9 @@ export default {
       this.$refs.InsertStore.open()
     },
     async signOut() {
-      await this.$store.dispatch('logout').then(() => this.$router.push('/'))
+      await this.$store
+        .dispatch('logout')
+        .then(() => window.location.reload(true))
     }
   }
 }
