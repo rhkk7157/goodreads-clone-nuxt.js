@@ -28,7 +28,7 @@
           />
         </v-form>
       </v-card-text>
-      <!-- <v-card-actions>
+      <v-card-actions>
         <v-checkbox
           v-model="checkbox"
           color="red"
@@ -36,7 +36,7 @@
           class="fill-height"
         ></v-checkbox>
         <v-card-text v-html="errorMessage" style="border:2px solid red" />
-      </v-card-actions>-->
+      </v-card-actions>
       <v-card-actions>
         <v-btn @click="signIn" color="primary" block dark>Login</v-btn>
       </v-card-actions>
