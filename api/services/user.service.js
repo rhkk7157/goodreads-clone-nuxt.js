@@ -1,4 +1,5 @@
 const crypto = require('crypto')
+// const moment = require('moment')
 const _ = require('lodash')
 const models = require('../models')
 
@@ -15,6 +16,7 @@ const signIn = (params) => {
       .createHash('sha256')
       .update(InputPassword + salt)
       .digest('hex')
+
     if (dbPassword === hashPassword) {
       return user
     } else {
