@@ -53,7 +53,7 @@
           />
           <v-row>
             <v-col cols="12" md="6">
-              <v-btn color="primary" block dark>Save</v-btn>
+              <v-btn @click="insertBook" color="primary" block dark>Save</v-btn>
             </v-col>
             <v-col cols="12" md="6">
               <v-btn @click="clear" block dark>Clear</v-btn>
@@ -93,6 +93,21 @@ export default {
       this.mainImg = ''
       this.selectValue = ''
       this.$refs.observer.reset()
+    },
+    async insertBook() {
+      const authUser = this.$cookies.get('authUser')
+      const response = await this.$axios.get('/api/posts/insert/', {
+        params: {
+          user_idx: authUser.idx,
+          title: this.MainTitle,
+          sub_title: this.SubTitle,
+          content: this.Content,
+          category: this.selectValue,
+          img: this.mainImg
+        }
+      })
+
+      console.log(response)
     }
   }
 }

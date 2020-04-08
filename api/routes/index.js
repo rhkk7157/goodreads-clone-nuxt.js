@@ -14,6 +14,7 @@ router.use((req, res, next) => {
 
 router.use('/auth', require('./auth'))
 router.use('/user', require('./users'))
+router.use('/posts', require('./posts'))
 
 router.use((err, req, res, next) => {
   const status = err.status || 500

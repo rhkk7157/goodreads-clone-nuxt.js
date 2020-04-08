@@ -45,6 +45,7 @@
 </template>
 
 <script>
+// import _ from 'lodash'
 export default {
   data: () => ({
     dialog: false,
@@ -93,6 +94,31 @@ export default {
               this.$cookies.remove('authUser')
             }
             this.redirect()
+          })
+          .catch((error) => {
+            console.log(error)
+            // const errorName = _.get(error, 'response.data.name', null)
+            // if (errorName === 'PASSWORD_ERROR') {
+            //   this.errorMessage = '아이디와 비밀번호를 확인해주세요.'
+            //   this.dialog = true
+            // } else if (errorName === 'NOT_FOUND_ID') {
+            //   // this.errorMessage = '아이디를 찾을 수 없습니다.'
+            //   this.errorMessage = '아이디와 비밀번호를 확인해주세요.'
+            //   this.dialog = true
+            // } else if (errorName === 'INVALID_PARAMETERS') {
+            //   this.errorMessage = '잘못된 요청입니다.'
+            //   this.dialog = true
+            // } else if (errorName === 'BLOCKED') {
+            //   this.errorMessage = '중지된 사용자입니다.'
+            //   this.dialog = true
+            // } else if (errorName === 'PASSWORD_EMPTY') {
+            //   this.errorMessage =
+            //     '비밀번호가 등록되지 않은 사용자입니다. (관리자 문의)'
+            //   this.dialog = true
+            // } else {
+            //   this.errorMessage = '로그인 할 수 없습니다. (관리자 문의)'
+            //   this.dialog = true
+            // }
           })
       } catch (e) {
         this.returnMsg = e.message

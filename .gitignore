@@ -88,12 +88,6 @@ sw.*
 
 # Vim swap files
 *.swp
-pages/DashboardLayout/KoreanFood.vue
+
 api/models/index.js
-.vscode/.launch 2.json.icloud
-.vscode/.launch 2.json.icloud
-pages/DashboardLayout/KoreanFood.vue
-pages/DashboardLayout/InsertStore.vue
-pages/DashboardLayout/.Art.vue.icloud
-pages/DashboardLayout/.Music.vue.icloud
-pages/inspire.vue
+
