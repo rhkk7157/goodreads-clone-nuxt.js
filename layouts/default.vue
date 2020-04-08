@@ -41,7 +41,7 @@
 
       <v-card-title class="text-center justify-center py-1">
         <v-spacer />
-        <v-btn @click="insertStore" class="ma-2">상품등록</v-btn>
+        <v-btn @click="insertBook" class="ma-2">상품등록</v-btn>
       </v-card-title>
       <v-content>
         <v-container fluid grid-list-xl>
@@ -83,7 +83,7 @@
     </v-footer>
     <SignInDialog ref="SignInDialog"></SignInDialog>
     <SignUpDialog ref="SignUpDialog"></SignUpDialog>
-    <InsertStore ref="InsertStore"></InsertStore>
+    <InsertBook ref="InsertBook"></InsertBook>
   </v-app>
 </template>
 <script>
@@ -91,13 +91,13 @@ import _ from 'lodash'
 import SignInDialog from '../components/SignInDialog'
 import SignUpDialog from '../components/SignUpDialog'
 import MainItemDialog from '../components/MainItemDialog'
-import InsertStore from '../components/InsertStore'
+import InsertBook from '../components/InsertBook'
 export default {
   components: {
     SignInDialog,
     SignUpDialog,
     MainItemDialog,
-    InsertStore
+    InsertBook
   },
   data() {
     return {
@@ -147,8 +147,8 @@ export default {
     signup() {
       this.$refs.SignUpDialog.open()
     },
-    insertStore() {
-      this.$refs.InsertStore.open()
+    insertBook() {
+      this.$refs.InsertBook.open()
     },
     async signOut() {
       await this.$store
