@@ -53,7 +53,7 @@
                 <v-card-text>{{ item.content }}</v-card-text>
               </v-card>
             </v-tab-item>
-          </v-tabs-items> -->
+          </v-tabs-items>-->
         </v-container>
       </v-content>
     </v-card>
@@ -80,6 +80,21 @@
         inset
         dense
       ></v-switch>
+      <v-dialog v-model="Errordialog" max-width="320" light class="text-center">
+        <v-card class="pa-0 text-center">
+          <v-card-title class="dialog-title mb-4"></v-card-title>
+          <v-card-text v-html="errorMessage" />
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.native="Errordialog = false"
+            color="#4b73df"
+            class="dialog-confirm"
+            style="border-radius: 0px"
+            block
+            >확인</v-btn
+          >
+        </v-card>
+      </v-dialog>
     </v-footer>
     <SignInDialog ref="SignInDialog"></SignInDialog>
     <SignUpDialog ref="SignUpDialog"></SignUpDialog>
@@ -103,6 +118,8 @@ export default {
     return {
       // clipped: false,
       // drawer: false,
+      errorMessage: '',
+      Errordialog: false,
       fixed: false,
       MenuTab: null,
       items: [
@@ -141,6 +158,16 @@ export default {
     }
   },
   methods: {
+    open() {
+      this.dialog = true
+    },
+    close() {
+      this.dialog = false
+      this.$emit('onClosed')
+    },
+    cancel() {
+      this.dialog = false
+    },
     signin() {
       this.$refs.SignInDialog.open()
     },
@@ -148,7 +175,14 @@ export default {
       this.$refs.SignUpDialog.open()
     },
     insertBook() {
-      this.$refs.InsertBook.open()
+      const authUser = this.$store.state.authUser
+
+      if (authUser === null) {
+        this.errorMessage = '로그인 해주세요.'
+        this.Errordialog = true
+      } else {
+        this.$refs.InsertBook.open(authUser)
+      }
     },
     async signOut() {
       await this.$store

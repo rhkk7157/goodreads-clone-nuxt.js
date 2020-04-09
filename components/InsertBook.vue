@@ -65,8 +65,10 @@
   </v-dialog>
 </template>
 <script>
+import _ from 'lodash'
 export default {
   data: () => ({
+    user: {},
     dialog: false,
     mainImg: null,
     MainTitle: null,
@@ -76,7 +78,8 @@ export default {
     selectValue: ['Programming', 'Travel', 'Art', 'English']
   }),
   methods: {
-    open() {
+    open(data) {
+      this.user = _.cloneDeep(data)
       this.dialog = true
     },
     close() {
@@ -95,10 +98,10 @@ export default {
       this.$refs.observer.reset()
     },
     async insertBook() {
-      const authUser = this.$cookies.get('authUser')
+      // const authUser = this.$cookies.get('authUser')
       const response = await this.$axios.get('/api/posts/insert/', {
         params: {
-          user_idx: authUser.idx,
+          user_idx: this.user.idx,
           title: this.MainTitle,
           sub_title: this.SubTitle,
           content: this.Content,
@@ -106,7 +109,7 @@ export default {
           img: this.mainImg
         }
       })
-
+      this.dialog = false
       console.log(response)
     }
   }

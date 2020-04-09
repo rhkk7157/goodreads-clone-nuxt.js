@@ -22,8 +22,9 @@ const signIn = (params) => {
     },
     raw: true
   }).then((user) => {
-    const dbPassword = user.dataValues.password
-    const salt = user.dataValues.salt
+    // console.log(user)
+    const dbPassword = user.password
+    const salt = user.salt
     const hashPassword = crypto
       .createHash('sha256')
       .update(InputPassword + salt)

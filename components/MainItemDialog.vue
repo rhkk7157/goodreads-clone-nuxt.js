@@ -60,7 +60,8 @@ export default {
     previousPage() {
       this.searchParams.page--
       this.loadData()
-    }
+    },
+    loadData() {}
   }
 }
 </script>

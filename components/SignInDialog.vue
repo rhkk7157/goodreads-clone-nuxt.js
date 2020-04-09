@@ -43,11 +43,11 @@
     </v-card>
     <v-dialog v-model="Errordialog" max-width="320" light class="text-center">
       <v-card class="pa-0 text-center">
-        <v-card-title class="dialog-title mb-4">amazer</v-card-title>
+        <!-- <v-card-title class="dialog-title mb-4"></v-card-title> -->
         <v-card-text v-html="errorMessage" />
         <v-spacer></v-spacer>
         <v-btn
-          @click.native="dialog = false"
+          @click.native="Errordialog = false"
           color="#4b73df"
           class="dialog-confirm"
           style="border-radius: 0px"
@@ -70,11 +70,11 @@ export default {
     errorMessage: '',
     Errordialog: false
   }),
-  // mounted() {
-  //   const authUser = this.$cookies.get('authUser')
-  //   this.id = (authUser && authUser.user_id) || null
-  //   this.checkbox = !!authUser
-  // },
+  mounted() {
+    const authUser = this.$cookies.get('authUser')
+    this.id = (authUser && authUser.user_id) || null
+    this.checkbox = !!authUser
+  },
   methods: {
     open() {
       this.dialog = true
