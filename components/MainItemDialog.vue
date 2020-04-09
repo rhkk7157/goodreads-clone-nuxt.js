@@ -2,7 +2,7 @@
   <v-row>
     <v-row>
       <v-col v-for="n in total" :key="n" cols="12" lg="3">
-        <v-card class="mx-auto" max-width="344" outlined>
+        <v-card :items="posts" class="mx-auto" max-width="344" outlined>
           <v-list-item three-line>
             <v-list-item-content>
               <div class="overline mb-4">Theme</div>
@@ -33,12 +33,14 @@
   </v-row>
 </template>
 <script>
+import _ from 'lodash'
 export default {
   data: () => ({
-    total: 7,
+    total: 0,
+    posts: [],
     searchParams: {
       page: 1,
-      limit: 10
+      limit: 12
     }
   }),
   computed: {
@@ -47,6 +49,9 @@ export default {
         ? Math.ceil(this.total / this.searchParams.limit)
         : 0
     }
+  },
+  mounted() {
+    this.loadData()
   },
   methods: {
     onPage(val) {
@@ -61,7 +66,14 @@ export default {
       this.searchParams.page--
       this.loadData()
     },
-    loadData() {}
+    async loadData() {
+      const response = await this.$axios.get('/api/posts/', {
+        params: this.searchParams
+      })
+      this.posts = _.get(response, 'data.rows', [])
+      this.total = _.get(response, 'data.count', 0)
+      this.searchParams.page = _.get(response, 'data.page', 1)
+    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
-const multer = require('multer')
+// const multer = require('multer')
 const models = require('../models')
 
-const PostsInsertByUserIdx = (params) => {
+const postCreate = (params) => {
   const today = new Date()
   return models.Posts.create({
     user_idx: params.userIdx,
@@ -13,6 +13,20 @@ const PostsInsertByUserIdx = (params) => {
   }).then((posts) => {})
 }
 
+const findAndCountAll = (params) => {
+  return models.Posts.findAndCountAll({
+    // where: { created_at: null },
+    limit: params.limit || 24,
+    offset: params.offset || 0,
+    order: [['created_at', 'desc']],
+    raw: true
+  }).then((posts) => {
+    return posts
+    // console.log(posts)
+  })
+}
+
 module.exports = {
-  PostsInsertByUserIdx
+  postCreate,
+  findAndCountAll
 }
