@@ -35,24 +35,40 @@
           label="아이디저장"
           class="fill-height"
         ></v-checkbox>
-        <v-card-text v-html="errorMessage" style="border:1px solid solid" />
+        <!-- <v-card-text v-html="errorMessage" style="border:1px solid solid" /> -->
       </v-card-actions>
       <v-card-actions>
         <v-btn @click="signIn" color="primary" block dark>Login</v-btn>
       </v-card-actions>
     </v-card>
+    <v-dialog v-model="Errordialog" max-width="320" light class="text-center">
+      <v-card class="pa-0 text-center">
+        <v-card-title class="dialog-title mb-4">amazer</v-card-title>
+        <v-card-text v-html="errorMessage" />
+        <v-spacer></v-spacer>
+        <v-btn
+          @click.native="dialog = false"
+          color="#4b73df"
+          class="dialog-confirm"
+          style="border-radius: 0px"
+          block
+          >확인</v-btn
+        >
+      </v-card>
+    </v-dialog>
   </v-dialog>
 </template>
 
 <script>
-// import _ from 'lodash'
+import _ from 'lodash'
 export default {
   data: () => ({
     dialog: false,
     checkbox: false,
     id: null,
     password: null,
-    errorMessage: ''
+    errorMessage: '',
+    Errordialog: false
   }),
   // mounted() {
   //   const authUser = this.$cookies.get('authUser')
@@ -73,12 +89,12 @@ export default {
     async signIn() {
       if (!this.id) {
         this.errorMessage = 'ID를 입력해주세요'
-        this.dialog = true
+        this.Errordialog = true
         return
       }
       if (!this.password) {
         this.errorMessage = 'Password를 입력해주세요'
-        this.dialog = true
+        this.Errordialog = true
         return
       }
       try {
@@ -96,8 +112,12 @@ export default {
             this.redirect()
           })
           .catch((error) => {
-            console.log(error)
-            // const errorName = _.get(error, 'response.data.name', null)
+            const errorName = _.get(error, 'response.data.name', null)
+            if (errorName) {
+              this.errorMessage = '아이디와 비밀번호를 확인해주세요'
+              this.Errordialog = true
+            }
+            console.log(errorName)
             // if (errorName === 'PASSWORD_ERROR') {
             //   this.errorMessage = '아이디와 비밀번호를 확인해주세요.'
             //   this.dialog = true

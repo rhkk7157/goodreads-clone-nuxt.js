@@ -3,12 +3,24 @@ const crypto = require('crypto')
 const _ = require('lodash')
 const models = require('../models')
 
+// const {
+//   InvalidParameters,
+//   NotFound
+//   AuthenticationFailed
+// } = require('../errors')
+
 const signIn = (params) => {
+  params = params || {}
+  // if (!params.id) return Promise.reject(new InvalidParameters(null, 'ID'))
+  // if (!params.password)
+  //   return Promise.reject(new InvalidParameters(null, 'PASSWORD'))
+
   const InputPassword = params.password
   return models.User.findOne({
     where: {
       user_id: params.id
-    }
+    },
+    raw: true
   }).then((user) => {
     const dbPassword = user.dataValues.password
     const salt = user.dataValues.salt
@@ -19,17 +31,7 @@ const signIn = (params) => {
 
     if (dbPassword === hashPassword) {
       return user
-    } else {
-      this.name = 'error'
-      return name
     }
-
-    // if (_.isEmpty(user)) {
-    //   this.name = 'error'
-    //   return name
-    // } else {
-    //   return user
-    // }
   })
 }
 
