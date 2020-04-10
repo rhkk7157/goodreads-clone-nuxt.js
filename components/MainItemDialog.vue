@@ -51,21 +51,7 @@ export default {
     searchParams: {
       page: 1,
       limit: 12
-    },
-    header: [
-      {
-        text: 'category',
-        value: 'category'
-      },
-      {
-        text: 'title',
-        value: 'title'
-      },
-      {
-        text: 'sub_title',
-        value: 'sub_title'
-      }
-    ]
+    }
   }),
   computed: {
     pages() {
@@ -97,7 +83,6 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
-      console.log(this.posts)
     }
   }
 }
