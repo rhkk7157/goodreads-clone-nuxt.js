@@ -123,10 +123,10 @@ export default {
       fixed: false,
       MenuTab: null,
       items: [
-        { tab: 'A', content: 'Tab1 Content' },
-        { tab: 'B', content: 'Tab2 Content' },
-        { tab: 'C', content: 'Tab3 Content' },
-        { tab: 'D', content: 'Tab4 Content' }
+        { tab: '소설', content: 'Tab1 Content' },
+        { tab: '에세이', content: 'Tab2 Content' },
+        { tab: '예술', content: 'Tab3 Content' },
+        { tab: '만화', content: 'Tab4 Content' }
       ],
 
       // items: [

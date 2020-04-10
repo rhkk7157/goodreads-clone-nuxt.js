@@ -1,26 +1,35 @@
 <template>
   <v-row>
     <v-row>
-      <v-col v-for="n in total" :key="n" cols="12" lg="3">
-        <v-card :items="posts" class="mx-auto" max-width="344" outlined>
-          <v-list-item three-line>
-            <v-list-item-content>
-              <div class="overline mb-4">Theme</div>
-              <v-list-item-title class="headline mb-1">Title</v-list-item-title>
-              <v-list-item-subtitle>SubTitle</v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-avatar tile size="80">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-              ></v-img>
-            </v-list-item-avatar>
-          </v-list-item>
-          <v-card-actions>
-            <v-btn text>Button</v-btn>
-            <v-btn text>Button</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
+      <v-flex v-for="item in posts" :key="item.idx">
+        <v-col cols="auto">
+          <v-card class="mx-auto" max-width="344" raised>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <div class="overline mb-4">
+                  {{ item.category }}
+                </div>
+                <v-list-item-title class="headline mb-2">
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ item.sub_title }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-avatar tile size="80">
+                <v-img
+                  src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
+                ></v-img>
+              </v-list-item-avatar>
+            </v-list-item>
+
+            <v-card-actions>
+              <v-btn text>Button</v-btn>
+              <v-btn text>Button</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-flex>
     </v-row>
     <v-pagination
       v-model="searchParams.page"
@@ -35,13 +44,28 @@
 <script>
 import _ from 'lodash'
 export default {
+  name: 'MainItemDialog',
   data: () => ({
     total: 0,
     posts: [],
     searchParams: {
       page: 1,
       limit: 12
-    }
+    },
+    header: [
+      {
+        text: 'category',
+        value: 'category'
+      },
+      {
+        text: 'title',
+        value: 'title'
+      },
+      {
+        text: 'sub_title',
+        value: 'sub_title'
+      }
+    ]
   }),
   computed: {
     pages() {
@@ -73,6 +97,7 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
+      console.log(this.posts)
     }
   }
 }
