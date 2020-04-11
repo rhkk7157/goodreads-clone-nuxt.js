@@ -45,8 +45,16 @@
 import _ from 'lodash'
 export default {
   name: 'MainItemDialog',
+  props: {
+    categoryIndex: {
+      type: Number,
+      default: 0
+    }
+  },
+
   data: () => ({
     total: 0,
+    categoryNum: null,
     posts: [],
     searchParams: {
       page: 1,
@@ -58,6 +66,12 @@ export default {
       return this.searchParams.limit
         ? Math.ceil(this.total / this.searchParams.limit)
         : 0
+    }
+  },
+  watch: {
+    categoryIndex(i) {
+      this.categoryNum = i
+      this.loadData()
     }
   },
   mounted() {
@@ -77,13 +91,21 @@ export default {
       this.loadData()
     },
     async loadData() {
+      const categoryNum = this.categoryNum
       const response = await this.$axios.get('/api/posts/', {
-        params: this.searchParams
+        params: {
+          searchParams: this.searchParams,
+          categoryNum
+        }
       })
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
     }
+    // SelectItemByIndex() {
+    //   const categoryNum = this.categoryNum
+    //   console.log(categoryNum)
+    // }
   }
 }
 </script>

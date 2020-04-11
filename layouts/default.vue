@@ -36,7 +36,13 @@
         color="primary"
         grow
       >
-        <v-tab v-for="(item, i) in items" :key="i">{{ item.tab }}</v-tab>
+        <v-tab
+          v-for="(item, i) in items"
+          :key="i"
+          @click="categoryItem(i)"
+          style="border:2px solid grey; cursor:pointer"
+          >{{ item.tab }}</v-tab
+        >
       </v-tabs>
 
       <v-card-title class="text-center justify-center py-1">
@@ -45,7 +51,10 @@
       </v-card-title>
       <v-content>
         <v-container fluid grid-list-xl>
-          <MainItemDialog ref="MainItemDialog"></MainItemDialog>
+          <MainItemDialog
+            ref="MainItemDialog"
+            v-bind:categoryIndex="categoryIndex"
+          ></MainItemDialog>
           <!-- <nuxt /> -->
           <!-- <v-tabs-items v-model="MenuTab">
             <v-tab-item v-for="(item, i) in items" :key="i">
@@ -116,19 +125,22 @@ export default {
   },
   data() {
     return {
-      // clipped: false,
-      // drawer: false,
       errorMessage: '',
       Errordialog: false,
       fixed: false,
       MenuTab: null,
+      categoryIndex: 0,
       items: [
-        { tab: '소설', content: 'Tab1 Content' },
-        { tab: '에세이', content: 'Tab2 Content' },
-        { tab: '예술', content: 'Tab3 Content' },
-        { tab: '만화', content: 'Tab4 Content' }
+        { tab: 'Cook' },
+        { tab: 'Travel' },
+        { tab: 'Art' },
+        { tab: 'Webtoon' }
       ],
-
+      searchParams: {
+        page: 1,
+        limit: 12
+      },
+      title: 'hyeri'
       // items: [
       //   {
       //     icon: 'mdi-apps',
@@ -149,7 +161,6 @@ export default {
       // miniVariant: false,
       // right: true,
       // rightDrawer: false,
-      title: 'hyeri'
     }
   },
   computed: {
@@ -183,6 +194,9 @@ export default {
       } else {
         this.$refs.InsertBook.open(authUser)
       }
+    },
+    categoryItem(i) {
+      this.categoryIndex = i
     },
     async signOut() {
       await this.$store

@@ -6,11 +6,14 @@ router.get('/', (req, res, next) => {
   const limit = +req.query.limit || 24
   const offset = (page - 1) * limit
 
+  const categoryNum = req.query.categoryNum
+
   postsService
     .findAndCountAll({
       page,
       limit,
-      offset
+      offset,
+      categoryNum
     })
     .then((results) => {
       results.page = page
