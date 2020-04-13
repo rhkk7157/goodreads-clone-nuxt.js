@@ -4,11 +4,13 @@
       <v-flex v-for="item in posts" :key="item.idx">
         <v-col cols="auto">
           <v-card class="mx-auto" max-width="344" raised>
-            <v-list-item three-line>
+            <v-list-item
+              @click="detailPost(item.idx)"
+              three-line
+              style="border:1px solid red; cursor:pointer"
+            >
               <v-list-item-content>
-                <div class="overline mb-4">
-                  {{ item.category }}
-                </div>
+                <div class="overline mb-4">{{ item.category }}</div>
                 <v-list-item-title class="headline mb-2">
                   {{ item.title }}
                 </v-list-item-title>
@@ -39,19 +41,23 @@
       @previous="previousPage"
       total-visible="12"
     ></v-pagination>
+    <DetailPost ref="DetailPost"></DetailPost>
   </v-row>
 </template>
 <script>
 import _ from 'lodash'
+import DetailPost from './DetailPost'
 export default {
   name: 'MainItemDialog',
+  components: {
+    DetailPost
+  },
   props: {
     categoryIndex: {
       type: Number,
       default: 0
     }
   },
-
   data: () => ({
     total: 0,
     categoryNum: null,
@@ -101,11 +107,12 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
+    },
+    detailPost(idx) {
+      this.$refs.DetailPost.open(idx)
+      // this.$refs.SignInDialog.open()
+      // console.log(idx)
     }
-    // SelectItemByIndex() {
-    //   const categoryNum = this.categoryNum
-    //   console.log(categoryNum)
-    // }
   }
 }
 </script>

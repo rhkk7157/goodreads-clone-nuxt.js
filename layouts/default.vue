@@ -40,7 +40,7 @@
           v-for="(item, i) in items"
           :key="i"
           @click="categoryItem(i)"
-          style="border:2px solid grey; cursor:pointer"
+          style="cursor:pointer"
           >{{ item.tab }}</v-tab
         >
       </v-tabs>
