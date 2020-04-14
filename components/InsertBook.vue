@@ -74,8 +74,8 @@ export default {
     MainTitle: null,
     SubTitle: null,
     Content: null,
-    selectItems: ['소설', '여행', '예술', '만화'],
-    selectValue: ['소설', '여행', '예술', '만화']
+    selectItems: ['Cook', 'Travel', 'Art', 'WebToon'],
+    selectValue: ['Cook', 'Travel', 'Art', 'WebToon']
   }),
   methods: {
     open(data) {

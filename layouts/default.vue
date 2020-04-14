@@ -152,11 +152,6 @@ export default {
       //     title: '상점 등록하기',
       //     to: '/DashboardLayout/InsertStore'
       //   },
-      //   {
-      //     icon: 'mdi-chart-bubble',
-      //     title: '_blank',
-      //     to: '/DashboardLayout/KoreanFood'
-      //   }
       // ],
       // miniVariant: false,
       // right: true,

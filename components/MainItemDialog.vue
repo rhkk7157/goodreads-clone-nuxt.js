@@ -5,7 +5,7 @@
         <v-col cols="auto">
           <v-card class="mx-auto" max-width="344" raised>
             <v-list-item
-              @click="detailPost(item.idx)"
+              @click="detailPost(item)"
               three-line
               style="border:1px solid red; cursor:pointer"
             >
@@ -108,10 +108,8 @@ export default {
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
     },
-    detailPost(idx) {
-      this.$refs.DetailPost.open(idx)
-      // this.$refs.SignInDialog.open()
-      // console.log(idx)
+    detailPost(item) {
+      this.$refs.DetailPost.open(item)
     }
   }
 }

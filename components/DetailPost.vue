@@ -1,19 +1,43 @@
 <template>
-  <v-dialog v-model="dialog" class="text-center fill-height" max-width="500">
+  <v-dialog
+    v-model="dialog"
+    fullscreen
+    hide-overlay
+    transition="dialog-bottom-transition"
+    style="overflow: hidden"
+    max-width="700"
+  >
     <v-card>
-      <v-card-title>detail</v-card-title>
-      <v-card-text></v-card-text>
+      <v-toolbar dark color="primary">
+        <v-btn @click="dialog = false" icon dark>
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-toolbar-title>detail</v-toolbar-title>
+      </v-toolbar>
     </v-card>
+    <!-- <v-card>
+      <v-card-title class="primary" primary-title>
+        -----
+        <v-spacer />
+      </v-card-title>
+
+      <v-container>
+        <v-row></v-row>
+      </v-container>
+    </v-card> -->
   </v-dialog>
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   data: () => ({
-    dialog: false
+    dialog: false,
+    post: {}
   }),
   methods: {
-    open() {
+    open(data) {
+      this.post = _.cloneDeep(data)
       this.dialog = true
     },
     close() {
