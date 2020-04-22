@@ -11,7 +11,7 @@
         <!-- <ValidationObserver
           ref="observer"
           v-slot="{ validate, reset }"
-        ></ValidationObserver> -->
+        ></ValidationObserver>-->
         <v-form>
           <v-text-field
             v-model="MainTitle"
@@ -38,8 +38,10 @@
           ></v-textarea>
           <v-file-input
             v-model="mainImg"
+            accept="image/*"
+            single
+            label="Select img.."
             chips
-            label="MainImg"
             prepend-icon="mdi-file-image"
             outlined
           ></v-file-input>
@@ -74,6 +76,7 @@ export default {
     MainTitle: null,
     SubTitle: null,
     Content: null,
+
     selectItems: ['Cook', 'Travel', 'Art', 'WebToon'],
     selectValue: ['Cook', 'Travel', 'Art', 'WebToon']
   }),
@@ -99,18 +102,34 @@ export default {
     },
     async insertBook() {
       // const authUser = this.$cookies.get('authUser')
-      const response = await this.$axios.get('/api/posts/insert/', {
-        params: {
-          user_idx: this.user.idx,
-          title: this.MainTitle,
-          sub_title: this.SubTitle,
-          content: this.Content,
-          category: this.selectValue,
-          img: this.mainImg
-        }
-      })
-      this.dialog = false
-      console.log(response)
+      // const imgFile = this.mainImg
+      console.log(this.mainImg)
+
+      try {
+        const response = await this.$axios.get('/api/posts/insert/', {
+          params: {
+            user_idx: this.user.idx,
+            title: this.MainTitle,
+            sub_title: this.SubTitle,
+            content: this.Content,
+            category: this.selectValue,
+            img: this.mainImg
+          }
+        })
+        this.dialog = false
+        console.log(response)
+      } catch (error) {}
+      try {
+        const img = await this.$axios.post('/api/posts/img/', {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          params: {
+            file: this.mainImg
+          }
+        })
+        console.log(img)
+      } catch (error) {}
     }
   }
 }
