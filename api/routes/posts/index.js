@@ -82,7 +82,10 @@ router.get('/insert', (req, res, next) => {
 })
 
 router.post('/img', upload.single('img'), (req, res) => {
-  console.log(req.file)
+  console.log('--img')
+  console.log(req.params)
+
+  // console.log(req.body)
 })
 
 module.exports = router

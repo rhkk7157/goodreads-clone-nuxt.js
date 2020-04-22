@@ -36,15 +36,16 @@
             row-height="25"
             prepend-icon="mdi-comment-text-multiple-outline"
           ></v-textarea>
-          <v-file-input
-            v-model="mainImg"
+          <input ref="inputUpload" @change="onFileSelected" type="file" />
+          <!-- <v-file-input
+            ref="inputUpload"
+            @change="onFileSelected"
             accept="image/*"
             single
-            label="Select img.."
-            chips
             prepend-icon="mdi-file-image"
             outlined
-          ></v-file-input>
+          ></v-file-input>-->
+          <v-card-text>{{ message }}</v-card-text>
           <v-select
             v-model="selectValue"
             :items="selectItems"
@@ -76,7 +77,7 @@ export default {
     MainTitle: null,
     SubTitle: null,
     Content: null,
-
+    message: null,
     selectItems: ['Cook', 'Travel', 'Art', 'WebToon'],
     selectValue: ['Cook', 'Travel', 'Art', 'WebToon']
   }),
@@ -100,36 +101,57 @@ export default {
       this.selectValue = ''
       this.$refs.observer.reset()
     },
+    onFileSelected($event) {
+      this.mainImg = this.$refs.inputUpload.files[0]
+      // const files = $event.target.files || $event.target.files
+      // const form = this.getFormData(files)
+      // if (files) {
+      //   if (files.length > 0) {
+      //     this.filename = [...files].map((file) => file.name).join(', ')
+      //   } else {
+      //     this.filename = null
+      //   }
+      // } else {
+      //   this.filename = $event.target.value.split('\\').pop()
+      // }
+    },
+    // getFormData(files) {
+    //   const forms = []
+    //   for (const file of files) {
+    //     const form = new FormData()
+    //     form.append('data', file, file.name)
+    //     forms.push(form)
+    //   }
+    //   return forms
+    // },
     async insertBook() {
+      const formData = new FormData()
+      console.log(formData)
+      formData.append('file', this.mainImg)
       // const authUser = this.$cookies.get('authUser')
-      // const imgFile = this.mainImg
-      console.log(this.mainImg)
+      // try {
+      //   const response = await this.$axios.get('/api/posts/insert/', {
+      //     params: {
+      //       user_idx: this.user.idx,
+      //       title: this.MainTitle,
+      //       sub_title: this.SubTitle,
+      //       content: this.Content,
+      //       category: this.selectValue
+      //     }
+      //   })
+      //   this.dialog = false
+      //   console.log(response)
+      // } catch (error) {}
 
-      try {
-        const response = await this.$axios.get('/api/posts/insert/', {
-          params: {
-            user_idx: this.user.idx,
-            title: this.MainTitle,
-            sub_title: this.SubTitle,
-            content: this.Content,
-            category: this.selectValue,
-            img: this.mainImg
-          }
-        })
-        this.dialog = false
-        console.log(response)
-      } catch (error) {}
-      try {
-        const img = await this.$axios.post('/api/posts/img/', {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          params: {
-            file: this.mainImg
-          }
-        })
-        console.log(img)
-      } catch (error) {}
+      if (!this.mainImg) {
+        this.message = 'no file'
+      }
+      const img = await this.$axios.post('/api/posts/img/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      console.log(img)
     }
   }
 }
