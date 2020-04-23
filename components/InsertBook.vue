@@ -103,55 +103,63 @@ export default {
     },
     onFileSelected($event) {
       this.mainImg = this.$refs.inputUpload.files[0]
-      // const files = $event.target.files || $event.target.files
-      // const form = this.getFormData(files)
-      // if (files) {
-      //   if (files.length > 0) {
-      //     this.filename = [...files].map((file) => file.name).join(', ')
-      //   } else {
-      //     this.filename = null
-      //   }
-      // } else {
-      //   this.filename = $event.target.value.split('\\').pop()
-      // }
     },
-    // getFormData(files) {
-    //   const forms = []
-    //   for (const file of files) {
-    //     const form = new FormData()
-    //     form.append('data', file, file.name)
-    //     forms.push(form)
-    //   }
-    //   return forms
-    // },
+
     async insertBook() {
       const formData = new FormData()
-      console.log(formData)
       formData.append('file', this.mainImg)
-      // const authUser = this.$cookies.get('authUser')
-      // try {
-      //   const response = await this.$axios.get('/api/posts/insert/', {
-      //     params: {
-      //       user_idx: this.user.idx,
-      //       title: this.MainTitle,
-      //       sub_title: this.SubTitle,
-      //       content: this.Content,
-      //       category: this.selectValue
-      //     }
-      //   })
-      //   this.dialog = false
-      //   console.log(response)
-      // } catch (error) {}
+      // formData.append('img', this.mainImg, this.mainImg.name)
+      formData.append('user_idx', this.user.idx)
+      formData.append('title', this.MainTitle)
+      formData.append('sub_title', this.SubTitle)
+      formData.append('content', this.Content)
+      formData.append('category', this.selectValue)
 
-      if (!this.mainImg) {
-        this.message = 'no file'
-      }
-      const img = await this.$axios.post('/api/posts/img/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      console.log(img)
+      // for (const val of formData.values()) {
+      //   console.log(val)
+      // }
+
+      // try {
+      //   this.$axios
+      //     .post('/api/posts/insert/', {
+      //       headers: {
+      //         'Content-Type': 'multipart/form-data'
+      //       },
+      //       data: formData
+      //     })
+      //     .then((response) => {
+      //       console.log(response)
+      //     })
+      //   this.dialog = false
+      // } catch (error) {
+      //   console.log(error.response)
+      // }
+
+      // const authUser = this.$cookies.get('authUser')
+      try {
+        const response = await this.$axios.get('/api/posts/insert/', {
+          params: {
+            user_idx: this.user.idx,
+            title: this.MainTitle,
+            sub_title: this.SubTitle,
+            content: this.Content,
+            category: this.selectValue
+          }
+        })
+        this.dialog = false
+        console.log(response)
+      } catch (error) {}
+
+      // if (!this.mainImg) {
+      //   this.message = 'no file'
+      // }
+      // const img = await this.$axios.post('/api/posts/img/', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data'
+      //   },
+      //   params: {}
+      // })
+      // console.log(img)
     }
   }
 }

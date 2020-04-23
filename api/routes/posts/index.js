@@ -57,7 +57,21 @@ router.get('/', (req, res, next) => {
       res.json(results)
     })
 })
-
+// router.post('/insert', (req, res, next) => {
+// const userIdx = req.query.user_idx
+// const title = req.query.title
+// const subTitle = req.query.sub_title
+// const content = req.query.content
+// const category = req.query.category
+// postsService
+//   .postCreate({})
+//   .then((r) => {
+//     res.json(r)
+//   })
+//   .catch((error) => {
+//     next(error)
+//   })
+// })
 router.get('/insert', (req, res, next) => {
   const userIdx = req.query.user_idx
   const title = req.query.title
@@ -82,9 +96,7 @@ router.get('/insert', (req, res, next) => {
 })
 
 router.post('/img', upload.single('img'), (req, res) => {
-  console.log('--img')
-  console.log(req.params)
-
+  console.log(req.query)
   // console.log(req.body)
 })
 

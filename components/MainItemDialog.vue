@@ -2,7 +2,7 @@
   <v-row>
     <v-row>
       <v-flex v-for="item in posts" :key="item.idx">
-        <v-col cols="auto">
+        <v-col cols="auto" style="border:1px solid black">
           <v-card class="mx-auto" max-width="344" raised>
             <v-list-item
               @click="detailPost(item)"
