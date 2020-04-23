@@ -24,11 +24,18 @@
                 ></v-img>
               </v-list-item-avatar>
             </v-list-item>
-
             <v-card-actions>
-              <v-btn text>Button</v-btn>
-              <v-btn text>Button</v-btn>
+              <v-spacer />
+              <v-icon>mdi-heart</v-icon> <span>0</span> &nbsp;&nbsp;
+              <v-icon>mdi-comment-text-outline</v-icon>
+              <span>0</span>&nbsp;&nbsp;
+              <v-icon>mdi-eye</v-icon>
+              <span>0</span>&nbsp;&nbsp;
             </v-card-actions>
+            <!-- <v-card-actions>
+              <v-btn text>Button</v-btn>
+              <v-btn text>Button</v-btn>
+            </v-card-actions> -->
           </v-card>
         </v-col>
       </v-flex>

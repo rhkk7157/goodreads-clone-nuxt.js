@@ -50,7 +50,8 @@ module.exports = {
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
     // With options
-    ['cookie-universal-nuxt', { alias: 'cookies' }]
+    ['cookie-universal-nuxt', { alias: 'cookies' }],
+    'nuxt-material-design-icons'
   ],
   /*
    ** Axios module configuration
