@@ -57,6 +57,9 @@ router.get('/', (req, res, next) => {
       res.json(results)
     })
 })
+router.post('/insert/upload', upload.single('file'), (req, res, next) => {
+  // console.log(req.body)
+})
 // router.post('/insert', (req, res, next) => {
 // const userIdx = req.query.user_idx
 // const title = req.query.title
@@ -95,9 +98,9 @@ router.get('/insert', (req, res, next) => {
     })
 })
 
-router.post('/img', upload.single('img'), (req, res) => {
-  console.log(req.query)
-  // console.log(req.body)
-})
+// router.post('/img', upload.single('img'), (req, res) => {
+//   console.log(req.query)
+//   // console.log(req.body)
+// })
 
 module.exports = router
