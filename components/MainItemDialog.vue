@@ -1,13 +1,13 @@
 <template>
   <v-row>
     <v-row>
-      <v-flex v-for="item in posts" :key="item.idx">
-        <v-col cols="auto" style="border:1px solid black">
+      <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
+        <v-col cols="auto">
           <v-card class="mx-auto" max-width="344" raised>
             <v-list-item
               @click="detailPost(item)"
               three-line
-              style="border:1px solid red; cursor:pointer"
+              style="cursor:pointer"
             >
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
