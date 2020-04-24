@@ -4,19 +4,27 @@
     fullscreen
     hide-overlay
     transition="dialog-bottom-transition"
-    max-width="auto"
+    max-width="700"
   >
-    <!-- max-width="700"-->
-    <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+    <!-- v-dialog max-width="700"-->
+    <!-- v-card max-width="374" v-img height="250" -->
+    <v-card :loading="loading" class="mx-auto my-12" max-width="300">
       <v-img
-        height="250"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+        height="450"
+        style="border:2px solid red"
+        src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
       ></v-img>
 
       <v-card-title>{{ this.post.title }}</v-card-title>
       <v-card-text>
         <v-row align="center" class="mx-0">
-          <!-- <v-icon>mdi-heart</v-icon> -->
+          <!-- <v-rating
+            :length="length"
+            :size="size"
+            :value="4"
+            readonly
+          ></v-rating> -->
+          <!-- 별점 readonly -->
           <v-rating
             :value="4.5"
             color="amber"
@@ -93,7 +101,9 @@ export default {
     dialog: false,
     post: {},
     loading: false,
-    selection: 1
+    selection: 1,
+    length: 5,
+    size: 30
   }),
   methods: {
     open(data) {

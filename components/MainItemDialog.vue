@@ -24,13 +24,16 @@
                 ></v-img>
               </v-list-item-avatar>
             </v-list-item>
+            <v-divider />
             <v-card-actions>
               <v-spacer />
-              <v-icon style="cursor:pointer">mdi-heart</v-icon
+              <v-icon style="cursor:pointer;padding:2px">mdi-heart</v-icon
               ><span>0</span> &nbsp;&nbsp;
-              <v-icon style="cursor:pointer">mdi-comment-text-outline</v-icon>
+              <v-icon style="cursor:pointer;padding:2px"
+                >mdi-comment-text-outline</v-icon
+              >
               <span>0</span>&nbsp;&nbsp;
-              <v-icon style="cursor:pointer">mdi-eye</v-icon>
+              <v-icon style="cursor:pointer;padding:2px">mdi-eye</v-icon>
               <span>0</span>&nbsp;&nbsp;
             </v-card-actions>
           </v-card>
