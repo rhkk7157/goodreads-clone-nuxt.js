@@ -105,46 +105,41 @@ export default {
       this.mainImg = this.$refs.inputUpload.files[0]
     },
 
-    insertBook() {
-      const formData = new FormData()
-      formData.append('file', this.mainImg)
-      formData.append('user_idx', this.user.idx)
-      formData.append('title', this.MainTitle)
-      formData.append('sub_title', this.SubTitle)
-      formData.append('content', this.Content)
-      formData.append('category', this.selectValue)
-
-      for (const val of formData.values()) {
-        console.log(val)
-      }
-
-      this.$axios
-        .post('/api/posts/insert/upload/', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then((response) => {
-          console.log(response)
-        })
-      this.dialog = false
-
-      // const authUser = this.$cookies.get('authUser')
-
-      // try {
-      //   const response = await this.$axios.get('/api/posts/insert/', {
-      //     params: {
-      //       user_idx: this.user.idx,
-      //       title: this.MainTitle,
-      //       sub_title: this.SubTitle,
-      //       content: this.Content,
-      //       category: this.selectValue
+    async insertBook() {
+      // const formData = new FormData()
+      // formData.append('file', this.mainImg)
+      // formData.append('user_idx', this.user.idx)
+      // formData.append('title', this.MainTitle)
+      // formData.append('sub_title', this.SubTitle)
+      // formData.append('content', this.Content)
+      // formData.append('category', this.selectValue)
+      // for (const val of formData.values()) {
+      //   console.log(val)
+      // }
+      // this.$axios
+      //   .post('/api/posts/insert/upload/', formData, {
+      //     headers: {
+      //       'Content-Type': 'multipart/form-data'
       //     }
       //   })
-      //   this.dialog = false
-      //   console.log(response)
-      // } catch (error) {}
-
+      //   .then((response) => {
+      //     console.log(response)
+      //   })
+      // this.dialog = false
+      // const authUser = this.$cookies.get('authUser')
+      try {
+        const response = await this.$axios.get('/api/posts/insert/', {
+          params: {
+            user_idx: this.user.idx,
+            title: this.MainTitle,
+            sub_title: this.SubTitle,
+            content: this.Content,
+            category: this.selectValue
+          }
+        })
+        this.dialog = false
+        console.log(response)
+      } catch (error) {}
       // if (!this.mainImg) {
       //   this.message = 'no file'
       // }

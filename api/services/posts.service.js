@@ -50,7 +50,20 @@ const findAndCountAll = (params) => {
   })
 }
 
+const addLikePost = (params) => {
+  const today = new Date()
+
+  return models.PostsLikes.create({
+    user_idx: params.userIdx,
+    post_idx: params.postIdx,
+    created_at: today
+  }).then((postsLikes) => {
+    return postsLikes
+  })
+}
+
 module.exports = {
   postCreate,
-  findAndCountAll
+  findAndCountAll,
+  addLikePost
 }

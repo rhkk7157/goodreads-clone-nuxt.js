@@ -98,6 +98,23 @@ router.get('/insert', (req, res, next) => {
     })
 })
 
+router.get('/likePost', (req, res, next) => {
+  const postIdx = req.query.post_idx
+  const userIdx = req.query.user_idx
+
+  postsService
+    .addLikePost({
+      postIdx,
+      userIdx
+    })
+    .then((r) => {
+      res.json(r)
+    })
+    .catch((error) => {
+      next(error)
+    })
+})
+
 // router.post('/img', upload.single('img'), (req, res) => {
 //   console.log(req.query)
 //   // console.log(req.body)

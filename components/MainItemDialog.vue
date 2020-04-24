@@ -27,7 +27,10 @@
             <v-divider />
             <v-card-actions>
               <v-spacer />
-              <v-icon style="cursor:pointer;padding:2px">mdi-heart</v-icon
+              <v-icon
+                @click="likePost(item)"
+                style="cursor:pointer;padding:2px;"
+                >mdi-heart</v-icon
               ><span>0</span> &nbsp;&nbsp;
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
@@ -114,6 +117,23 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
+    },
+    async likePost(item) {
+      try {
+        // item.idx , user_idx,
+        const response = await this.$axios.get('/api/posts/likePost', {
+          params: {
+            post_idx: item.idx,
+            user_idx: item.user_idx
+          }
+        })
+        // then
+        console.log(response)
+      } catch (error) {
+        alert(error)
+      }
+      try {
+      } catch (error) {}
     },
     detailPost(item) {
       this.$refs.DetailPost.open(item)
