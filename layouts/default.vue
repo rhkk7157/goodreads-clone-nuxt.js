@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-card>
-      <v-card style="height:70px" color="primary">
+      <v-card style="height:70px;" color="primary">
         <v-card-title class="text-center justify-center py-1">
           <v-spacer />
           <v-card-actions>
