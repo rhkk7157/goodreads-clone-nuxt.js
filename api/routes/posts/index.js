@@ -38,12 +38,15 @@ const upload = multer({
 // })
 
 // const upload = multer({ storage })
-router.get('/', (req, res, next) => {
+router.get('/main/:categoryNum', (req, res, next) => {
   const page = +req.query.page || 1
   const limit = +req.query.limit || 24
   const offset = (page - 1) * limit
 
-  const categoryNum = req.query.categoryNum
+  let categoryNum = req.params.categoryNum
+  if (categoryNum === 'null') {
+    categoryNum = undefined
+  }
 
   postsService
     .findAndCountAll({

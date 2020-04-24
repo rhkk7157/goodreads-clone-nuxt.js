@@ -1,17 +1,22 @@
 <template>
   <v-dialog
     v-model="dialog"
-    fullscreen
     hide-overlay
     transition="dialog-bottom-transition"
-    max-width="700"
+    max-width="1000"
   >
-    <!-- v-dialog max-width="700"-->
-    <!-- v-card max-width="374" v-img height="250" -->
-    <v-card :loading="loading" class="mx-auto my-12" max-width="300">
+    <v-card>
+      <v-toolbar dark color="deep-purple">
+        <v-btn @click="dialog = false" icon dark>
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+          <!-- <v-btn @click="dialog = false" dark text>Save</v-btn> -->
+        </v-toolbar-items>
+      </v-toolbar>
       <v-img
         height="450"
-        style="border:2px solid red"
         src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
       ></v-img>
 
@@ -23,7 +28,7 @@
             :size="size"
             :value="4"
             readonly
-          ></v-rating> -->
+          ></v-rating>-->
           <!-- 별점 readonly -->
           <v-rating
             :value="4.5"
@@ -35,12 +40,8 @@
           ></v-rating>
           <div class="grey--text ml-4">4.5 (413)</div>
         </v-row>
-        <div class="my-4 subtitle-1">
-          {{ this.post.sub_title }}
-        </div>
-        <div>
-          {{ this.post.content }}
-        </div>
+        <div class="my-4 subtitle-1">{{ this.post.sub_title }}</div>
+        <div>{{ this.post.content }}</div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
@@ -64,9 +65,9 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn @click="reserve" color="deep-purple lighten-2" text>
-          Reserve
-        </v-btn>
+        <v-btn @click="reserve" color="deep-purple lighten-2" text
+          >Reserve</v-btn
+        >
       </v-card-actions>
     </v-card>
 
@@ -90,7 +91,7 @@
         </v-col>
         <v-col cols="12" md="5"></v-col>
       </v-row>
-    </v-card> -->
+    </v-card>-->
   </v-dialog>
 </template>
 

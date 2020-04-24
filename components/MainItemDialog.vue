@@ -11,12 +11,12 @@
             >
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
-                <v-list-item-title class="headline mb-2">
-                  {{ item.title }}
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ item.sub_title }}
-                </v-list-item-subtitle>
+                <v-list-item-title class="headline mb-2">{{
+                  item.title
+                }}</v-list-item-title>
+                <v-list-item-subtitle>{{
+                  item.sub_title
+                }}</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-avatar tile size="80">
                 <v-img
@@ -31,7 +31,8 @@
                 @click="likePost(item)"
                 style="cursor:pointer;padding:2px;"
                 >mdi-heart</v-icon
-              ><span>0</span> &nbsp;&nbsp;
+              >
+              <span>0</span> &nbsp;&nbsp;
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
               >
@@ -108,12 +109,15 @@ export default {
     },
     async loadData() {
       const categoryNum = this.categoryNum
-      const response = await this.$axios.get('/api/posts/', {
-        params: {
-          searchParams: this.searchParams,
-          categoryNum
-        }
+      const response = await this.$axios.get('/api/posts/main/' + categoryNum, {
+        params: this.searchParams
+
+        // params: {
+        //   searchParams: this.searchParams,
+        //   categoryNum
+        // }
       })
+
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
