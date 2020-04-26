@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       content: {
         type: DataTypes.STRING(255)
       },
-      like: {
+      views: {
+        type: DataTypes.BIGINT
+      },
+      likes: {
         type: DataTypes.BIGINT
       },
       comments: {

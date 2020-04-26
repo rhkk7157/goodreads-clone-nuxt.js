@@ -11,12 +11,12 @@
             >
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
-                <v-list-item-title class="headline mb-2">{{
-                  item.title
-                }}</v-list-item-title>
-                <v-list-item-subtitle>{{
-                  item.sub_title
-                }}</v-list-item-subtitle>
+                <v-list-item-title class="headline mb-2">
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ item.sub_title }}
+                </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-avatar tile size="80">
                 <v-img
@@ -32,7 +32,9 @@
                 style="cursor:pointer;padding:2px;"
                 >mdi-heart</v-icon
               >
-              <span>0</span> &nbsp;&nbsp;
+
+              <!-- 
+              <span>{{ this.TotalLikes }}</span> &nbsp;&nbsp;-->
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
               >
@@ -73,6 +75,7 @@ export default {
     total: 0,
     categoryNum: null,
     posts: [],
+    TotalLikes: 0,
     searchParams: {
       page: 1,
       limit: 12
@@ -111,13 +114,7 @@ export default {
       const categoryNum = this.categoryNum
       const response = await this.$axios.get('/api/posts/main/' + categoryNum, {
         params: this.searchParams
-
-        // params: {
-        //   searchParams: this.searchParams,
-        //   categoryNum
-        // }
       })
-
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
@@ -133,6 +130,8 @@ export default {
         })
         // then
         console.log(response)
+
+        this.TotalLikes = _.get(response, 'data.count', 0)
       } catch (error) {
         alert(error)
       }

@@ -138,7 +138,10 @@ export default {
           }
         })
         this.dialog = false
-        console.log(response)
+        if (response.request.status === 200) {
+          alert('저장되었습니다.')
+          this.redirect()
+        }
       } catch (error) {}
       // if (!this.mainImg) {
       //   this.message = 'no file'
@@ -150,6 +153,9 @@ export default {
       //   params: {}
       // })
       // console.log(img)
+    },
+    redirect() {
+      this.$router.push('/')
     }
   }
 }
