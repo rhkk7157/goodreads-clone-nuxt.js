@@ -18,10 +18,10 @@ const postCreate = (params) => {
   })
 }
 
-const findAndCountAll = (params) => {
-  console.log(params)
-
+const findAndCountAll = async (params) => {
   params = params || {}
+  const limit = params.limit || 0
+  const offset = params.offset
   const where = {}
 
   if (params.categoryNum) {
@@ -39,109 +39,60 @@ const findAndCountAll = (params) => {
     where.category = categoryName
   }
 
-  return models.Posts.findAndCountAll({
-    where,
-    // where: { created_at: null },
+  const TotalCount = await models.sequelize.query(
+    `SELECT count(*) as count FROM posts`,
+    {
+      type: models.Sequelize.QueryTypes.SELECT,
+      raw: true
+    }
+  )
 
-    limit: params.limit || 24,
-    offset: params.offset || 0,
-    order: [['created_at', 'desc']],
-    raw: true
-  }).then((posts) => {
-    // return posts
-    // 좋아요 카운트
-    // return models.PostsLikes.findAndCountAll({
-    //   where: {
-    //     post_idx: postIdx
-    //   }
-    // }).then((res) => {
-    //   const postsLikesCount = res.count
-    //   return models.Posts.update(
-    //     { comments: postsLikesCount },
-    //     { where: { idx: postIdx } }
-    //   ).then((addPostsLikes) => {
-    //     return res
-    //   })
-    // })
-    //
+  const query = await models.sequelize.query(
+    `SELECT * FROM posts order by created_at desc limit ? offset ?`,
+    {
+      type: models.Sequelize.QueryTypes.SELECT,
+      replacements: [limit, offset],
+      raw: true
+    }
+  )
 
-    // _.forEach(postIdxs, (idx) => {
-    const postIdx = _.map(posts.rows, 'idx')
-    console.log(postIdx)
-    _.forEach(postIdx, (idx) => {
-      const countData = models.PostsLikes.count({
-        raw: true,
-        where: {
-          post_idx: idx
-        }
-      })
-      console.log(countData)
-    })
+  // const postsCount = await models.sequelize.query(
+  //   `SELECT * FROM posts_likes where  `,
+  //   {
+  //     type: models.Sequelize.QueryTypes.SELECT,
+  //     replacements: [limit, offset],
+  //     raw: true
+  //   }
+  // )
 
-    // _.forEach(postIdx, (idx) => {
-    //   console.log(idx)
+  const total = JSON.stringify(TotalCount)
+  const result = JSON.parse(total)
+  const count = result[0].count
+  const results = { rows: query, count }
+  return results
 
-    //   models.PostsLikes.findAll({
-    //     where: {
-    //       post_idx: {
-    //         post_idx: idx
-    //       }
-    //     }
-    //   })
-    // }).then((r) => {
-    //   console.log(r)
-    // })
+  // return models.Posts.findAndCountAll({
+  //   where,
 
-    // postIdx.forEach(posts.rows, (idx) => {
-    //   models.PostsLikes.count({
-    //     where: {
-    //       post_idx: {
-    //         [models.Sequelize.Op.in]: idx
-    //       }
-    //     }
-    //   }).then((res) => {
-    //     console.log(res)
-    //   })
-    // })
-
-    // const test = models.sequelize.query(
-    //   `select count(*) from posts_likes where post_idx =` + idx,
-    //   {
-    //     type: models.Sequelize.QueryTypes.SELECT,
-    //     raw: true
-    //   }
-    // )
-    // console.log(test)
-    // })
-
-    return false
-    // const usersPromise = models.User.findAll({
-    //   where: {
-    //     idx: {
-    //       [models.Sequelize.Op.in]: postUserIdx
-    //     }
-    //   },
-    //   raw: true
-    // })
-
-    // return false
-    // return Promise.all([postCount, postCount2]).then((ref) => {
-    //   console.log(ref)
-    //   return false
-    // })
-    // _.forEach(postIdx, (idx) => {})
-    // _.forEach(posts.rows, (idx) => {
-    // models.PostsLikes.count({
-    //   where: {
-    //     post_idx: {
-    //       [models.Sequelize.Op.in]: idx
-    //     }
-    //   }
-    // }).then((c) => {
-    //   console.log(c)
-    // })
-    // })
-  })
+  //   limit: params.limit || 24,
+  //   offset: params.offset || 0,
+  //   order: [['created_at', 'desc']],
+  //   raw: true
+  // }).then((posts) => {
+  //   const postIdx = _.map(posts.rows, 'idx')
+  //   console.log(postIdx)
+  //   const PostsCount = models.PostsLikes.findAll({
+  //     where: {
+  //       post_idx: {
+  //         [models.Sequelize.Op.in]: postIdx
+  //       }
+  //     },
+  //     raw: true
+  //   })
+  //   const result = JSON.stringify(PostsCount)
+  //   console.log(result)
+  //   return false
+  // })
 }
 
 const addLikePost = (params) => {
@@ -154,20 +105,20 @@ const addLikePost = (params) => {
     post_idx: postIdx,
     created_at: today
   }).then((postsLikes) => {
-    return postsLikes
-    // return models.PostsLikes.findAndCountAll({
-    //   where: {
-    //     post_idx: postIdx
-    //   }
-    // }).then((res) => {
-    //   const postsLikesCount = res.count
-    //   return models.Posts.update(
-    //     { comments: postsLikesCount },
-    //     { where: { idx: postIdx } }
-    //   ).then((addPostsLikes) => {
-    //     return res
-    //   })
-    // })
+    // return postsLikes
+    return models.PostsLikes.findAndCountAll({
+      where: {
+        post_idx: postIdx
+      }
+    }).then((res) => {
+      const postsLikesCount = res.count
+      return models.Posts.update(
+        { likes: postsLikesCount },
+        { where: { idx: postIdx } }
+      ).then((addPostsLikes) => {
+        return res
+      })
+    })
   })
 }
 
