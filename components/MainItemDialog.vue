@@ -33,8 +33,7 @@
                 >mdi-heart</v-icon
               >
               <span>{{ item.likes }}</span>
-              <!-- 
-              <span>{{ this.TotalLikes }}</span> &nbsp;&nbsp;-->
+
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
               >
@@ -56,7 +55,7 @@
       @previous="previousPage"
       total-visible="12"
     ></v-pagination>
-    <DetailPost ref="DetailPost"></DetailPost>
+    <detail-post ref="DetailPost"></detail-post>
   </v-row>
 </template>
 <script>
@@ -77,7 +76,7 @@ export default {
     total: 0,
     categoryNum: null,
     posts: [],
-    TotalLikes: 0,
+    totalLikes: 0,
     searchParams: {
       page: 1,
       limit: 12
@@ -114,10 +113,11 @@ export default {
     },
     async loadData() {
       const categoryNum = this.categoryNum
+      // categoryNum : null
       const response = await this.$axios.get('/api/posts/main/' + categoryNum, {
         params: this.searchParams
       })
-
+      console.log(response)
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
@@ -132,9 +132,9 @@ export default {
           }
         })
         // then
-        console.log(response)
-
-        this.TotalLikes = _.get(response, 'data.count', 0)
+        // console.log(response)
+        this.totalLikes = _.get(response, 'data.count', 0)
+        console.log(this.totalLikes)
       } catch (error) {
         alert(error)
       }

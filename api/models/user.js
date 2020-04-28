@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       salt: {
         type: DataTypes.STRING(45)
       },
+      profile_Img: {
+        type: DataTypes.STRING(250)
+      },
       address: {
         type: DataTypes.STRING(45)
       },

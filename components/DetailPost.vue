@@ -46,9 +46,38 @@
 
       <v-divider class="mx-4"></v-divider>
 
-      <v-card-title>Tonight's availability</v-card-title>
+      <v-card>
+        <v-spacer />
+        <v-btn>write</v-btn>
+      </v-card>
+      <v-data-table
+        :headers="headers"
+        :items-per-page="searchParams.limit"
+        :loading="loading"
+        :multi-sort="false"
+        :must-sort="false"
+        :sort-by="[]"
+        :mobile-breakpoint="800"
+        page.sync="searchParams.page"
+        hide-default-footer
+        disable-sort
+        disable-filtering
+        disable-pagination
+        no-data-text="데이터 없음."
+      >
+      </v-data-table>
+      <v-pagination
+        v-model="searchParams.page"
+        :length="pages"
+        @input="onPage"
+        @next="nextPage"
+        @previous="previousPage"
+        total-visible="12"
+      ></v-pagination>
 
-      <v-card-text>
+      <!-- <v-card-title>Tonight's availability</v-card-title> -->
+
+      <!-- <v-card-text>
         <v-chip-group
           v-model="selection"
           active-class="deep-purple accent-4 white--text"
@@ -62,7 +91,7 @@
 
           <v-chip>9:00PM</v-chip>
         </v-chip-group>
-      </v-card-text>
+      </v-card-text>-->
 
       <v-card-actions>
         <v-btn @click="reserve" color="deep-purple lighten-2" text
@@ -101,12 +130,45 @@ export default {
   data: () => ({
     dialog: false,
     post: {},
+    total: 0,
     loading: false,
     selection: 1,
     length: 5,
-    size: 30
+    size: 30,
+    headers: [
+      {
+        text: 'idx',
+        value: 'idx',
+        align: 'left',
+        sortable: false,
+        width: '80'
+      }
+    ],
+    searchParams: {
+      page: 1,
+      limit: 12
+    }
   }),
+  computed: {
+    pages() {
+      return this.searchParams.limit
+        ? Math.ceil(this.total / this.searchParams.limit)
+        : 0
+    }
+  },
   methods: {
+    onPage(val) {
+      this.searchParams.page = val
+      this.loadData()
+    },
+    nextPage() {
+      this.searchParams.page++
+      this.loadData()
+    },
+    previousPage() {
+      this.searchParams.page--
+      this.loadData()
+    },
     open(data) {
       this.post = _.cloneDeep(data)
       this.dialog = true

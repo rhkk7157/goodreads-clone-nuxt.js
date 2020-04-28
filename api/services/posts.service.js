@@ -23,47 +23,42 @@ const findAndCountAll = async (params) => {
   const limit = params.limit || 0
   const offset = params.offset
   const where = {}
-
+  let category
+  // categoryNum : undefined
   if (params.categoryNum) {
-    let categoryName = params.categoryNum
+    category = params.categoryNum
 
-    if (categoryName === '0') {
-      categoryName = 'Cook'
-    } else if (categoryName === '1') {
-      categoryName = 'Travel'
-    } else if (categoryName === '2') {
-      categoryName = 'Art'
-    } else if (categoryName === '3') {
-      categoryName = 'Webtoon'
+    if (category === '0') {
+      category = 'Cook'
+    } else if (category === '1') {
+      category = 'Travel'
+    } else if (category === '2') {
+      category = 'Art'
+    } else if (category === '3') {
+      category = 'Webtoon'
+    } else {
+      category = ''
     }
-    where.category = categoryName
+    where.category = category
   }
 
   const TotalCount = await models.sequelize.query(
-    `SELECT count(*) as count FROM posts`,
+    `SELECT count(*) as count FROM posts where category = ?`,
     {
       type: models.Sequelize.QueryTypes.SELECT,
-      raw: true
+      raw: true,
+      replacements: [category]
     }
   )
 
   const query = await models.sequelize.query(
-    `SELECT * FROM posts order by created_at desc limit ? offset ?`,
+    `SELECT * FROM posts where category = ? order by created_at desc limit ? offset ?`,
     {
       type: models.Sequelize.QueryTypes.SELECT,
-      replacements: [limit, offset],
+      replacements: [category, limit, offset],
       raw: true
     }
   )
-
-  // const postsCount = await models.sequelize.query(
-  //   `SELECT * FROM posts_likes where  `,
-  //   {
-  //     type: models.Sequelize.QueryTypes.SELECT,
-  //     replacements: [limit, offset],
-  //     raw: true
-  //   }
-  // )
 
   const total = JSON.stringify(TotalCount)
   const result = JSON.parse(total)
