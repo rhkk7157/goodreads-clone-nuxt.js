@@ -33,7 +33,6 @@
                 >mdi-heart</v-icon
               >
               <span>{{ item.likes }}</span>
-
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
               >
@@ -117,10 +116,10 @@ export default {
       const response = await this.$axios.get('/api/posts/main/' + categoryNum, {
         params: this.searchParams
       })
-      console.log(response)
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
+      console.log(this.posts)
     },
     async likePost(item) {
       try {
@@ -131,9 +130,7 @@ export default {
             user_idx: item.user_idx
           }
         })
-        // then
-        // console.log(response)
-        this.totalLikes = _.get(response, 'data.count', 0)
+        this.totalLikes = _.get(response, 'data', 0) // data.count
         console.log(this.totalLikes)
       } catch (error) {
         alert(error)

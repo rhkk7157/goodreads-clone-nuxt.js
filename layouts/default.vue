@@ -182,7 +182,6 @@ export default {
     },
     insertBook() {
       const authUser = this.$store.state.authUser
-
       if (authUser === null) {
         this.errorMessage = '로그인 해주세요.'
         this.Errordialog = true

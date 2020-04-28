@@ -46,9 +46,9 @@
 
       <v-divider class="mx-4"></v-divider>
 
-      <v-card>
+      <v-card style="border:1px solid red">
         <v-spacer />
-        <v-btn>write</v-btn>
+        <v-btn @click="addComment()">write</v-btn>
       </v-card>
       <v-data-table
         :headers="headers"
@@ -74,6 +74,7 @@
         @previous="previousPage"
         total-visible="12"
       ></v-pagination>
+      <AddCommentDialog ref="AddCommentDialog"></AddCommentDialog>
 
       <!-- <v-card-title>Tonight's availability</v-card-title> -->
 
@@ -126,7 +127,11 @@
 
 <script>
 import _ from 'lodash'
+import AddCommentDialog from '@/components/AddCommentDialog'
 export default {
+  components: {
+    AddCommentDialog
+  },
   data: () => ({
     dialog: false,
     post: {},
@@ -179,6 +184,9 @@ export default {
     },
     cancel() {
       this.dialog = false
+    },
+    addComment() {
+      this.$refs.AddCommentDialog.open()
     },
     reserve() {
       this.loading = true
