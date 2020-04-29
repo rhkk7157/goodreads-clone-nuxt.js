@@ -35,9 +35,22 @@
 <script>
 export default {
   data: () => ({
+    total: 0,
     dialog: false,
-    comment: null
+    comment: null,
+    userId: null,
+    searchParams: {
+      page: 1,
+      limit: 5
+    }
   }),
+  computed: {
+    pages() {
+      return this.searchParams.limit
+        ? Math.ceil(this.total / this.searchParams.limit)
+        : 0
+    }
+  },
   methods: {
     open() {
       this.dialog = true

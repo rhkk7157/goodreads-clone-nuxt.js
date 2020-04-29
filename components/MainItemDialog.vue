@@ -3,20 +3,20 @@
     <v-row>
       <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
         <v-col cols="auto">
-          <v-card class="mx-auto" max-width="344" raised>
+          <v-card class="mx-auto" max-width="344" raised style="">
             <v-list-item
               @click="detailPost(item)"
               three-line
-              style="cursor:pointer"
+              style="cursor:pointer;border:1px solid red"
             >
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
-                <v-list-item-title class="headline mb-2">{{
-                  item.title
-                }}</v-list-item-title>
-                <v-list-item-subtitle>{{
-                  item.sub_title
-                }}</v-list-item-subtitle>
+                <v-list-item-title class="headline mb-2">
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ item.sub_title }}
+                </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-avatar tile size="80">
                 <v-img
@@ -32,12 +32,21 @@
                 style="cursor:pointer;padding:2px;"
                 >mdi-heart</v-icon
               >
-              <span>{{ item.likes }}</span>
+              <span v-if="totalLikes == 0">{{ item.likes }}</span>
+              <!-- v-for , v-if -->
+              <!-- <v-input
+                v-else
+                v-for="(item, i) in posts"
+                :key="i"
+                v-model="totalLikes"
+              >
+              </v-input> -->
+              <span v-if="LikeCount != 0">?</span>
+
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
               >
-              <span>{{ item.comments }}</span
-              >&nbsp;&nbsp;
+              <span>0</span>&nbsp;&nbsp;
               <v-icon style="cursor:pointer;padding:2px">mdi-eye</v-icon>
               <span>{{ item.views }}</span
               >&nbsp;&nbsp;
@@ -72,6 +81,7 @@ export default {
     }
   },
   data: () => ({
+    LikeCount: 0,
     total: 0,
     categoryNum: null,
     posts: [],
@@ -119,24 +129,27 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
-      console.log(this.posts)
+      // console.log(this.posts)
     },
+
     async likePost(item) {
       try {
         // item.idx , user_idx,
+        const postIdx = item.idx
+        const userIdx = item.user_idx
         const response = await this.$axios.get('/api/posts/likePost', {
           params: {
-            post_idx: item.idx,
-            user_idx: item.user_idx
+            post_idx: postIdx,
+            user_idx: userIdx
           }
         })
-        this.totalLikes = _.get(response, 'data', 0) // data.count
-        console.log(this.totalLikes)
+        this.totalLikes = _.get(response, 'data.count', 0) // data.count
+        this.LikeCount = this.totalLikes
+        console.log('count : ' + this.LikeCount)
+        console.log('postIdx : ' + postIdx)
       } catch (error) {
         alert(error)
       }
-      try {
-      } catch (error) {}
     },
     detailPost(item) {
       this.$refs.DetailPost.open(item)

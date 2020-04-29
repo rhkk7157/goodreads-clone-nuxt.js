@@ -38,7 +38,7 @@
             readonly
             size="14"
           ></v-rating>
-          <div class="grey--text ml-4">4.5 (413)</div>
+          <div class="grey--text ml-4">4.5</div>
         </v-row>
         <div class="my-4 subtitle-1">{{ this.post.sub_title }}</div>
         <div>{{ this.post.content }}</div>
@@ -64,8 +64,7 @@
         disable-filtering
         disable-pagination
         no-data-text="데이터 없음."
-      >
-      </v-data-table>
+      ></v-data-table>
       <v-pagination
         v-model="searchParams.page"
         :length="pages"
@@ -74,7 +73,7 @@
         @previous="previousPage"
         total-visible="12"
       ></v-pagination>
-      <AddCommentDialog ref="AddCommentDialog"></AddCommentDialog>
+      <add-comment-dialog ref="AddCommentDialog"></add-comment-dialog>
 
       <!-- <v-card-title>Tonight's availability</v-card-title> -->
 
@@ -94,11 +93,11 @@
         </v-chip-group>
       </v-card-text>-->
 
-      <v-card-actions>
-        <v-btn @click="reserve" color="deep-purple lighten-2" text
-          >Reserve</v-btn
-        >
-      </v-card-actions>
+      <!-- <v-card-actions>
+        <v-btn @click="reserve" color="deep-purple lighten-2" text>
+          Reserve
+        </v-btn>
+      </v-card-actions> -->
     </v-card>
 
     <!-- <v-card>
@@ -142,7 +141,28 @@ export default {
     size: 30,
     headers: [
       {
-        text: 'idx',
+        text: 'Idx',
+        value: 'idx',
+        align: 'left',
+        sortable: false,
+        width: '80'
+      },
+      {
+        text: 'UserName',
+        value: 'idx',
+        align: 'left',
+        sortable: false,
+        width: '80'
+      },
+      {
+        text: 'Comment',
+        value: 'idx',
+        align: 'left',
+        sortable: false,
+        width: '80'
+      },
+      {
+        text: 'Date',
         value: 'idx',
         align: 'left',
         sortable: false,
@@ -175,6 +195,7 @@ export default {
       this.loadData()
     },
     open(data) {
+      console.log(data)
       this.post = _.cloneDeep(data)
       this.dialog = true
     },
