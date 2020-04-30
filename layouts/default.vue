@@ -78,7 +78,7 @@
     </v-navigation-drawer>-->
     <!-- /header -->
 
-    <!-- <v-footer :fixed="fixed" app>
+    <v-footer :fixed="fixed" app>
       <span>&copy; Hyeri</span>
       <v-switch
         v-model="$vuetify.theme.dark"
@@ -91,7 +91,7 @@
       ></v-switch>
       <v-dialog v-model="Errordialog" max-width="320" light class="text-center">
         <v-card class="pa-0 text-center">
-          <v-card-title class="dialog-title mb-4"></v-card-title>
+          <v-card-title class="dialog-title mb-1"></v-card-title>
           <v-card-text v-html="errorMessage" />
           <v-spacer></v-spacer>
           <v-btn
@@ -104,7 +104,7 @@
           >
         </v-card>
       </v-dialog>
-    </v-footer> -->
+    </v-footer>
     <SignInDialog ref="SignInDialog"></SignInDialog>
     <SignUpDialog ref="SignUpDialog"></SignUpDialog>
     <InsertBook ref="InsertBook"></InsertBook>

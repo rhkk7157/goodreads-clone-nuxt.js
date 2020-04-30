@@ -118,6 +118,21 @@ router.get('/likePost', (req, res, next) => {
     })
 })
 
+// router.get('/likeCount', (req, res, next) => {
+//   const postIdx = req.query.postIdx
+
+//   postsService
+//     .newLikeCount({
+//       postIdx
+//     })
+//     .then((r) => {
+//       res.json(r)
+//     })
+//     .catch((error) => {
+//       next(error)
+//     })
+// })
+
 // router.post('/img', upload.single('img'), (req, res) => {
 //   console.log(req.query)
 //   // console.log(req.body)

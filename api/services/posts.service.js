@@ -100,7 +100,6 @@ const addLikePost = (params) => {
     post_idx: postIdx,
     created_at: today
   }).then((postsLikes) => {
-    // return postsLikes
     return models.PostsLikes.findAndCountAll({
       where: {
         post_idx: postIdx
@@ -112,13 +111,25 @@ const addLikePost = (params) => {
         { where: { idx: postIdx } }
       ).then((addPostsLikes) => {
         return res
+        // return false
       })
     })
   })
 }
 
+// const newLikeCount = (params) => {
+//   const postIdx = params.postIdx
+//   return models.PostsLikes.findAndCountAll({
+//     where: { post_idx: postIdx }
+//   }).then((count) => {
+//     count.postIdx = postIdx
+//     return count
+//   })
+// }
+
 module.exports = {
   postCreate,
   findAndCountAll,
   addLikePost
+  // newLikeCount
 }

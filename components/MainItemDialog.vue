@@ -3,12 +3,8 @@
     <v-row>
       <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
         <v-col cols="auto">
-          <v-card class="mx-auto" max-width="344" raised style="">
-            <v-list-item
-              @click="detailPost(item)"
-              three-line
-              style="cursor:pointer;border:1px solid red"
-            >
+          <v-card class="mx-auto" max-width="344" raised style>
+            <v-list-item @click="detailPost(item)" three-line>
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
                 <v-list-item-title class="headline mb-2">
@@ -26,22 +22,25 @@
             </v-list-item>
             <v-divider />
             <v-card-actions>
+              {{ item.idx }}
               <v-spacer />
+
+              <!-- <post-like :propsdata="newLikeCount.count"></post-like> -->
               <v-icon
                 @click="likePost(item)"
                 style="cursor:pointer;padding:2px;"
                 >mdi-heart</v-icon
               >
-              <span v-if="totalLikes == 0">{{ item.likes }}</span>
-              <!-- v-for , v-if -->
-              <!-- <v-input
-                v-else
-                v-for="(item, i) in posts"
-                :key="i"
-                v-model="totalLikes"
-              >
-              </v-input> -->
-              <span v-if="LikeCount != 0">?</span>
+
+              <span v-if="totalLikes <= 0">
+                {{ item.likes }}
+              </span>
+
+              <div v-if="totalLikes > 0">
+                {{ item.likes }}
+                <!-- {{ item.idx }} -->
+                <!-- {{ totalLikes }} -->
+              </div>
 
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
@@ -69,10 +68,13 @@
 <script>
 import _ from 'lodash'
 import DetailPost from './DetailPost'
+// import PostLike from './PostLike'
+
 export default {
   name: 'MainItemDialog',
   components: {
     DetailPost
+    // PostLike
   },
   props: {
     categoryIndex: {
@@ -86,6 +88,7 @@ export default {
     categoryNum: null,
     posts: [],
     totalLikes: 0,
+    newLikeCount: [],
     searchParams: {
       page: 1,
       limit: 12
@@ -105,6 +108,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.totalLikes)
     this.loadData()
   },
   methods: {
@@ -121,22 +125,22 @@ export default {
       this.loadData()
     },
     async loadData() {
+      // console.log(item)
       const categoryNum = this.categoryNum
-      // categoryNum : null
       const response = await this.$axios.get('/api/posts/main/' + categoryNum, {
         params: this.searchParams
       })
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
-      // console.log(this.posts)
     },
 
     async likePost(item) {
+      const postIdx = item.idx
+      const userIdx = item.user_idx
       try {
-        // item.idx , user_idx,
-        const postIdx = item.idx
-        const userIdx = item.user_idx
+        // item.idx(postIdx) , user_idx,
+
         const response = await this.$axios.get('/api/posts/likePost', {
           params: {
             post_idx: postIdx,
@@ -144,13 +148,34 @@ export default {
           }
         })
         this.totalLikes = _.get(response, 'data.count', 0) // data.count
-        this.LikeCount = this.totalLikes
-        console.log('count : ' + this.LikeCount)
-        console.log('postIdx : ' + postIdx)
+        // console.log('count : ' + this.totalLikes)
+        // console.log('postIdx : ' + postIdx)
       } catch (error) {
         alert(error)
       }
+      try {
+        const categoryNum = this.categoryNum
+        const response = await this.$axios.get(
+          '/api/posts/main/' + categoryNum,
+          {
+            params: this.searchParams
+          }
+        )
+        // console.log(response)
+        this.posts = _.get(response, 'data.rows', [])
+        this.total = _.get(response, 'data.count', 0)
+        // this.searchParams.page = _.get(response, 'data.page', 1)
+
+        // const newLikeCount = await this.$axios.get('/api/posts/likeCount', {
+        //   params: {
+        //     postIdx
+        //   }
+        // })
+        // this.newLikeCount = _.get(newLikeCount, 'data', [])
+        // console.log(newLikeCount)
+      } catch (error) {}
     },
+
     detailPost(item) {
       this.$refs.DetailPost.open(item)
     }
