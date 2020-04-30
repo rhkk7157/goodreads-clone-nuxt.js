@@ -25,7 +25,6 @@
               {{ item.idx }}
               <v-spacer />
 
-              <!-- <post-like :propsdata="newLikeCount.count"></post-like> -->
               <v-icon
                 @click="likePost(item)"
                 style="cursor:pointer;padding:2px;"
@@ -35,11 +34,8 @@
               <span v-if="totalLikes <= 0">
                 {{ item.likes }}
               </span>
-
               <div v-if="totalLikes > 0">
                 {{ item.likes }}
-                <!-- {{ item.idx }} -->
-                <!-- {{ totalLikes }} -->
               </div>
 
               <v-icon style="cursor:pointer;padding:2px"
@@ -68,13 +64,11 @@
 <script>
 import _ from 'lodash'
 import DetailPost from './DetailPost'
-// import PostLike from './PostLike'
 
 export default {
   name: 'MainItemDialog',
   components: {
     DetailPost
-    // PostLike
   },
   props: {
     categoryIndex: {
@@ -104,11 +98,12 @@ export default {
   watch: {
     categoryIndex(i) {
       this.categoryNum = i
+      this.searchParams.page = 1
       this.loadData()
     }
   },
   mounted() {
-    console.log(this.totalLikes)
+    // console.log(this.totalLikes)
     this.loadData()
   },
   methods: {
@@ -125,7 +120,6 @@ export default {
       this.loadData()
     },
     async loadData() {
-      // console.log(item)
       const categoryNum = this.categoryNum
       const response = await this.$axios.get('/api/posts/main/' + categoryNum, {
         params: this.searchParams
@@ -161,10 +155,9 @@ export default {
             params: this.searchParams
           }
         )
-        // console.log(response)
         this.posts = _.get(response, 'data.rows', [])
         this.total = _.get(response, 'data.count', 0)
-        // this.searchParams.page = _.get(response, 'data.page', 1)
+        this.searchParams.page = _.get(response, 'data.page', 1)
 
         // const newLikeCount = await this.$axios.get('/api/posts/likeCount', {
         //   params: {
@@ -173,7 +166,9 @@ export default {
         // })
         // this.newLikeCount = _.get(newLikeCount, 'data', [])
         // console.log(newLikeCount)
-      } catch (error) {}
+      } catch (error) {
+        alert(error)
+      }
     },
 
     detailPost(item) {

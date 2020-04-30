@@ -136,10 +136,10 @@ export default {
         { tab: 'Art' },
         { tab: 'Webtoon' }
       ],
-      searchParams: {
-        page: 1,
-        limit: 12
-      },
+      // searchParams: {
+      //   page: 1,
+      //   limit: 12
+      // },
       title: 'hyeri'
       // items: [
       //   {

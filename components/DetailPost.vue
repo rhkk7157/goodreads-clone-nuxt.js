@@ -3,20 +3,20 @@
     v-model="dialog"
     hide-overlay
     transition="dialog-bottom-transition"
-    max-width="1000"
+    max-width="900"
   >
     <v-card>
-      <v-toolbar dark color="deep-purple">
+      <v-toolbar dark color="black">
         <v-btn @click="dialog = false" icon dark>
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <!-- <v-btn @click="dialog = false" dark text>Save</v-btn> -->
-        </v-toolbar-items>
+        <!-- <v-spacer></v-spacer> -->
+        <!-- <v-toolbar-items>
+          <v-btn @click="dialog = false" dark text>Save</v-btn>
+        </v-toolbar-items> -->
       </v-toolbar>
       <v-img
-        height="450"
+        height="400"
         src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
       ></v-img>
 
@@ -44,11 +44,16 @@
         <div>{{ this.post.content }}</div>
       </v-card-text>
 
-      <v-divider class="mx-4"></v-divider>
-
-      <v-card style="border:1px solid red">
-        <v-spacer />
-        <v-btn @click="addComment()">write</v-btn>
+      <v-card>
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
+          <v-col cols="12" md="2">
+            <v-btn @click="addComment()" color="primary">write</v-btn>
+          </v-col>
+        </v-row>
+        <!-- <v-spacer />
+        <v-btn @click="addComment()">write</v-btn> -->
       </v-card>
       <v-data-table
         :headers="headers"
@@ -97,7 +102,7 @@
         <v-btn @click="reserve" color="deep-purple lighten-2" text>
           Reserve
         </v-btn>
-      </v-card-actions> -->
+      </v-card-actions>-->
     </v-card>
 
     <!-- <v-card>

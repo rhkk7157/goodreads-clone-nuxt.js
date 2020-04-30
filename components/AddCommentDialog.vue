@@ -17,17 +17,42 @@
         <v-text-field
           v-model="userId"
           label="아이디"
-          prepend-icon="mdi-book-open-variant"
+          prepend-icon="mdi-comment-account-outline"
           type="text"
           outlined
         ></v-text-field>
-        <v-text-field
+        <v-textarea
           v-model="comment"
           label="내용"
-          prepend-icon=""
+          prepend-icon="mdi-comment-text-outline"
           type="text"
           outlined
+        ></v-textarea>
+        <v-text-field
+          v-model="password"
+          type="password"
+          label="비밀번호를 입력해주세요"
+          prepend-icon="mdi-lock-outline"
+          outlined
         ></v-text-field>
+        <v-row>
+          <v-col cols="12" md="3"></v-col>
+          <v-col cols="12" md="3">
+            <v-btn value="Like">
+              <span>Like</span>
+              <v-icon>mdi-thumb-up-outline</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-btn value="disLike">
+              <span>disLike</span>
+              <v-icon>mdi-thumb-down-outline</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+        <v-card-actions>
+          <v-btn @click="signIn" color="primary" block dark>Save</v-btn>
+        </v-card-actions>
       </v-form>
     </v-card>
   </v-dialog>
