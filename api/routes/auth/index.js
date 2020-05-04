@@ -1,4 +1,10 @@
 const router = require('express').Router()
+// const passport = require('passport')
+// const FacebookStrategy = require('passport-facebook').Strategy
+
+// const dotenv = require('dotenv')
+// dotenv.config()
+
 const authService = require('../../services/user.service')
 
 router.post('/signin', (req, res, next) => {

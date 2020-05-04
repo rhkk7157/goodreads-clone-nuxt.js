@@ -64,7 +64,7 @@
         </v-card-actions>
       </v-card-text>
 
-      <v-card-text v-show="snsSignUp">
+      <!-- <v-card-text v-show="snsSignUp">
         <div class="my-2">
           <v-btn color="yellow" block>Kakao ID로 회원가입</v-btn>
         </div>
@@ -74,7 +74,7 @@
         <div class="my-2">
           <v-btn color="black" block dark>facebook ID로 회원가입</v-btn>
         </div>
-      </v-card-text>
+      </v-card-text> -->
       <!-- <v-card-actions> </v-card-actions> -->
     </v-card>
   </v-dialog>

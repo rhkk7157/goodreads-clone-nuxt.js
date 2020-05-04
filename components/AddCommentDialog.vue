@@ -51,7 +51,7 @@
           </v-col>
         </v-row>
         <v-card-actions>
-          <v-btn @click="signIn" color="primary" block dark>Save</v-btn>
+          <v-btn color="primary" block dark>Save</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -64,6 +64,7 @@ export default {
     dialog: false,
     comment: null,
     userId: null,
+    password: null,
     searchParams: {
       page: 1,
       limit: 5

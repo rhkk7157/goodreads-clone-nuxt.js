@@ -7,12 +7,12 @@
             <v-list-item @click="detailPost(item)" three-line>
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
-                <v-list-item-title class="headline mb-2">
-                  {{ item.title }}
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ item.sub_title }}
-                </v-list-item-subtitle>
+                <v-list-item-title class="headline mb-2">{{
+                  item.title
+                }}</v-list-item-title>
+                <v-list-item-subtitle>{{
+                  item.sub_title
+                }}</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-avatar tile size="80">
                 <v-img
@@ -24,20 +24,17 @@
             <v-card-actions>
               {{ item.idx }}
               <v-spacer />
-
               <v-icon
                 @click="likePost(item)"
                 style="cursor:pointer;padding:2px;"
                 >mdi-heart</v-icon
               >
-
               <span v-if="totalLikes <= 0">
                 {{ item.likes }}
               </span>
               <div v-if="totalLikes > 0">
                 {{ item.likes }}
               </div>
-
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
               >

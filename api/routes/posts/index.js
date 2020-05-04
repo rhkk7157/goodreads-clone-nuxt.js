@@ -4,23 +4,42 @@ const router = require('express').Router()
 const postsService = require('../../services/posts.service')
 const uploadDir = path.join(__dirname, '../../assets/uploads') // 루트의 uploads위치에 저장한다.
 
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png']
+  if (!allowedTypes.includes(file.mimetype)) {
+    const error = new Error('Incorrect file')
+    error.code = 'INCORRECT_FILETYPE'
+    // error occured
+    return cb(error, false)
+  }
+  cb(null, true)
+}
+
 // multer 셋팅
 const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, callback) {
-      callback(null, uploadDir)
-    },
-    filename: (req, file, callback) => {
-      // 확장자 추출
-      const ext = path.extname(file.originalname)
-      // 이름설정 (basename:확장자 제외 파일명) + 현재시간 + 확장자
-      callback(
-        null,
-        path.basename(file.originalname, ext) + new Date().valueOf() + ext
-      )
-    }
-  })
+  dest: '../../assets/uploads',
+  fileFilter,
+  limits: {
+    fileSize: 500000
+  }
 })
+
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination(req, file, callback) {
+//       callback(null, uploadDir)
+//     },
+//     filename: (req, file, callback) => {
+//       // 확장자 추출
+//       const ext = path.extname(file.originalname)
+//       // 이름설정 (basename:확장자 제외 파일명) + 현재시간 + 확장자
+//       callback(
+//         null,
+//         path.basename(file.originalname, ext) + new Date().valueOf() + ext
+//       )
+//     }
+//   })
+// })
 // const storage = multer.diskStorage({
 //   destination: (req, file, callback) => {
 //     // 이미지가 저장되는 도착지 지정
@@ -36,7 +55,9 @@ const upload = multer({
 //     // callback(null, 'products-' + Date.now() + '.' + file.mimetype.split('/')[1])
 //   }
 // })
-
+router.post('/insert/upload', upload.single('file'), (req, res, next) => {
+  console.log(req.file)
+})
 // const upload = multer({ storage })
 router.get('/main/:categoryNum', (req, res, next) => {
   const page = +req.query.page || 1
@@ -60,9 +81,7 @@ router.get('/main/:categoryNum', (req, res, next) => {
       res.json(results)
     })
 })
-router.post('/insert/upload', upload.single('file'), (req, res, next) => {
-  // console.log(req.body)
-})
+
 // router.post('/insert', (req, res, next) => {
 // const userIdx = req.query.user_idx
 // const title = req.query.title

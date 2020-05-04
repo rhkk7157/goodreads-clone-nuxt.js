@@ -73,7 +73,7 @@ export default {
   data: () => ({
     user: {},
     dialog: false,
-    mainImg: null,
+    mainImg: '',
     MainTitle: null,
     SubTitle: null,
     Content: null,
@@ -106,6 +106,8 @@ export default {
     },
 
     async insertBook() {
+      // const formData = new FormData()
+      // formData.append('file', this.mainImg)
       // const formData = new FormData()
       // formData.append('file', this.mainImg)
       // formData.append('user_idx', this.user.idx)
@@ -143,16 +145,6 @@ export default {
           this.redirect()
         }
       } catch (error) {}
-      // if (!this.mainImg) {
-      //   this.message = 'no file'
-      // }
-      // const img = await this.$axios.post('/api/posts/img/', formData, {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data'
-      //   },
-      //   params: {}
-      // })
-      // console.log(img)
     },
     redirect() {
       this.$router.push('/')
