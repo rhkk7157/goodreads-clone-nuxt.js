@@ -17,7 +17,7 @@ const fileFilter = (req, file, cb) => {
 
 // multer 셋팅
 const upload = multer({
-  dest: '../../assets/uploads',
+  destination: '../../assets/uploads',
   fileFilter,
   limits: {
     fileSize: 500000
@@ -55,8 +55,20 @@ const upload = multer({
 //     // callback(null, 'products-' + Date.now() + '.' + file.mimetype.split('/')[1])
 //   }
 // })
-router.post('/insert/upload', upload.single('file'), (req, res, next) => {
+router.post('/insert/upload', upload.single('img'), (req, res, next) => {
   console.log(req.file)
+  const fileName = req.file.filename
+  const filePath = req.file.path
+  const originalName = req.file.originalname
+  postsService
+    .fileUpload({
+      originalName,
+      fileName,
+      filePath
+    })
+    .then((results) => {
+      console.log(results)
+    })
 })
 // const upload = multer({ storage })
 router.get('/main/:categoryNum', (req, res, next) => {

@@ -1,5 +1,5 @@
 <template>
-  <h1>B</h1>
+  <h1>music</h1>
 </template>
 
 <script>

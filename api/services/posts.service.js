@@ -117,6 +117,16 @@ const addLikePost = (params) => {
   })
 }
 
+const fileUpload = (params) => {
+  return models.Contents.create({
+    fileName: params.fileName,
+    filePath: params.filePath,
+    original_name: params.originalName
+  }).then((contents) => {
+    console.log(contents)
+  })
+}
+
 // const newLikeCount = (params) => {
 //   const postIdx = params.postIdx
 //   return models.PostsLikes.findAndCountAll({
@@ -130,6 +140,7 @@ const addLikePost = (params) => {
 module.exports = {
   postCreate,
   findAndCountAll,
-  addLikePost
+  addLikePost,
+  fileUpload
   // newLikeCount
 }

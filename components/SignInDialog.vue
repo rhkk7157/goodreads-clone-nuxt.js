@@ -38,11 +38,11 @@
         <!-- <v-card-text v-html="errorMessage" style="border:1px solid solid" /> -->
       </v-card-actions>
       <v-card-actions>
-        <v-btn @click="signIn" color="" block dark>Login</v-btn>
+        <v-btn @click="signIn" color block dark>Login</v-btn>
       </v-card-actions>
-      <v-card-actions>
+      <!-- <v-card-actions>
         <v-btn color="primary" block dark>Facebook</v-btn>
-      </v-card-actions>
+      </v-card-actions>-->
     </v-card>
     <v-dialog v-model="Errordialog" max-width="320" light class="text-center">
       <v-card class="pa-0 text-center">
@@ -109,6 +109,7 @@ export default {
           .then(() => {
             if (this.$store.state.authUser) {
               this.$cookies.set('authUser', this.$store.state.authUser)
+              this.dialog = false
             } else {
               this.$cookies.remove('authUser')
             }
