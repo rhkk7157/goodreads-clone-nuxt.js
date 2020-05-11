@@ -14,6 +14,7 @@
         ></ValidationObserver>-->
         <v-form>
           <v-text-field
+            ref="title"
             v-model="MainTitle"
             label="책이름"
             prepend-icon="mdi-book-open-variant"
@@ -21,6 +22,7 @@
             outlined
           />
           <v-text-field
+            ref="subtitle"
             v-model="SubTitle"
             label="한줄설명"
             prepend-icon="mdi-plus-circle"
@@ -28,6 +30,7 @@
             outlined
           />
           <v-textarea
+            ref="content"
             v-model="Content"
             label="책내용"
             outlined
@@ -45,8 +48,9 @@
             prepend-icon="mdi-file-image"
             outlined
           ></v-file-input>-->
-          <v-card-text>{{ message }}</v-card-text>
+          <!-- <v-card-text>{{ message }}</v-card-text> -->
           <v-select
+            ref="category"
             v-model="selectValue"
             :items="selectItems"
             label="category"
@@ -77,7 +81,7 @@ export default {
     MainTitle: null,
     SubTitle: null,
     Content: null,
-    message: null,
+    // message: null,
     selectItems: ['Cook', 'Travel', 'Art', 'WebToon'],
     selectValue: ['Cook', 'Travel', 'Art', 'WebToon']
   }),
@@ -106,8 +110,8 @@ export default {
     },
 
     insertBook() {
-      // const formData = new FormData()
-      // formData.append('file', this.mainImg)
+      // const valid = this.formValidation()
+      // if (!valid) return false
       const formData = new FormData()
       formData.append('img', this.mainImg)
       formData.append('user_idx', this.user.idx)
@@ -145,6 +149,26 @@ export default {
       //     this.redirect()
       //   }
       // } catch (error) {}
+    },
+    formValidation() {
+      if (!this.$refs.title.validate(true)) {
+        return false
+      }
+      if (this.$refs.title.validate(true)) {
+        if (!this.$refs.subtitle.validate(true)) {
+          return false
+        }
+        if (!this.$refs.content.validate(true)) {
+          return false
+        }
+        if (!this.$refs.inputUpload.files[0]) {
+          return false
+        }
+        if (!this.$refs.category.validate(true)) {
+          return false
+        }
+      }
+      return true
     },
     redirect() {
       this.$router.push('/')

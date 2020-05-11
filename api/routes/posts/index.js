@@ -1,8 +1,8 @@
-const path = require('path')
+// const path = require('path')
 const multer = require('multer')
 const router = require('express').Router()
 const postsService = require('../../services/posts.service')
-const uploadDir = path.join(__dirname, '../../assets/uploads') // 루트의 uploads위치에 저장한다.
+// const uploadDir = path.join(__dirname, '../../assets/uploads') // 루트의 uploads위치에 저장한다.
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png']
@@ -56,10 +56,17 @@ const upload = multer({
 //   }
 // })
 router.post('/insert/upload', upload.single('img'), (req, res, next) => {
-  console.log(req.file)
+  // console.log(req.file)
+  // const userIdx = req.body.user_idx
+  // const title = req.body.title
+  // const subTitle = req.body.sub_title
+  // const content = req.body.content
+  // const category = req.body.category
+
   const fileName = req.file.filename
   const filePath = req.file.path
   const originalName = req.file.originalname
+  console.log(fileName, filePath, originalName)
   postsService
     .fileUpload({
       originalName,

@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       filePath: {
         type: DataTypes.STRING(255)
+      },
+      created_at: {
+        type: DataTypes.TIME
       }
     },
     {

@@ -1,6 +1,7 @@
-// const multer = require('multer')
-
-const _ = require('lodash')
+const path = require('path')
+const multer = require('multer')
+const moment = require('moment')
+// const _ = require('lodash')
 const models = require('../models')
 
 const postCreate = (params) => {
@@ -118,12 +119,19 @@ const addLikePost = (params) => {
 }
 
 const fileUpload = (params) => {
+  const date = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+
+  console.log(date)
+  // return models.Posts.create({
+  // })
+
   return models.Contents.create({
     fileName: params.fileName,
     filePath: params.filePath,
     original_name: params.originalName
   }).then((contents) => {
-    console.log(contents)
+    return false
+    // console.log(contents)
   })
 }
 
