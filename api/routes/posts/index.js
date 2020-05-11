@@ -1,5 +1,7 @@
 // const path = require('path')
 const multer = require('multer')
+const express = require('express')
+const app = express()
 const router = require('express').Router()
 const postsService = require('../../services/posts.service')
 // const uploadDir = path.join(__dirname, '../../assets/uploads') // 루트의 uploads위치에 저장한다.
@@ -23,6 +25,23 @@ const upload = multer({
     fileSize: 500000
   }
 })
+
+// test
+
+// app.use('/uploadImg', express.static('upload'))
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'upload/')
+//   },
+//   filename: (req, file, cb) => {
+//     console.log(file)
+//     const fileName = '흠냐' + req.params.id + '.jpg'
+//     cb(null, fileName)
+//   }
+// })
+
+// router.get('/uploads', express.static('uploads'))
 
 // const upload = multer({
 //   storage: multer.diskStorage({
@@ -66,7 +85,7 @@ router.post('/insert/upload', upload.single('img'), (req, res, next) => {
   const filePath = req.file.path
   const originalName = req.file.originalname
   const size = req.file.size
-  // console.log(fileName, filePath, originalName)
+
   postsService
     .fileUpload({
       userIdx,
@@ -81,7 +100,6 @@ router.post('/insert/upload', upload.single('img'), (req, res, next) => {
     })
     .then((results) => {
       res.json(results)
-      // console.log(results)
     })
 })
 // const upload = multer({ storage })
