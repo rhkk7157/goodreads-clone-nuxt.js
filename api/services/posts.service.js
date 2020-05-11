@@ -1,23 +1,20 @@
 const path = require('path')
 const multer = require('multer')
 const moment = require('moment')
-// const _ = require('lodash')
+const _ = require('lodash')
 const models = require('../models')
 
-const postCreate = (params) => {
-  const today = new Date()
-  return models.Posts.create({
-    user_idx: params.userIdx,
-    title: params.title,
-    sub_title: params.subTitle,
-    content: params.content,
-    category: params.category,
-    created_at: today
-  }).then((posts) => {
-    return posts
-    // multer img upload
-  })
-}
+// const postCreate = (params) => {
+//   return models.Posts.create({
+//     user_idx: params.userIdx,
+//     title: params.title,
+//     sub_title: params.subTitle,
+//     content: params.content,
+//     category: params.category
+//   }).then((posts) => {
+//     return posts
+//   })
+// }
 
 const findAndCountAll = async (params) => {
   params = params || {}
@@ -92,14 +89,13 @@ const findAndCountAll = async (params) => {
 }
 
 const addLikePost = (params) => {
-  const today = new Date()
+  // const today = new Date()
   const userIdx = params.userIdx
   const postIdx = params.postIdx
 
   return models.PostsLikes.create({
     user_idx: userIdx,
-    post_idx: postIdx,
-    created_at: today
+    post_idx: postIdx
   }).then((postsLikes) => {
     return models.PostsLikes.findAndCountAll({
       where: {
@@ -119,20 +115,36 @@ const addLikePost = (params) => {
 }
 
 const fileUpload = (params) => {
-  const date = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
-
-  console.log(date)
-  // return models.Posts.create({
-  // })
-
-  return models.Contents.create({
-    fileName: params.fileName,
-    filePath: params.filePath,
-    original_name: params.originalName
-  }).then((contents) => {
-    return false
-    // console.log(contents)
+  return models.Posts.create({
+    user_idx: params.userIdx,
+    title: params.title,
+    sub_title: params.subTitle,
+    content: params.content,
+    category: params.category
+    // raw: true
+  }).then((posts) => {
+    const postIdx = posts.idx || ''
+    return models.Contents.create({
+      user_idx: params.userIdx,
+      post_idx: postIdx,
+      fileName: params.fileName,
+      filePath: params.filePath,
+      original_name: params.originalName,
+      size: params.size
+    }).then((contents) => {
+      return contents
+    })
   })
+  // return models.Posts.create({
+  //   user_idx: params.userIdx,
+  //   title: params.title,
+  //   sub_title: params.subTitle,
+  //   content: params.content,
+  //   category: params.category
+  //   // created_at: today
+  // }).then((posts) => {
+  //   return posts
+  // })
 }
 
 // const newLikeCount = (params) => {
@@ -146,7 +158,7 @@ const fileUpload = (params) => {
 // }
 
 module.exports = {
-  postCreate,
+  // postCreate,
   findAndCountAll,
   addLikePost,
   fileUpload

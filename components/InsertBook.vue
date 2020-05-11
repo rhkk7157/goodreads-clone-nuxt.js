@@ -129,9 +129,12 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response)
+          if (response.status === 200) {
+            this.dialog = false
+            alert('입력되었습니다.')
+          }
         })
-      this.dialog = false
+
       // const authUser = this.$cookies.get('authUser')
       // try {
       //   const response = await this.$axios.get('/api/posts/insert/', {

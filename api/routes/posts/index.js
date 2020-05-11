@@ -17,7 +17,7 @@ const fileFilter = (req, file, cb) => {
 
 // multer 셋팅
 const upload = multer({
-  destination: '../../assets/uploads',
+  dest: '../../assets/uploads',
   fileFilter,
   limits: {
     fileSize: 500000
@@ -56,25 +56,32 @@ const upload = multer({
 //   }
 // })
 router.post('/insert/upload', upload.single('img'), (req, res, next) => {
-  // console.log(req.file)
-  // const userIdx = req.body.user_idx
-  // const title = req.body.title
-  // const subTitle = req.body.sub_title
-  // const content = req.body.content
-  // const category = req.body.category
+  const userIdx = req.body.user_idx
+  const title = req.body.title
+  const subTitle = req.body.sub_title
+  const content = req.body.content
+  const category = req.body.category
 
   const fileName = req.file.filename
   const filePath = req.file.path
   const originalName = req.file.originalname
-  console.log(fileName, filePath, originalName)
+  const size = req.file.size
+  // console.log(fileName, filePath, originalName)
   postsService
     .fileUpload({
+      userIdx,
+      title,
+      subTitle,
+      content,
+      category,
       originalName,
       fileName,
-      filePath
+      filePath,
+      size
     })
     .then((results) => {
-      console.log(results)
+      res.json(results)
+      // console.log(results)
     })
 })
 // const upload = multer({ storage })
@@ -101,43 +108,28 @@ router.get('/main/:categoryNum', (req, res, next) => {
     })
 })
 
-// router.post('/insert', (req, res, next) => {
-// const userIdx = req.query.user_idx
-// const title = req.query.title
-// const subTitle = req.query.sub_title
-// const content = req.query.content
-// const category = req.query.category
-// postsService
-//   .postCreate({})
-//   .then((r) => {
-//     res.json(r)
-//   })
-//   .catch((error) => {
-//     next(error)
-//   })
-// })
-router.get('/insert', (req, res, next) => {
-  const userIdx = req.query.user_idx
-  const title = req.query.title
-  const subTitle = req.query.sub_title
-  const content = req.query.content
-  const category = req.query.category
+// router.get('/insert', (req, res, next) => {
+//   const userIdx = req.query.user_idx
+//   const title = req.query.title
+//   const subTitle = req.query.sub_title
+//   const content = req.query.content
+//   const category = req.query.category
 
-  postsService
-    .postCreate({
-      userIdx,
-      title,
-      subTitle,
-      content,
-      category
-    })
-    .then((r) => {
-      res.json(r)
-    })
-    .catch((error) => {
-      next(error)
-    })
-})
+//   postsService
+//     .postCreate({
+//       userIdx,
+//       title,
+//       subTitle,
+//       content,
+//       category
+//     })
+//     .then((r) => {
+//       res.json(r)
+//     })
+//     .catch((error) => {
+//       next(error)
+//     })
+// })
 
 router.get('/likePost', (req, res, next) => {
   const postIdx = req.query.post_idx
