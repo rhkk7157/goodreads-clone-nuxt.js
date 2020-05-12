@@ -15,10 +15,7 @@
           <v-btn @click="dialog = false" dark text>Save</v-btn>
         </v-toolbar-items> -->
       </v-toolbar>
-      <v-img
-        height="400"
-        src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-      ></v-img>
+      <v-img :src="'https://localhost:3000/'" height="400"></v-img>
 
       <v-card-title>{{ this.post.title }}</v-card-title>
       <v-card-text>
@@ -200,7 +197,7 @@ export default {
       this.loadData()
     },
     open(data) {
-      console.log(data)
+      // console.log(data)
       this.post = _.cloneDeep(data)
       this.dialog = true
     },
@@ -213,11 +210,11 @@ export default {
     },
     addComment() {
       this.$refs.AddCommentDialog.open()
-    },
-    reserve() {
-      this.loading = true
-      setTimeout(() => (this.loading = false), 2000)
     }
+    // reserve() {
+    //   this.loading = true
+    //   setTimeout(() => (this.loading = false), 2000)
+    // }
   }
 }
 </script>

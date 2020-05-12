@@ -4,7 +4,6 @@ const express = require('express')
 const app = express()
 const router = require('express').Router()
 const postsService = require('../../services/posts.service')
-// const uploadDir = path.join(__dirname, '../../assets/uploads') // 루트의 uploads위치에 저장한다.
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -59,19 +58,17 @@ const upload = multer({
 //   }
 // })
 
-// router.get('/uploads', express.static('uploads'))
-
 router.post('/insert/upload', upload.single('img'), (req, res, next) => {
-  const userIdx = req.body.user_idx
-  const title = req.body.title
-  const subTitle = req.body.sub_title
-  const content = req.body.content
-  const category = req.body.category
+  const userIdx = req.body.user_idx || ''
+  const title = req.body.title || ''
+  const subTitle = req.body.sub_title || ''
+  const content = req.body.content || ''
+  const category = req.body.category || ''
 
-  const fileName = req.file.filename
-  const filePath = req.file.path
-  const originalName = req.file.originalname
-  const size = req.file.size
+  const fileName = req.file.filename || ''
+  const filePath = req.file.path || ''
+  const originalName = req.file.originalname || ''
+  const size = req.file.size || ''
 
   postsService
     .fileUpload({

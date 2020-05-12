@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false
     }
   )
-
+  Contents.associate = function(models) {
+    models.Posts.belongsTo(models.Contents, {
+      foreignKey: 'idx'
+    })
+  }
   return Contents
 }

@@ -51,7 +51,7 @@
           </v-col>
         </v-row>
         <v-card-actions>
-          <v-btn color="primary" block dark>Save</v-btn>
+          <v-btn @click="commentSave()" color="primary" block dark>Save</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -87,7 +87,8 @@ export default {
     },
     cancel() {
       this.dialog = false
-    }
+    },
+    commentSave() {}
   }
 }
 </script>

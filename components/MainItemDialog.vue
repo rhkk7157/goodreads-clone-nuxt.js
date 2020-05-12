@@ -15,9 +15,7 @@
                 }}</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-avatar tile size="80">
-                <v-img
-                  src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-                ></v-img>
+                <v-img :src="'https://localhost:3000/' + item.filePath"></v-img>
               </v-list-item-avatar>
             </v-list-item>
             <v-divider />
@@ -120,7 +118,7 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
-      console.log(this.posts)
+      // console.log(this.posts)
     },
 
     async likePost(item) {
@@ -128,7 +126,6 @@ export default {
       const userIdx = item.user_idx
       try {
         // item.idx(postIdx) , user_idx,
-
         const response = await this.$axios.get('/api/posts/likePost', {
           params: {
             post_idx: postIdx,

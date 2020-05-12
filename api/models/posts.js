@@ -41,10 +41,16 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false
     }
   )
-  Posts.associate = function(models) {
-    Posts.belongsTo(models.User, {
-      foreignKey: 'user_idx'
-    })
-  }
+  // Posts.associate = function(models) {
+  //   models.Posts.belongsTo(models.Contents, {
+  //     foreignKey: 'idx', // posts 에서 컬럼
+  //     sourceKey: 'post_idx' // content에서 컬럼
+  //   })
+  // }
+  // Posts.associate = function(models) {
+  //   Posts.belongsTo(models.User, {
+  //     foreignKey: 'user_idx'
+  //   })
+  // }
   return Posts
 }

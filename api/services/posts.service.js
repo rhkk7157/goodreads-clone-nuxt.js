@@ -1,7 +1,4 @@
-const path = require('path')
-const multer = require('multer')
-const moment = require('moment')
-const _ = require('lodash')
+// const _ = require('lodash')
 const models = require('../models')
 
 // const postCreate = (params) => {
@@ -18,8 +15,8 @@ const models = require('../models')
 
 const findAndCountAll = async (params) => {
   params = params || {}
-  const limit = params.limit || 0
-  const offset = params.offset
+  const limit = params.limit || 24
+  const offset = params.offset || 0
   const where = {}
   let category
   // categoryNum : undefined
@@ -50,7 +47,8 @@ const findAndCountAll = async (params) => {
   )
 
   const query = await models.sequelize.query(
-    `SELECT * FROM posts where category = ? order by created_at desc limit ? offset ?`,
+    // `SELECT * FROM posts where category = ? order by created_at desc limit ? offset ?`,
+    `SELECT a.*,b.filePath FROM posts as a inner join contents as b on a.idx = b.post_idx where a.category = ? order by a.created_at desc limit ? offset ?`,
     {
       type: models.Sequelize.QueryTypes.SELECT,
       replacements: [category, limit, offset],
@@ -66,7 +64,6 @@ const findAndCountAll = async (params) => {
 
   // return models.Posts.findAndCountAll({
   //   where,
-
   //   limit: params.limit || 24,
   //   offset: params.offset || 0,
   //   order: [['created_at', 'desc']],

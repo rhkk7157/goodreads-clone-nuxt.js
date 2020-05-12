@@ -114,12 +114,12 @@ export default {
       if (!valid) return false
 
       const formData = new FormData()
-      formData.append('img', this.mainImg)
-      formData.append('user_idx', this.user.idx)
-      formData.append('title', this.MainTitle)
-      formData.append('sub_title', this.SubTitle)
-      formData.append('content', this.Content)
-      formData.append('category', this.selectValue)
+      formData.append('img', this.mainImg || '')
+      formData.append('user_idx', this.user.idx || '')
+      formData.append('title', this.MainTitle || '')
+      formData.append('sub_title', this.SubTitle || '')
+      formData.append('content', this.Content || '')
+      formData.append('category', this.selectValue || '')
       // for (const val of formData.values()) {
       //   console.log(val)
       // }
@@ -166,10 +166,9 @@ export default {
         if (!this.$refs.content.validate(true)) {
           return false
         }
-        if (this.mainImg === '') {
-          // alert('파일 업로드를 해주세요')
-          return false
-        }
+        // if (this.mainImg === '') {
+        //   return false
+        // }
         if (!this.$refs.category.validate(true)) {
           return false
         }
