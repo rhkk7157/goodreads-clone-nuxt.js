@@ -29,12 +29,8 @@
                 style="cursor:pointer;padding:2px;"
                 >mdi-heart</v-icon
               >
-              <span v-if="totalLikes <= 0">
-                {{ item.likes }}
-              </span>
-              <div v-if="totalLikes > 0">
-                {{ item.likes }}
-              </div>
+              <span v-if="totalLikes <= 0">{{ item.likes }}</span>
+              <div v-if="totalLikes > 0">{{ item.likes }}</div>
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
               >
@@ -124,6 +120,7 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
+      console.log(this.posts)
     },
 
     async likePost(item) {

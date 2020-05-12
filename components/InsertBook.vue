@@ -103,15 +103,16 @@ export default {
       this.Content = ''
       this.mainImg = ''
       this.selectValue = ''
-      this.$refs.observer.reset()
+      // this.$refs.observer.reset()
     },
     onFileSelected($event) {
       this.mainImg = this.$refs.inputUpload.files[0]
     },
 
     insertBook() {
-      // const valid = this.formValidation()
-      // if (!valid) return false
+      const valid = this.formValidation()
+      if (!valid) return false
+
       const formData = new FormData()
       formData.append('img', this.mainImg)
       formData.append('user_idx', this.user.idx)
@@ -130,8 +131,9 @@ export default {
         })
         .then((response) => {
           if (response.status === 200) {
-            this.dialog = false
             alert('입력되었습니다.')
+            this.dialog = false
+            this.mainImg = ''
           }
         })
 
@@ -164,7 +166,8 @@ export default {
         if (!this.$refs.content.validate(true)) {
           return false
         }
-        if (!this.$refs.inputUpload.files[0]) {
+        if (this.mainImg === '') {
+          // alert('파일 업로드를 해주세요')
           return false
         }
         if (!this.$refs.category.validate(true)) {
