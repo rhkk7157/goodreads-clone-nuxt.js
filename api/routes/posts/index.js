@@ -1,7 +1,6 @@
 const path = require('path')
 const multer = require('multer')
-const express = require('express')
-const app = express()
+
 const router = require('express').Router()
 const postsService = require('../../services/posts.service')
 
@@ -86,7 +85,7 @@ router.post('/insert/upload', upload.single('img'), (req, res, next) => {
       res.json(results)
     })
 })
-// const upload = multer({ storage })
+
 router.get('/main/:categoryNum', (req, res, next) => {
   const page = +req.query.page || 1
   const limit = +req.query.limit || 24

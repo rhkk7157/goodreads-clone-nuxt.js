@@ -111,6 +111,7 @@ const addLikePost = (params) => {
   })
 }
 
+// post create
 const fileUpload = (params) => {
   return models.Posts.create({
     user_idx: params.userIdx,
