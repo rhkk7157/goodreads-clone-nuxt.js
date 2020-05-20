@@ -14,14 +14,17 @@
                   item.sub_title
                 }}</v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-avatar tile size="80">
-                <v-img src></v-img>
-                <v-img :src="'https://localhost:3000/' + item.filePath"></v-img>
+              {{ item.fileName }}
+              <v-list-item-avatar tile size="80" style="border:2px solid red">
+                <template v-slot:item.fileName="{ item }">
+                  <v-img :src="item.fileName" class="cover-img" contain />
+                </template>
+                <!-- <v-img src="@/assets/uploads/"></v-img> -->
+                <!-- <v-img :src="@/assets/uploads/item.filePath"></v-img> -->
               </v-list-item-avatar>
             </v-list-item>
             <v-divider />
             <v-card-actions>
-              {{ item.idx }}
               <v-spacer />
               <v-icon
                 @click="likePost(item)"

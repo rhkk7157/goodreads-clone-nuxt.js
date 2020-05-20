@@ -108,7 +108,6 @@ export default {
     onFileSelected($event) {
       this.mainImg = this.$refs.inputUpload.files[0]
     },
-
     insertBook() {
       const valid = this.formValidation()
       if (!valid) return false
@@ -131,9 +130,9 @@ export default {
         })
         .then((response) => {
           if (response.status === 200) {
-            alert('입력되었습니다.')
             this.dialog = false
             this.mainImg = ''
+            alert('입력되었습니다.')
           }
         })
 
@@ -166,12 +165,12 @@ export default {
         if (!this.$refs.content.validate(true)) {
           return false
         }
-        // if (this.mainImg === '') {
-        //   return false
-        // }
         if (!this.$refs.category.validate(true)) {
           return false
         }
+        // if (this.mainImg === '') {
+        //   return false
+        // }
       }
       return true
     },

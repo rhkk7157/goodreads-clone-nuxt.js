@@ -11,7 +11,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-img :src="'https://localhost:3000/'" height="400"></v-img>
+      <!-- <v-img :src="'https://localhost:3000/'" height="400"></v-img> -->
       <v-card-title>{{ this.post.title }}</v-card-title>
       <v-card-text>
         <v-row align="center" class="mx-0">
@@ -45,7 +45,8 @@
           </v-col>
         </v-row>
       </v-card>
-      <!-- <v-data-table
+
+      <v-data-table
         :headers="headers"
         :items-per-page="searchParams.limit"
         :loading="loading"
@@ -58,7 +59,7 @@
         disable-sort
         disable-filtering
         disable-pagination
-        no-data-text="데이터 없음."
+        no-data-text="댓글없음."
       ></v-data-table>
       <v-pagination
         v-model="searchParams.page"
@@ -67,7 +68,7 @@
         @next="nextPage"
         @previous="previousPage"
         total-visible="12"
-      ></v-pagination> -->
+      ></v-pagination>
       <add-comment-dialog ref="AddCommentDialog"></add-comment-dialog>
     </v-card>
   </v-dialog>
@@ -132,18 +133,17 @@ export default {
   methods: {
     onPage(val) {
       this.searchParams.page = val
-      this.loadData()
+      // this.loadData()
     },
     nextPage() {
       this.searchParams.page++
-      this.loadData()
+      // this.loadData()
     },
     previousPage() {
       this.searchParams.page--
-      this.loadData()
+      // this.loadData()
     },
     open(data) {
-      // console.log(data)
       this.post = _.cloneDeep(data)
       this.dialog = true
     },
@@ -155,7 +155,8 @@ export default {
       this.dialog = false
     },
     addComment() {
-      this.$refs.AddCommentDialog.open()
+      const postIdx = this.post.idx
+      this.$refs.AddCommentDialog.open(postIdx)
     }
     // reserve() {
     //   this.loading = true

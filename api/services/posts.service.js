@@ -48,7 +48,7 @@ const findAndCountAll = async (params) => {
 
   const query = await models.sequelize.query(
     // `SELECT * FROM posts where category = ? order by created_at desc limit ? offset ?`,
-    `SELECT a.*,b.filePath FROM posts as a inner join contents as b on a.idx = b.post_idx where a.category = ? order by a.created_at desc limit ? offset ?`,
+    `SELECT a.*,b.fileName FROM posts as a inner join contents as b on a.idx = b.post_idx where a.category = ? order by a.created_at desc limit ? offset ?`,
     {
       type: models.Sequelize.QueryTypes.SELECT,
       replacements: [category, limit, offset],
