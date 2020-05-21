@@ -2,10 +2,6 @@ const models = require('../models')
 
 const commentInsert = (params) => {
   params = params || {}
-  // const userIdx = params.userIdx
-  // const comment = params.comment
-  // const postPassword = params.postPassword
-  // const postIdx = params.postIdx
 
   return models.Comments.create({
     user_idx: params.userIdx,
@@ -27,7 +23,20 @@ const commentPaging = (params) => {
     },
     offset: params.offset || 0,
     limit: params.limit || 12,
-    raw: true
+    raw: true,
+    attributes: {
+      include: [
+        [models.Sequelize.col('User.user_id'), 'user_id'],
+        [models.Sequelize.col('User.username'), 'username']
+      ]
+    },
+    include: [
+      {
+        model: models.User,
+        required: true,
+        attributes: []
+      }
+    ]
   }).then((commentsPaging) => {
     return commentsPaging
   })

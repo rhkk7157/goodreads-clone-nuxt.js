@@ -103,8 +103,8 @@ export default {
         })
         .then((response) => {
           if (response.status === 200) {
-            this.dialog = false
             alert('댓글이 입력되었습니다.')
+            this.dialog = false
             this.comment = ''
             this.password = ''
           }
