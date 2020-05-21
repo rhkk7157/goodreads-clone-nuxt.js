@@ -27,7 +27,7 @@ const commentPaging = (params) => {
     attributes: {
       include: [
         [models.Sequelize.col('User.user_id'), 'user_id'],
-        [models.Sequelize.col('User.username'), 'username']
+        [models.Sequelize.col('User.username'), 'user_name']
       ]
     },
     include: [

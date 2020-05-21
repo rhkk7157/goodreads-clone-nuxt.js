@@ -55,7 +55,7 @@
         :multi-sort="false"
         :must-sort="false"
         :sort-by="[]"
-        :mobile-breakpoint="800"
+        :mobile-breakpoint="0"
         :expanded="expanded"
         @click:row="selectedComment"
         page.sync="searchParams.page"
@@ -63,61 +63,34 @@
         disable-sort
         disable-filtering
         disable-pagination
+        show-expand
         no-data-text="작성된 댓글이 없습니다."
-      ></v-data-table>
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">
-          <v-carousel height="320">
-            <v-carousel-item
-              v-for="(chunk, i) in contentsChunks(item.contents)"
-              :key="i"
-            >
-              <v-row class="px-4">
-                <v-col v-for="(content, j) in chunk" :key="j" cols="3">
-                  <a
-                    v-if="content.type == 'image'"
-                    :href="`https://` + content.bucket + content.content"
-                    target="_blank"
-                  >
-                    <v-img
-                      :src="`https://` + content.bucket + content.content"
-                      :lazy-src="`https://` + content.bucket + content.content"
-                      aspect-ratio="1"
-                      class="grey lighten-2"
-                      style="cursor: pointer;"
-                    >
-                      <template v-slot:placeholder>
-                        <v-row
-                          class="fill-height ma-0"
-                          align="center"
-                          justify="center"
-                        >
-                          <v-progress-circular
-                            indeterminate
-                            color="grey lighten-5"
-                          ></v-progress-circular>
-                        </v-row>
-                      </template>
-                    </v-img>
-                  </a>
-                  <iframe
-                    v-else
-                    :src="`https://` + content.bucket + content.content"
-                    class="embed-player slide-media"
-                    width="100%"
-                    height="100%"
-                    frameborder="0"
-                    allowfullscreen
-                  ></iframe>
-                </v-col>
-              </v-row>
-            </v-carousel-item>
-          </v-carousel>
-          <div style="height:50px; margin:30px;">
-            <span style="font-size:20px">{{ item.post_text }}</span>
-          </div>
-        </td>
-      </template>
+        item-key="idx"
+      >
+        <template v-slot:expanded-item="{ headers, item }">
+          <td :colspan="headers.length">
+            <v-carousel height="220">
+              <v-carousel-item
+                v-for="(chunk, i) in commentsChunks(item)"
+                :key="i"
+              >
+                <v-row class="px-4">
+                  <v-col v-for="(content, j) in chunk" :key="j" cols="2">
+                    <div style="height:50px; margin:30px;">
+                      <span style="font-size:20px">{{ item.content }}</span>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-carousel-item>
+            </v-carousel>
+            <div style="height:50px; margin:30px;">
+              <span style="font-size:20px">{{ item.content }}</span>
+            </div>
+            <!-- </td> -->
+          </td>
+        </template>
+      </v-data-table>
+
       <v-pagination
         v-model="searchParams.page"
         :length="pages"
@@ -164,7 +137,7 @@ export default {
       },
       {
         text: '작성자',
-        value: 'user_id',
+        value: 'user_name',
         align: 'center',
         sortable: false,
         width: '80'
@@ -231,12 +204,13 @@ export default {
       this.comments = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
+      console.log(this.comments)
     },
-    contentsChunks(contents) {
-      return _.chunk(contents, 4)
+    commentsChunks(comments) {
+      return _.chunk(comments, 4)
     },
     selectedComment(comment, { expand, isExpanded }) {
-      if (expand) expand(isExpanded)
+      if (!expand) expand(isExpanded)
     }
     // reserve() {
     //   this.loading = true
