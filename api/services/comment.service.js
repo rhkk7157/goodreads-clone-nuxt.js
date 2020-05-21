@@ -18,6 +18,22 @@ const commentInsert = (params) => {
   })
 }
 
+const commentPaging = (params) => {
+  params = params || {}
+
+  return models.Comments.findAndCountAll({
+    where: {
+      post_idx: params.postIdx
+    },
+    offset: params.offset || 0,
+    limit: params.limit || 12,
+    raw: true
+  }).then((commentsPaging) => {
+    return commentsPaging
+  })
+}
+
 module.exports = {
-  commentInsert
+  commentInsert,
+  commentPaging
 }

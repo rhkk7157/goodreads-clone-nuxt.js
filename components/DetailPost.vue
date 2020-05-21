@@ -29,7 +29,7 @@
             half-increments
             readonly
             size="14"
-          ></v-rating> -->
+          ></v-rating>-->
           <!-- <div class="grey--text ml-4">4.5</div> -->
         </v-row>
         <div class="my-4 subtitle-1">{{ this.post.sub_title }}</div>
@@ -48,6 +48,8 @@
 
       <v-data-table
         :headers="headers"
+        :items="comments"
+        :page.sync="searchParams.page"
         :items-per-page="searchParams.limit"
         :loading="loading"
         :multi-sort="false"
@@ -59,7 +61,7 @@
         disable-sort
         disable-filtering
         disable-pagination
-        no-data-text="댓글없음."
+        no-data-text="작성된 댓글이 없습니다."
       ></v-data-table>
       <v-pagination
         v-model="searchParams.page"
@@ -88,6 +90,7 @@ export default {
     selection: 1,
     length: 5,
     size: 30,
+    comments: [],
     headers: [
       {
         text: 'Idx',
@@ -98,21 +101,21 @@ export default {
       },
       {
         text: 'UserName',
-        value: 'idx',
+        value: '',
         align: 'left',
         sortable: false,
         width: '80'
       },
       {
         text: 'Comment',
-        value: 'idx',
+        value: 'content',
         align: 'left',
         sortable: false,
         width: '80'
       },
       {
         text: 'Date',
-        value: 'idx',
+        value: 'created_at',
         align: 'left',
         sortable: false,
         width: '80'
@@ -120,7 +123,7 @@ export default {
     ],
     searchParams: {
       page: 1,
-      limit: 12
+      limit: 5
     }
   }),
   computed: {
@@ -130,22 +133,26 @@ export default {
         : 0
     }
   },
+  mounted() {
+    this.loadData()
+  },
   methods: {
     onPage(val) {
       this.searchParams.page = val
-      // this.loadData()
+      this.loadData()
     },
     nextPage() {
       this.searchParams.page++
-      // this.loadData()
+      this.loadData()
     },
     previousPage() {
       this.searchParams.page--
-      // this.loadData()
+      this.loadData()
     },
     open(data) {
       this.post = _.cloneDeep(data)
       this.dialog = true
+      this.loadData()
     },
     close() {
       this.dialog = false
@@ -157,6 +164,17 @@ export default {
     addComment() {
       const postIdx = this.post.idx
       this.$refs.AddCommentDialog.open(postIdx)
+    },
+    async loadData() {
+      const postIdx = this.post.idx
+      this.loading = true
+      const response = await this.$axios.get('/api/comment/' + postIdx, {
+        params: this.searchParams
+      })
+      this.loading = false
+      this.comments = _.get(response, 'data.rows', [])
+      this.total = _.get(response, 'data.count', 0)
+      this.searchParams.page = _.get(response, 'data.page', 1)
     }
     // reserve() {
     //   this.loading = true

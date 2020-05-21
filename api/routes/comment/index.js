@@ -19,4 +19,22 @@ router.get('/insert', (req, res, next) => {
       // console.log(results)
     })
 })
+router.get('/:postIdx', (req, res, next) => {
+  const page = +req.query.page || 1
+  const limit = +req.query.limit || 5
+  const offset = (page - 1) * limit
+  const postIdx = req.params.postIdx
+
+  commentService
+    .commentPaging({
+      page,
+      limit,
+      offset,
+      postIdx
+    })
+    .then((results) => {
+      results.page = page
+      res.json(results)
+    })
+})
 module.exports = router
