@@ -40,11 +40,28 @@ router.get('/:postIdx', (req, res, next) => {
 router.get('/likes/:commentIdx', (req, res, next) => {
   const commentIdx = req.params.commentIdx
   const userIdx = req.query.user_idx
-
+  const likesStatus = req.query.likes_status
   commentService
     .likeComments({
       commentIdx,
-      userIdx
+      userIdx,
+      likesStatus
+    })
+    .then((results) => {
+      res.json(results)
+    })
+})
+
+router.get('/dislike/:commentIdx', (req, res, next) => {
+  const commentIdx = req.params.commentIdx
+  const userIdx = req.query.user_idx
+  const likesStatus = req.query.likes_status
+
+  commentService
+    .dislikeComments({
+      commentIdx,
+      userIdx,
+      likesStatus
     })
     .then((results) => {
       res.json(results)

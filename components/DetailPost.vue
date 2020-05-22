@@ -45,7 +45,6 @@
           </v-col>
         </v-row>
       </v-card>
-
       <v-data-table
         :headers="headers"
         :items="comments"
@@ -91,14 +90,15 @@
         <template v-slot:item.commentLike="{ item }">
           <v-row fluid class="pa-4 mt-2">
             <v-col cols="12" md="5">
-              <v-btn @click="likeComment(item.idx)" color="blue lighten-2">
-                <v-icon>mdi-thumb-up-outline </v-icon>
+              <v-btn @click="likeComment(item.idx, 1)" color="blue lighten-2">
+                <v-icon>mdi-thumb-up-outline</v-icon>
                 {{ item.likes }}
               </v-btn>
             </v-col>
             <v-col cols="12" md="5">
-              <v-btn @click="dislikeComment(item.idx)" color="red lighten-2">
+              <v-btn @click="dislikeComment(item.idx, 2)" color="red lighten-2">
                 <v-icon>mdi-thumb-down-outline</v-icon>
+                {{ item.dislikes }}
               </v-btn>
             </v-col>
           </v-row>
@@ -231,12 +231,13 @@ export default {
     selectedComment(comment, { expand, isExpanded }) {
       if (!expand) expand(isExpanded)
     },
-    async likeComment(commentIdx) {
+    async likeComment(commentIdx, likesStatus) {
       const response = await this.$axios.get(
         '/api/comment/likes/' + commentIdx,
         {
           params: {
-            user_idx: this.$cookies.get('authUser').idx
+            user_idx: this.$cookies.get('authUser').idx,
+            likes_status: likesStatus
           }
         }
       )
@@ -245,8 +246,20 @@ export default {
         this.dialog = false
       }
     },
-    dislikeComment(commentIdx) {
-      console.log(commentIdx)
+    async dislikeComment(commentIdx, likesStatus) {
+      const response = await this.$axios.get(
+        '/api/comment/dislike/' + commentIdx,
+        {
+          params: {
+            user_idx: this.$cookies.get('authUser').idx,
+            likes_status: likesStatus
+          }
+        }
+      )
+      if (response.status === 200) {
+        alert('싫어요 클릭됨.')
+        this.dialog = false
+      }
     }
   }
 }

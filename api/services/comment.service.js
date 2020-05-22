@@ -45,15 +45,19 @@ const commentPaging = (params) => {
 const likeComments = (params) => {
   const commentIdx = params.commentIdx
   const userIdx = params.userIdx
+  const likesStatus = params.likesStatus
 
+  // likes_status 1 : 좋아요, 2: 싫어요
   return models.CommentsLikes.create({
     comment_idx: commentIdx,
-    user_idx: userIdx
+    user_idx: userIdx,
+    likes_status: likesStatus
   }).then((likesComments) => {
     // return likesComments
     return models.CommentsLikes.findAndCountAll({
       where: {
-        comment_idx: commentIdx
+        comment_idx: commentIdx,
+        likes_status: likesStatus
       }
     }).then((res) => {
       const commentLikesCount = res.count
@@ -67,8 +71,38 @@ const likeComments = (params) => {
   })
 }
 
+const dislikeComments = (params) => {
+  const commentIdx = params.commentIdx
+  const userIdx = params.userIdx
+  const likesStatus = params.likesStatus
+
+  // likes_status 1 : 좋아요, 2: 싫어요
+  return models.CommentsLikes.create({
+    comment_idx: commentIdx,
+    user_idx: userIdx,
+    likes_status: likesStatus
+  }).then((likesComments) => {
+    // return likesComments
+    return models.CommentsLikes.findAndCountAll({
+      where: {
+        comment_idx: commentIdx,
+        likes_status: likesStatus
+      }
+    }).then((res) => {
+      const commentLikesCount = res.count
+      return models.Comments.update(
+        { dislikes: commentLikesCount },
+        { where: { idx: commentIdx } }
+      ).then((updateCommentdisLikes) => {
+        return res
+      })
+    })
+  })
+}
+
 module.exports = {
   commentInsert,
   commentPaging,
-  likeComments
+  likeComments,
+  dislikeComments
 }

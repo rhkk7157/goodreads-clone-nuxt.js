@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       comment_idx: {
         type: DataTypes.BIGINT
       },
+      likes_status: {
+        type: DataTypes.BIGINT
+      },
       created_at: {
         type: DataTypes.TIME
       }
