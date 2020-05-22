@@ -89,12 +89,11 @@
           </td>
         </template>
         <template v-slot:item.commentLike="{ item }">
-          {{ item }}
           <v-row fluid class="pa-4 mt-2">
             <v-col cols="12" md="5">
               <v-btn @click="likeComment(item.idx)" color="blue lighten-2">
-                <v-icon>mdi-thumb-up-outline</v-icon>
-                {{ item.like }}
+                <v-icon>mdi-thumb-up-outline </v-icon>
+                {{ item.likes }}
               </v-btn>
             </v-col>
             <v-col cols="12" md="5">

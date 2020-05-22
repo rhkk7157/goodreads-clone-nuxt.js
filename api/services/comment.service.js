@@ -43,11 +43,27 @@ const commentPaging = (params) => {
 }
 
 const likeComments = (params) => {
+  const commentIdx = params.commentIdx
+  const userIdx = params.userIdx
+
   return models.CommentsLikes.create({
-    comment_idx: params.commentIdx,
-    user_idx: params.userIdx
+    comment_idx: commentIdx,
+    user_idx: userIdx
   }).then((likesComments) => {
-    return likesComments
+    // return likesComments
+    return models.CommentsLikes.findAndCountAll({
+      where: {
+        comment_idx: commentIdx
+      }
+    }).then((res) => {
+      const commentLikesCount = res.count
+      return models.Comments.update(
+        { likes: commentLikesCount },
+        { where: { idx: commentIdx } }
+      ).then((updateCommentLikes) => {
+        return res
+      })
+    })
   })
 }
 

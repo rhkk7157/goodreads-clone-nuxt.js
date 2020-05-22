@@ -18,7 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255)
       },
       likes: {
-        type: DataTypes.STRING(250)
+        type: DataTypes.BIGINT
+      },
+      dislikes: {
+        type: DataTypes.BIGINT
       },
       created_at: {
         type: DataTypes.TIME
