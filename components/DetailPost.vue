@@ -233,10 +233,18 @@ export default {
       if (!expand) expand(isExpanded)
     },
     async likeComment(commentIdx) {
-      const response = await this.$axios.get('/api/comment/likes', {
-        params: commentIdx
-      })
-      console.log(response)
+      const response = await this.$axios.get(
+        '/api/comment/likes/' + commentIdx,
+        {
+          params: {
+            user_idx: this.$cookies.get('authUser').idx
+          }
+        }
+      )
+      if (response.status === 200) {
+        alert('좋아요 클릭됨.')
+        this.dialog = false
+      }
     },
     dislikeComment(commentIdx) {
       console.log(commentIdx)

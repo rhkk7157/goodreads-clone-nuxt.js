@@ -105,7 +105,6 @@ const addLikePost = (params) => {
         { where: { idx: postIdx } }
       ).then((addPostsLikes) => {
         return res
-        // return false
       })
     })
   })

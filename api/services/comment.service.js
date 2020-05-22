@@ -42,7 +42,17 @@ const commentPaging = (params) => {
   })
 }
 
+const likeComments = (params) => {
+  return models.CommentsLikes.create({
+    comment_idx: params.commentIdx,
+    user_idx: params.userIdx
+  }).then((likesComments) => {
+    return likesComments
+  })
+}
+
 module.exports = {
   commentInsert,
-  commentPaging
+  commentPaging,
+  likeComments
 }
