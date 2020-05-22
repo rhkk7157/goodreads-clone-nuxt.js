@@ -10,7 +10,6 @@ const commentInsert = (params) => {
     post_idx: params.postIdx
   }).then((comments) => {
     return comments
-    // console.log(comments)
   })
 }
 
@@ -23,6 +22,7 @@ const commentPaging = (params) => {
     },
     offset: params.offset || 0,
     limit: params.limit || 12,
+    order: [['idx', 'desc']],
     raw: true,
     attributes: {
       include: [

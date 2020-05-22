@@ -86,11 +86,25 @@
             <div style="height:50px; margin:30px;">
               <span style="font-size:20px">{{ item.content }}</span>
             </div>
-            <!-- </td> -->
           </td>
         </template>
+        <template v-slot:item.commentLike="{ item }">
+          {{ item }}
+          <v-row fluid class="pa-4 mt-2">
+            <v-col cols="12" md="5">
+              <v-btn @click="likeComment(item.idx)" color="blue lighten-2">
+                <v-icon>mdi-thumb-up-outline</v-icon>
+                {{ item.like }}
+              </v-btn>
+            </v-col>
+            <v-col cols="12" md="5">
+              <v-btn @click="dislikeComment(item.idx)" color="red lighten-2">
+                <v-icon>mdi-thumb-down-outline</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </template>
       </v-data-table>
-
       <v-pagination
         v-model="searchParams.page"
         :length="pages"
@@ -148,6 +162,13 @@ export default {
         align: 'center',
         sortable: false,
         width: '30'
+      },
+      {
+        text: '좋아요',
+        value: 'commentLike',
+        align: 'center',
+        sortable: false,
+        width: '50'
       }
     ],
     searchParams: {
@@ -204,18 +225,22 @@ export default {
       this.comments = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
-      console.log(this.comments)
     },
     commentsChunks(comments) {
       return _.chunk(comments, 4)
     },
     selectedComment(comment, { expand, isExpanded }) {
       if (!expand) expand(isExpanded)
+    },
+    async likeComment(commentIdx) {
+      const response = await this.$axios.get('/api/comment/likes', {
+        params: commentIdx
+      })
+      console.log(response)
+    },
+    dislikeComment(commentIdx) {
+      console.log(commentIdx)
     }
-    // reserve() {
-    //   this.loading = true
-    //   setTimeout(() => (this.loading = false), 2000)
-    // }
   }
 }
 </script>

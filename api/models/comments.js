@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
   Comments.associate = function(models) {
     models.Comments.belongsTo(models.User, {
       foreignKey: 'user_idx'
-      // sourceKey: 'idx'
     })
   }
   return Comments

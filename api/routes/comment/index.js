@@ -16,7 +16,6 @@ router.get('/insert', (req, res, next) => {
     })
     .then((results) => {
       res.json(results)
-      // console.log(results)
     })
 })
 router.get('/:postIdx', (req, res, next) => {
@@ -36,5 +35,9 @@ router.get('/:postIdx', (req, res, next) => {
       results.page = page
       res.json(results)
     })
+})
+
+router.get('/likes', (req, res, next) => {
+  console.log('----------------')
 })
 module.exports = router
