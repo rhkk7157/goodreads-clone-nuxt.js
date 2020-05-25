@@ -6,7 +6,7 @@ const postsService = require('../../services/posts.service')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'assets/uploads')
+    cb(null, 'assets')
   },
   filename: (req, file, cb) => {
     cb(null, new Date().valueOf() + path.extname(file.originalname))
@@ -50,7 +50,7 @@ const upload = multer({
 
 // // multer 셋팅
 // const upload = multer({
-//   dest: 'assets/uploads',
+//   dest: 'assets',
 //   fileFilter,
 //   limits: {
 //     fileSize: 500000

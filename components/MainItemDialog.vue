@@ -14,14 +14,15 @@
                   item.sub_title
                 }}</v-list-item-subtitle>
               </v-list-item-content>
+
               {{ item.fileName }}
-              <v-list-item-avatar tile size="80" style="border:2px solid red">
-                <template v-slot:item.fileName="{ item }">
-                  <v-img :src="item.fileName" class="cover-img" contain />
-                </template>
-                <!-- <v-img src="@/assets/uploads/"></v-img> -->
-                <!-- <v-img :src="@/assets/uploads/item.filePath"></v-img> -->
-              </v-list-item-avatar>
+              <v-card>
+                <v-img :src="images.sample"></v-img>
+              </v-card>
+              <!-- <v-list-item-avatar tile size="80" style="border:1px solid red">
+                <v-img :src="images.sample" class="cover-img" contain />
+              </v-list-item-avatar> -->
+              <!-- <v-img :src="@/assets/uploads/item.fileName"></v-img> -->
             </v-list-item>
             <v-divider />
             <v-card-actions>
@@ -72,12 +73,13 @@ export default {
     }
   },
   data: () => ({
-    LikeCount: 0,
+    // LikeCount: 0,
     total: 0,
     categoryNum: null,
     posts: [],
     totalLikes: 0,
     newLikeCount: [],
+
     searchParams: {
       page: 1,
       limit: 12
@@ -122,7 +124,7 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
-      // console.log(this.posts)
+      console.log(this.posts)
     },
 
     async likePost(item) {
@@ -165,7 +167,6 @@ export default {
         alert(error)
       }
     },
-
     detailPost(item) {
       this.$refs.DetailPost.open(item)
     }

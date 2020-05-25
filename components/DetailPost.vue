@@ -35,7 +35,6 @@
         <div class="my-4 subtitle-1">{{ this.post.sub_title }}</div>
         <div>{{ this.post.content }}</div>
       </v-card-text>
-
       <v-card>
         <v-row>
           <v-spacer></v-spacer>
@@ -76,14 +75,21 @@
                 <v-row class="px-4">
                   <v-col v-for="(content, j) in chunk" :key="j" cols="2">
                     <div style="height:50px; margin:30px;">
-                      <span style="font-size:20px">{{ item.content }}</span>
+                      <span style="font-size:20px;border:1px solid grey">{{
+                        item.content
+                      }}</span>
                     </div>
                   </v-col>
                 </v-row>
               </v-carousel-item>
             </v-carousel>
+            <div>
+              <v-btn>수정</v-btn>
+            </div>
             <div style="height:50px; margin:30px;">
-              <span style="font-size:20px">{{ item.content }}</span>
+              <span style="font-size:20px;border:1px solid red">{{
+                item.content
+              }}</span>
             </div>
           </td>
         </template>
@@ -133,6 +139,7 @@ export default {
     size: 30,
     comments: [],
     expanded: [],
+    loginUserIdx: 0,
     headers: [
       {
         text: 'Idx',
@@ -215,6 +222,7 @@ export default {
       this.$refs.AddCommentDialog.open(postIdx)
     },
     async loadData() {
+      this.loginUserIdx = this.$cookies.get('authUser').idx
       const postIdx = this.post.idx
       this.loading = true
       const response = await this.$axios.get('/api/comment/' + postIdx, {
@@ -243,7 +251,7 @@ export default {
       )
       if (response.status === 200) {
         alert('좋아요 클릭됨.')
-        this.dialog = false
+        this.loadData()
       }
     },
     async dislikeComment(commentIdx, likesStatus) {
@@ -258,7 +266,7 @@ export default {
       )
       if (response.status === 200) {
         alert('싫어요 클릭됨.')
-        this.dialog = false
+        this.loadData()
       }
     }
   }

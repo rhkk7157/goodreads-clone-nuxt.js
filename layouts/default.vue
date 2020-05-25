@@ -44,7 +44,6 @@
           >{{ item.tab }}</v-tab
         >
       </v-tabs>
-
       <v-card-title class="text-center justify-center py-1">
         <v-spacer />
         <v-btn @click="insertBook" class="ma-2">상품등록</v-btn>
@@ -104,7 +103,7 @@
           >
         </v-card>
       </v-dialog>
-    </v-footer> -->
+    </v-footer>-->
     <SignInDialog ref="SignInDialog"></SignInDialog>
     <SignUpDialog ref="SignUpDialog"></SignUpDialog>
     <InsertBook ref="InsertBook"></InsertBook>
@@ -136,10 +135,6 @@ export default {
         { tab: 'Art' },
         { tab: 'Webtoon' }
       ],
-      // searchParams: {
-      //   page: 1,
-      //   limit: 12
-      // },
       title: 'hyeri'
       // items: [
       //   {
