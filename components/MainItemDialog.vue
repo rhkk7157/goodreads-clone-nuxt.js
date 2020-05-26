@@ -14,13 +14,9 @@
                   item.sub_title
                 }}</v-list-item-subtitle>
               </v-list-item-content>
-
               {{ item.fileName }}
-              <v-card>
-                <v-img :src="images.sample"></v-img>
-              </v-card>
               <!-- <v-list-item-avatar tile size="80" style="border:1px solid red">
-                <v-img :src="images.sample" class="cover-img" contain />
+                <v-img :src="item.fileName" class="cover-img" contain />
               </v-list-item-avatar> -->
               <!-- <v-img :src="@/assets/uploads/item.fileName"></v-img> -->
             </v-list-item>
@@ -74,12 +70,12 @@ export default {
   },
   data: () => ({
     // LikeCount: 0,
+    url: '',
     total: 0,
     categoryNum: null,
     posts: [],
     totalLikes: 0,
     newLikeCount: [],
-
     searchParams: {
       page: 1,
       limit: 12
@@ -100,7 +96,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.totalLikes)
     this.loadData()
   },
   methods: {
@@ -124,7 +119,8 @@ export default {
       this.posts = _.get(response, 'data.rows', [])
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
-      console.log(this.posts)
+      this.url = this.posts.fileName
+      // console.log(this.posts)
     },
 
     async likePost(item) {

@@ -115,6 +115,7 @@ import SignInDialog from '../components/SignInDialog'
 import SignUpDialog from '../components/SignUpDialog'
 import MainItemDialog from '../components/MainItemDialog'
 import InsertBook from '../components/InsertBook'
+
 export default {
   components: {
     SignInDialog,
@@ -130,7 +131,7 @@ export default {
       MenuTab: null,
       categoryIndex: 0,
       items: [
-        { tab: 'Cook' },
+        // { tab: 'Cook' },
         { tab: 'Travel' },
         { tab: 'Art' },
         { tab: 'Webtoon' }
@@ -156,6 +157,9 @@ export default {
   computed: {
     adminUserName() {
       return _.get(this.$store.state, 'authUser.username', 'null') || 'null'
+    },
+    imgPath() {
+      return require()
     }
   },
   methods: {

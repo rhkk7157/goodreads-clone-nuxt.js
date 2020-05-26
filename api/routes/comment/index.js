@@ -67,4 +67,20 @@ router.get('/dislike/:commentIdx', (req, res, next) => {
       res.json(results)
     })
 })
+
+// router.get('/commentUpdate/:idx', (req, res, next) => {
+//   const idx = req.params.idx
+//   const userIdx = req.query.userIdx
+//   const postIdx = req.query.postIdx
+
+//   commentService
+//     .commentUpdate({
+//       idx,
+//       userIdx,
+//       postIdx
+//     })
+//     .then((results) => {
+//       console.log(results)
+//     })
+// })
 module.exports = router

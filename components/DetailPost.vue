@@ -72,7 +72,7 @@
                 v-for="(chunk, i) in commentsChunks(item)"
                 :key="i"
               >
-                <v-row class="px-4">
+                <v-row class="px-4" style="border:1px solid red">
                   <v-col v-for="(content, j) in chunk" :key="j" cols="2">
                     <div style="height:50px; margin:30px;">
                       <span style="font-size:20px;border:1px solid grey">{{
@@ -83,13 +83,9 @@
                 </v-row>
               </v-carousel-item>
             </v-carousel>
-            <div>
-              <v-btn>수정</v-btn>
-            </div>
             <div style="height:50px; margin:30px;">
-              <span style="font-size:20px;border:1px solid red">{{
-                item.content
-              }}</span>
+              <span style="font-size:20px">{{ item.content }}</span>
+              <!-- <v-btn @click="commentUpdate">수정</v-btn> -->
             </div>
           </td>
         </template>
@@ -109,6 +105,9 @@
             </v-col>
           </v-row>
         </template>
+        <template v-slot:item.commentUpdate="{ item }">
+          <v-btn @click="commentUpdate(item)">수정</v-btn>
+        </template>
       </v-data-table>
       <v-pagination
         v-model="searchParams.page"
@@ -119,15 +118,20 @@
         total-visible="12"
       ></v-pagination>
       <add-comment-dialog ref="AddCommentDialog"></add-comment-dialog>
+      <comment-input-password
+        ref="CommentInputPassword"
+      ></comment-input-password>
     </v-card>
   </v-dialog>
 </template>
 <script>
 import _ from 'lodash'
 import AddCommentDialog from '@/components/AddCommentDialog'
+import CommentInputPassword from '@/components/CommentInputPassword'
 export default {
   components: {
-    AddCommentDialog
+    AddCommentDialog,
+    CommentInputPassword
   },
   data: () => ({
     dialog: false,
@@ -139,7 +143,7 @@ export default {
     size: 30,
     comments: [],
     expanded: [],
-    loginUserIdx: 0,
+
     headers: [
       {
         text: 'Idx',
@@ -175,6 +179,13 @@ export default {
         align: 'center',
         sortable: false,
         width: '50'
+      },
+      {
+        text: '',
+        value: 'commentUpdate',
+        align: 'center',
+        sortable: false,
+        width: '80'
       }
     ],
     searchParams: {
@@ -222,7 +233,7 @@ export default {
       this.$refs.AddCommentDialog.open(postIdx)
     },
     async loadData() {
-      this.loginUserIdx = this.$cookies.get('authUser').idx
+      // this.loginUserIdx = this.$cookies.get('authUser').idx
       const postIdx = this.post.idx
       this.loading = true
       const response = await this.$axios.get('/api/comment/' + postIdx, {
@@ -259,7 +270,7 @@ export default {
         '/api/comment/dislike/' + commentIdx,
         {
           params: {
-            user_idx: this.$cookies.get('authUser').idx,
+            user_idx: this.$cookies.get('authUser').idx, // login idx
             likes_status: likesStatus
           }
         }
@@ -268,7 +279,25 @@ export default {
         alert('싫어요 클릭됨.')
         this.loadData()
       }
+    },
+    commentUpdate(item) {
+      this.$refs.CommentInputPassword.open(item)
     }
+
+    // async commentUpdate(item) {
+    //   const userIdx = item.user_idx // commentUserIdx
+    //   const idx = item.idx
+    //   const response = await this.$axios.get(
+    //     '/api/comment/commentUpdate/' + idx,
+    //     {
+    //       params: {
+    //         userIdx,
+    //         postIdx: item.post_idx
+    //       }
+    //     }
+    //   )
+    //   console.log(response)
+    // }
   }
 }
 </script>

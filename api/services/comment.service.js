@@ -1,11 +1,20 @@
+const crypto = require('crypto')
 const models = require('../models')
 
 const commentInsert = (params) => {
   params = params || {}
+  const CommentPassword = params.password
+  const salt = Math.round(new Date().valueOf() * Math.random()) + ''
+
+  const hashPassword = crypto
+    .createHash('sha256')
+    .update(CommentPassword + salt)
+    .digest('hex')
 
   return models.Comments.create({
     user_idx: params.userIdx,
-    password: params.postPassword,
+    password: hashPassword,
+    salt,
     content: params.comment,
     post_idx: params.postIdx
   }).then((comments) => {
@@ -100,9 +109,16 @@ const dislikeComments = (params) => {
   })
 }
 
+const commentUpdate = (params) => {
+  const commentUserIdx = params.userIdx
+
+  return models.Comments.update({})
+}
+
 module.exports = {
   commentInsert,
   commentPaging,
   likeComments,
-  dislikeComments
+  dislikeComments,
+  commentUpdate
 }
