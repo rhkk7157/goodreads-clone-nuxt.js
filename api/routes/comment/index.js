@@ -67,20 +67,25 @@ router.get('/dislike/:commentIdx', (req, res, next) => {
       res.json(results)
     })
 })
-
-// router.get('/commentUpdate/:idx', (req, res, next) => {
-//   const idx = req.params.idx
-//   const userIdx = req.query.userIdx
-//   const postIdx = req.query.postIdx
-
-//   commentService
-//     .commentUpdate({
-//       idx,
-//       userIdx,
-//       postIdx
-//     })
-//     .then((results) => {
-//       console.log(results)
-//     })
+// router.get('/updatecheck/:loginUserIdx', (req, res, next) => {
+//   console.log(req.params)
 // })
+
+router.get('/commentUpdate/:commentIdx', (req, res, next) => {
+  const commentIdx = req.params.commentIdx
+  const loginUserIdx = req.query.loginUserIdx
+  const postIdx = req.query.postIdx
+  const password = req.query.password
+
+  commentService
+    .commentUpdate({
+      commentIdx,
+      loginUserIdx,
+      postIdx,
+      password
+    })
+    .then((results) => {
+      res.json(results)
+    })
+})
 module.exports = router

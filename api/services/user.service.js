@@ -16,13 +16,13 @@ const signIn = (params) => {
   //   return Promise.reject(new InvalidParameters(null, 'PASSWORD'))
 
   const InputPassword = params.password
+
   return models.User.findOne({
     where: {
       user_id: params.id
     },
     raw: true
   }).then((user) => {
-    // console.log(user)
     const dbPassword = user.password
     const salt = user.salt
     const hashPassword = crypto
@@ -45,14 +45,11 @@ const signUp = (params) => {
     .update(InputPassword + salt)
     .digest('hex')
 
-  const today = new Date()
-
   return models.User.create({
     user_id: params.id,
     password: hashPassword,
     salt,
-    username: params.username,
-    created_at: today
+    username: params.username
   }).then((createUser) => {})
 }
 

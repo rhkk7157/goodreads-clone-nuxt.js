@@ -110,9 +110,31 @@ const dislikeComments = (params) => {
 }
 
 const commentUpdate = (params) => {
-  const commentUserIdx = params.userIdx
+  params = params || {}
 
-  return models.Comments.update({})
+  const InputPassword = params.password
+
+  return models.Comments.findOne({
+    where: {
+      post_idx: params.postIdx,
+      user_idx: params.loginUserIdx
+    },
+    raw: true
+  }).then((commentPasswordCheck) => {
+    // console.log(commentPasswordCheck)
+
+    const dbPassword = commentPasswordCheck.password
+    const salt = commentPasswordCheck.salt
+    const hashPassword = crypto
+      .createHash('sha256')
+      .update(InputPassword + salt)
+      .digest('hex')
+
+    if (dbPassword === hashPassword) {
+      console.log(dbPassword)
+      // return commentPasswordCheck
+    }
+  })
 }
 
 module.exports = {

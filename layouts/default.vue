@@ -77,7 +77,7 @@
     </v-navigation-drawer>-->
     <!-- /header -->
 
-    <!-- <v-footer :fixed="fixed" app>
+    <v-footer :fixed="fixed" app>
       <span>&copy; Hyeri</span>
       <v-switch
         v-model="$vuetify.theme.dark"
@@ -103,7 +103,7 @@
           >
         </v-card>
       </v-dialog>
-    </v-footer>-->
+    </v-footer>
     <SignInDialog ref="SignInDialog"></SignInDialog>
     <SignUpDialog ref="SignUpDialog"></SignUpDialog>
     <InsertBook ref="InsertBook"></InsertBook>

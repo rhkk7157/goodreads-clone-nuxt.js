@@ -285,14 +285,16 @@ export default {
     }
 
     // async commentUpdate(item) {
-    //   const userIdx = item.user_idx // commentUserIdx
+    //   // console.log(item)
+    //   const loginUserIdx = item.user_idx // commentUserIdx
     //   const idx = item.idx
     //   const response = await this.$axios.get(
     //     '/api/comment/commentUpdate/' + idx,
     //     {
     //       params: {
-    //         userIdx,
-    //         postIdx: item.post_idx
+    //         loginUserIdx,
+    //         postIdx: item.post_idx,
+    //         content: item.content
     //       }
     //     }
     //   )

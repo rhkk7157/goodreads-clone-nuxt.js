@@ -20,7 +20,7 @@
           />
         </v-form>
       </v-card-text>
-      <v-card-actions> </v-card-actions>
+      <v-card-actions></v-card-actions>
       <v-card-actions>
         <v-btn @click="passwordCheck" color block dark>확인</v-btn>
       </v-card-actions>
@@ -65,11 +65,28 @@ export default {
     cancel() {
       this.dialog = false
     },
-    passwordCheck() {
+    async passwordCheck() {
+      // const loginUserIdx = this.$cookies.get('authUser').idx
       if (!this.password) {
         this.errorMessage = 'Password를 입력해주세요'
         this.Errordialog = true
+      } else {
+        const commentIdx = this.results.idx
+        const response = await this.$axios.get(
+          '/api/comment/commentUpdate/' + commentIdx,
+          {
+            params: {
+              loginUserIdx: this.results.user_idx,
+              postIdx: this.results.post_idx,
+              password: this.password
+            }
+          }
+        )
+        console.log(response)
       }
+      // console.log(response)
+      // console.log(this.password)
+      // 비밀번호를 받아와서 로그인처럼 db체크
     },
     redirect() {
       this.$router.push('/')

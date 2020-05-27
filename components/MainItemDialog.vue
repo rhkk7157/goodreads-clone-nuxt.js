@@ -135,8 +135,8 @@ export default {
           }
         })
         this.totalLikes = _.get(response, 'data.count', 0) // data.count
-        // console.log('count : ' + this.totalLikes)
-        // console.log('postIdx : ' + postIdx)
+        console.log('count : ' + this.totalLikes)
+        console.log('postIdx : ' + postIdx)
       } catch (error) {
         alert(error)
       }
