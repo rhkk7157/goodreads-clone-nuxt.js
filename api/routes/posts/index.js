@@ -166,7 +166,6 @@ router.get('/viewsCount', (req, res, next) => {
 
 // router.get('/likeCount', (req, res, next) => {
 //   const postIdx = req.query.postIdx
-
 //   postsService
 //     .newLikeCount({
 //       postIdx
