@@ -233,16 +233,30 @@ export default {
       this.$refs.AddCommentDialog.open(postIdx)
     },
     async loadData() {
-      // this.loginUserIdx = this.$cookies.get('authUser').idx
-      const postIdx = this.post.idx
-      this.loading = true
-      const response = await this.$axios.get('/api/comment/' + postIdx, {
-        params: this.searchParams
-      })
-      this.loading = false
-      this.comments = _.get(response, 'data.rows', [])
-      this.total = _.get(response, 'data.count', 0)
-      this.searchParams.page = _.get(response, 'data.page', 1)
+      const postIdx = this.post.idx || 1
+      try {
+        // const postIdx = this.post.idx
+        this.loading = true
+        const response = await this.$axios.get('/api/comment/' + postIdx, {
+          params: this.searchParams
+        })
+        this.loading = false
+        this.comments = _.get(response, 'data.rows', [])
+        this.total = _.get(response, 'data.count', 0)
+        this.searchParams.page = _.get(response, 'data.page', 1)
+      } catch (error) {
+        alert(error)
+      }
+      try {
+        const viewsCount = await this.$axios.get('/api/posts/viewsCount', {
+          params: {
+            postIdx
+          }
+        })
+        console.log(viewsCount)
+      } catch (error) {
+        alert(error)
+      }
     },
     commentsChunks(comments) {
       return _.chunk(comments, 4)

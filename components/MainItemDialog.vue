@@ -7,17 +7,17 @@
             <v-list-item @click="detailPost(item)" three-line>
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
-                <v-list-item-title class="headline mb-2">{{
-                  item.title
-                }}</v-list-item-title>
-                <v-list-item-subtitle>{{
-                  item.sub_title
-                }}</v-list-item-subtitle>
+                <v-list-item-title class="headline mb-2">
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ item.sub_title }}
+                </v-list-item-subtitle>
               </v-list-item-content>
               {{ item.fileName }}
               <!-- <v-list-item-avatar tile size="80" style="border:1px solid red">
                 <v-img :src="item.fileName" class="cover-img" contain />
-              </v-list-item-avatar> -->
+              </v-list-item-avatar>-->
               <!-- <v-img :src="@/assets/uploads/item.fileName"></v-img> -->
             </v-list-item>
             <v-divider />
@@ -33,7 +33,8 @@
               <v-icon style="cursor:pointer;padding:2px"
                 >mdi-comment-text-outline</v-icon
               >
-              <span>0</span>&nbsp;&nbsp;
+              <span>{{ item.comments }}</span
+              >&nbsp;&nbsp;
               <v-icon style="cursor:pointer;padding:2px">mdi-eye</v-icon>
               <span>{{ item.views }}</span
               >&nbsp;&nbsp;
@@ -135,8 +136,6 @@ export default {
           }
         })
         this.totalLikes = _.get(response, 'data.count', 0) // data.count
-        console.log('count : ' + this.totalLikes)
-        console.log('postIdx : ' + postIdx)
       } catch (error) {
         alert(error)
       }
@@ -163,6 +162,14 @@ export default {
         alert(error)
       }
     },
+    // async countViews(item) {
+    //   const response = await this.$axios.get('/api/posts/countComment', {
+    //     params: {
+    //       postIdx: item.idx
+    //     }
+    //   })
+    //   console.log(response)
+    // },
     detailPost(item) {
       this.$refs.DetailPost.open(item)
     }

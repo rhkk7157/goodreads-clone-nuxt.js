@@ -149,6 +149,21 @@ router.get('/likePost', (req, res, next) => {
     })
 })
 
+router.get('/viewsCount', (req, res, next) => {
+  const postIdx = req.query.postIdx
+
+  postsService
+    .addCountComment({
+      postIdx
+    })
+    .then((r) => {
+      res.json(r)
+    })
+    .catch((error) => {
+      next(error)
+    })
+})
+
 // router.get('/likeCount', (req, res, next) => {
 //   const postIdx = req.query.postIdx
 

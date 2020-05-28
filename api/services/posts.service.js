@@ -15,6 +15,9 @@ const models = require('../models')
 
 const findAndCountAll = async (params) => {
   params = params || {}
+  if (params.categoryNum === 'undefined') {
+    params.categoryNum = 2
+  }
   const limit = params.limit || 24
   const offset = params.offset || 0
   const where = {}
@@ -110,6 +113,25 @@ const addLikePost = (params) => {
   })
 }
 
+const addCountComment = (params) => {
+  const postIdx = params.postIdx
+  // views  findOne() , views + 1 , return views
+  return models.Posts.findOne({
+    where: {
+      idx: postIdx
+    },
+    raw: true
+  }).then((postViews) => {
+    const views = postViews.views
+    return models.Posts.update(
+      { views: views + 1 },
+      { where: { idx: postIdx } }
+    ).then((PostsViews) => {
+      console.log(PostsViews)
+      return false
+    })
+  })
+}
 // post create
 const fileUpload = (params) => {
   return models.Posts.create({
@@ -158,6 +180,7 @@ module.exports = {
   // postCreate,
   findAndCountAll,
   addLikePost,
-  fileUpload
+  fileUpload,
+  addCountComment
   // newLikeCount
 }

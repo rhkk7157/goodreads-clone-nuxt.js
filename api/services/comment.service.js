@@ -21,10 +21,7 @@ const commentInsert = (params) => {
     return comments
   })
 }
-
 const commentPaging = (params) => {
-  params = params || {}
-
   return models.Comments.findAndCountAll({
     where: {
       post_idx: params.postIdx
@@ -47,9 +44,55 @@ const commentPaging = (params) => {
       }
     ]
   }).then((commentsPaging) => {
+    // views update
+    // const postIdx = params.postIdx
+    // return models.Posts.findOne({
+    //   where: {
+    //     idx: postIdx
+    //   },
+    //   raw: true
+    // }).then((postViews) => {
+    //   const views = postViews.views
+    //   return models.Posts.update(
+    //     { views: views + 1 },
+    //     { where: { idx: postIdx } }
+    //   ).then((PostsViews) => {
+    //     return commentsPaging
+    //     // console.log(PostsViews)
+    //     // return false
+    //   })
+    // })
     return commentsPaging
   })
 }
+
+// const commentPaging = (params) => {
+//   params = params || {}
+//   return models.Comments.findAndCountAll({
+//     where: {
+//       post_idx: params.postIdx
+//     },
+//     offset: params.offset || 0,
+//     limit: params.limit || 12,
+//     order: [['idx', 'desc']],
+//     raw: true,
+//     attributes: {
+//       include: [
+//         [models.Sequelize.col('User.user_id'), 'user_id'],
+//         [models.Sequelize.col('User.username'), 'user_name']
+//       ]
+//     },
+//     include: [
+//       {
+//         model: models.User,
+//         required: true,
+//         attributes: []
+//       }
+//     ]
+//   }).then((commentsPaging) => {
+//     return commentsPaging
+//   })
+// }
 
 const likeComments = (params) => {
   const commentIdx = params.commentIdx
@@ -111,29 +154,29 @@ const dislikeComments = (params) => {
 
 const commentUpdate = (params) => {
   params = params || {}
-
   const InputPassword = params.password
 
   return models.Comments.findOne({
     where: {
-      post_idx: params.postIdx,
-      user_idx: params.loginUserIdx
+      idx: params.commentIdx
     },
     raw: true
   }).then((commentPasswordCheck) => {
-    // console.log(commentPasswordCheck)
-
     const dbPassword = commentPasswordCheck.password
+    console.log(dbPassword)
     const salt = commentPasswordCheck.salt
+    console.log(salt)
     const hashPassword = crypto
       .createHash('sha256')
       .update(InputPassword + salt)
       .digest('hex')
-
-    if (dbPassword === hashPassword) {
-      console.log(dbPassword)
-      // return commentPasswordCheck
-    }
+    console.log(hashPassword)
+    return false
+    // dbPassword 와 hashPassword 가 다르게 나옴.
+    // if (dbPassword === hashPassword) {
+    //   console.log(dbPassword)
+    //   // return commentPasswordCheck
+    // }
   })
 }
 

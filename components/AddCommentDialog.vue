@@ -52,7 +52,7 @@
               <v-icon>mdi-thumb-down-outline</v-icon>
             </v-btn>
           </v-col>
-        </v-row> -->
+        </v-row>-->
         <v-card-actions>
           <v-btn @click="commentSave()" color="primary" block dark>Save</v-btn>
         </v-card-actions>
@@ -117,7 +117,6 @@ export default {
       if (!this.$refs.Password.validate(true)) {
         return false
       }
-
       return true
     }
   }

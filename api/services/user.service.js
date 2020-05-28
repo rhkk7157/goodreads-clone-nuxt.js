@@ -24,12 +24,14 @@ const signIn = (params) => {
     raw: true
   }).then((user) => {
     const dbPassword = user.password
+    console.log(dbPassword)
     const salt = user.salt
+    console.log(salt)
     const hashPassword = crypto
       .createHash('sha256')
       .update(InputPassword + salt)
       .digest('hex')
-
+    console.log(hashPassword)
     if (dbPassword === hashPassword) {
       return user
     }
