@@ -121,11 +121,11 @@ const addCountComment = (params) => {
     raw: true
   }).then((postViews) => {
     const views = postViews.views
-    const updated = models.Posts.update(
+    return models.Posts.update(
       { views: views + 1 },
       { where: { idx: postIdx } }
     )
-    return updated
+    // return updated
   })
 }
 // post create

@@ -121,6 +121,7 @@
       <comment-input-password
         ref="CommentInputPassword"
       ></comment-input-password>
+      <comment-update-dialog ref="CommentUpdateDialog"></comment-update-dialog>
     </v-card>
   </v-dialog>
 </template>
@@ -128,10 +129,12 @@
 import _ from 'lodash'
 import AddCommentDialog from '@/components/AddCommentDialog'
 import CommentInputPassword from '@/components/CommentInputPassword'
+import CommentUpdateDialog from '@/components/CommentUpdateDialog'
 export default {
   components: {
     AddCommentDialog,
-    CommentInputPassword
+    CommentInputPassword,
+    CommentUpdateDialog
   },
   data: () => ({
     dialog: false,
@@ -295,8 +298,12 @@ export default {
       }
     },
     commentUpdate(item) {
-      this.$refs.CommentInputPassword.open(item)
+      this.$refs.CommentUpdateDialog.open(item)
     }
+
+    // commentUpdate(item) {
+    //   this.$refs.CommentInputPassword.open(item)
+    // }
 
     // async commentUpdate(item) {
     //   // console.log(item)

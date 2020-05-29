@@ -18,6 +18,25 @@ router.get('/insert', (req, res, next) => {
       res.json(results)
     })
 })
+router.get('/updated', (req, res, next) => {
+  const userIdx = req.query.user_idx
+  const comment = req.query.comment
+  const password = req.query.password
+  const postIdx = req.query.postIdx
+  const commentIdx = req.query.commentIdx
+
+  commentService
+    .updatedComment({
+      userIdx,
+      comment,
+      password,
+      postIdx,
+      commentIdx
+    })
+    .then((results) => {
+      res.json(results)
+    })
+})
 router.get('/:postIdx', (req, res, next) => {
   const page = +req.query.page || 1
   const limit = +req.query.limit || 5
@@ -88,4 +107,5 @@ router.get('/commentUpdate/:commentIdx', (req, res, next) => {
       res.json(results)
     })
 })
+
 module.exports = router

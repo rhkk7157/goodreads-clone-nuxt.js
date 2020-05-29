@@ -2,7 +2,7 @@ const crypto = require('crypto')
 const models = require('../models')
 
 const commentInsert = (params) => {
-  params = params || {}
+  // params = params || {}
   const CommentPassword = params.password
   const salt = Math.round(new Date().valueOf() * Math.random()) + ''
 
@@ -171,17 +171,18 @@ const dislikeComments = (params) => {
 
 const commentUpdate = (params) => {
   params = params || {}
+  console.log(params)
   const InputPassword = params.password
-
   return models.Comments.findOne({
     where: {
       idx: params.commentIdx
     },
     raw: true
-  }).then((commentPasswordCheck) => {
-    const dbPassword = commentPasswordCheck.password
+  }).then((commentPwCheck) => {
+    console.log(commentPwCheck)
+    const dbPassword = commentPwCheck.password
     console.log(dbPassword)
-    const salt = commentPasswordCheck.salt
+    const salt = commentPwCheck.salt
     console.log(salt)
     const hashPassword = crypto
       .createHash('sha256')
@@ -189,18 +190,31 @@ const commentUpdate = (params) => {
       .digest('hex')
     console.log(hashPassword)
     return false
-    // dbPassword 와 hashPassword 가 다르게 나옴.
-    // if (dbPassword === hashPassword) {
-    //   console.log(dbPassword)
-    //   // return commentPasswordCheck
-    // }
   })
 }
+const updatedComment = (params) => {
+  console.log(params)
 
+  const CommentPassword = params.password
+  const salt = Math.round(new Date().valueOf() * Math.random()) + ''
+
+  const hashPassword = crypto
+    .createHash('sha256')
+    .update(CommentPassword + salt)
+    .digest('hex')
+  return models.Comments.update(
+    {
+      content: params.comment,
+      password: hashPassword
+    },
+    { where: { post_idx: params.postIdx, idx: params.commentIdx } }
+  )
+}
 module.exports = {
   commentInsert,
   commentPaging,
   likeComments,
   dislikeComments,
-  commentUpdate
+  commentUpdate,
+  updatedComment
 }

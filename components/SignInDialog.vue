@@ -29,12 +29,12 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <!-- <v-checkbox
+        <v-checkbox
           v-model="checkbox"
           color="red"
           label="아이디저장"
           class="fill-height"
-        ></v-checkbox> -->
+        ></v-checkbox>
         <!-- <v-card-text v-html="errorMessage" style="border:1px solid solid" /> -->
       </v-card-actions>
       <v-card-actions>

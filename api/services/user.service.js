@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 // const moment = require('moment')
-const _ = require('lodash')
+// const _ = require('lodash')
 const models = require('../models')
 
 // const {
@@ -16,7 +16,6 @@ const signIn = (params) => {
   //   return Promise.reject(new InvalidParameters(null, 'PASSWORD'))
 
   const InputPassword = params.password
-
   return models.User.findOne({
     where: {
       user_id: params.id
@@ -24,14 +23,12 @@ const signIn = (params) => {
     raw: true
   }).then((user) => {
     const dbPassword = user.password
-    console.log(dbPassword)
     const salt = user.salt
-    console.log(salt)
     const hashPassword = crypto
       .createHash('sha256')
       .update(InputPassword + salt)
       .digest('hex')
-    console.log(hashPassword)
+
     if (dbPassword === hashPassword) {
       return user
     }
