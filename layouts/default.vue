@@ -103,7 +103,7 @@
           >
         </v-card>
       </v-dialog>
-    </v-footer> -->
+    </v-footer>-->
     <SignInDialog ref="SignInDialog"></SignInDialog>
     <SignUpDialog ref="SignUpDialog"></SignUpDialog>
     <InsertBook ref="InsertBook"></InsertBook>
@@ -131,7 +131,7 @@ export default {
       MenuTab: null,
       categoryIndex: 0,
       items: [
-        // { tab: 'Cook' },
+        { tab: 'Cook' },
         { tab: 'Travel' },
         { tab: 'Art' },
         { tab: 'Webtoon' }

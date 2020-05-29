@@ -25,7 +25,6 @@ const findAndCountAll = async (params) => {
   // categoryNum : undefined
   if (params.categoryNum) {
     category = params.categoryNum
-
     if (category === '0') {
       category = 'Cook'
     } else if (category === '1') {
@@ -115,7 +114,6 @@ const addLikePost = (params) => {
 
 const addCountComment = (params) => {
   const postIdx = params.postIdx
-  // views  findOne() , views + 1 , return views
   return models.Posts.findOne({
     where: {
       idx: postIdx
@@ -123,13 +121,11 @@ const addCountComment = (params) => {
     raw: true
   }).then((postViews) => {
     const views = postViews.views
-    return models.Posts.update(
+    const updated = models.Posts.update(
       { views: views + 1 },
       { where: { idx: postIdx } }
-    ).then((PostsViews) => {
-      console.log(PostsViews)
-      return false
-    })
+    )
+    return updated
   })
 }
 // post create

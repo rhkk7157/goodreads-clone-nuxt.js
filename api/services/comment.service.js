@@ -18,9 +18,26 @@ const commentInsert = (params) => {
     content: params.comment,
     post_idx: params.postIdx
   }).then((comments) => {
-    return comments
+    // post_idx로 posts 테이블 추가.
+    return models.Posts.findOne({
+      where: {
+        idx: params.postIdx,
+        user_idx: params.userIdx
+      },
+      raw: true
+    }).then((postsComment) => {
+      // 조회수 update
+      const postsCommentCount = postsComment.comments
+      const addCommentPostIdx = postsComment.idx
+      const commentUpdated = models.Posts.update(
+        { comments: postsCommentCount + 1 },
+        { where: { idx: addCommentPostIdx } }
+      )
+      return commentUpdated
+    })
   })
 }
+
 const commentPaging = (params) => {
   return models.Comments.findAndCountAll({
     where: {
