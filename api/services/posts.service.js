@@ -177,11 +177,24 @@ const viewsUpdate = (params) => {
   })
 }
 
+const findContents = (params) => {
+  const postIdx = params.postIdx
+
+  return models.Contents.findOne({
+    where: {
+      post_idx: postIdx
+    }
+  }).then((contents) => {
+    return contents
+  })
+}
+
 module.exports = {
   // postCreate,
   findAndCountAll,
   addLikePost,
   fileUpload,
   addCountComment,
-  viewsUpdate
+  viewsUpdate,
+  findContents
 }

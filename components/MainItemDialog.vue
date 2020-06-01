@@ -1,14 +1,15 @@
 <template>
   <v-row>
     <v-row>
-      <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
+      <v-flex
+        v-for="item in posts"
+        :key="item.idx"
+        xs12
+        sm4
+        style="border:1px solid red"
+      >
         <v-col cols="auto">
-          <v-card
-            class="mx-auto"
-            max-width="344"
-            raised
-            style="border:1px solid red"
-          >
+          <v-card class="mx-auto" max-width="344" raised>
             <v-list-item @click="detailPost(item)" three-line>
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
@@ -19,11 +20,9 @@
                   {{ item.sub_title }}
                 </v-list-item-subtitle>
               </v-list-item-content>
-              {{ item.fileName }}
-              <!-- <v-list-item-avatar tile size="80" style="border:1px solid red">
-                <v-img :src="item.fileName" class="cover-img" contain />
-              </v-list-item-avatar>-->
-              <!-- <v-img :src="@/assets/uploads/item.fileName"></v-img> -->
+              <template>
+                <v-img :src="`/` + item.fileName"></v-img>
+              </template>
             </v-list-item>
             <v-divider />
             <v-card-actions>

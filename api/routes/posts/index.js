@@ -6,7 +6,7 @@ const postsService = require('../../services/posts.service')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'assets/uploads')
+    cb(null, 'static/uploads')
   },
   filename: (req, file, cb) => {
     cb(null, new Date().valueOf() + path.extname(file.originalname))
@@ -91,6 +91,16 @@ router.get('/viewsUpdate', (req, res, next) => {
   postsService.viewsUpdate({
     postIdx
   })
+})
+router.get('/findContents', (req, res, next) => {
+  const postIdx = req.query.postIdx
+  postsService
+    .findContents({
+      postIdx
+    })
+    .then((results) => {
+      res.json(results)
+    })
 })
 
 router.get('/main/:categoryNum', (req, res, next) => {

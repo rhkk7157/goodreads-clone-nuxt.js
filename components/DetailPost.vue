@@ -5,13 +5,21 @@
     transition="dialog-bottom-transition"
     max-width="900"
   >
-    <v-card>
+    <v-card style="border:1px solid red;">
       <v-toolbar dark color="black">
         <v-btn @click="dialog = false" icon dark>
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
-      <!-- <v-img :src="'https://localhost:3000/'" height="400"></v-img> -->
+      <v-row align="center" justify="center">
+        <v-img
+          :src="`/` + fileName"
+          v-bind:fileName="fileName"
+          contain
+          max-width="344"
+          max-height="400"
+        ></v-img>
+      </v-row>
       <v-card-title>{{ this.post.title }}</v-card-title>
       <v-card-text>
         <v-row align="center" class="mx-0">
@@ -72,7 +80,7 @@
                 v-for="(chunk, i) in commentsChunks(item)"
                 :key="i"
               >
-                <v-row class="px-4" style="border:1px solid red">
+                <v-row class="px-4" style=":1px solid red">
                   <v-col v-for="(content, j) in chunk" :key="j" cols="2">
                     <div style="height:50px; margin:30px;">
                       <span style="font-size:20px;border:1px solid grey">
@@ -146,7 +154,8 @@ export default {
     size: 30,
     comments: [],
     expanded: [],
-
+    contents: [],
+    fileName: null,
     headers: [
       {
         text: 'Idx',
@@ -250,17 +259,15 @@ export default {
       } catch (error) {
         alert(error)
       }
-      // 조회수 증가
-      // try {
-      //   const viewsCount = await this.$axios.get('/api/posts/viewsCount', {
-      //     params: {
-      //       postIdx
-      //     }
-      //   })
-      //   console.log(viewsCount)
-      // } catch (error) {
-      //   alert(error)
-      // }
+      try {
+        const contents = await this.$axios.get('/api/posts/findContents', {
+          params: {
+            postIdx
+          }
+        })
+        this.contents = _.get(contents, 'data', [])
+        this.fileName = this.contents.fileName
+      } catch (error) {}
     },
     commentsChunks(comments) {
       return _.chunk(comments, 4)
