@@ -86,6 +86,13 @@ router.post('/insert/upload', upload.single('img'), (req, res, next) => {
     })
 })
 
+router.get('/viewsUpdate', (req, res, next) => {
+  const postIdx = req.query.postIdx
+  postsService.viewsUpdate({
+    postIdx
+  })
+})
+
 router.get('/main/:categoryNum', (req, res, next) => {
   const page = +req.query.page || 1
   const limit = +req.query.limit || 24

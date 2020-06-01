@@ -3,7 +3,12 @@
     <v-row>
       <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
         <v-col cols="auto">
-          <v-card class="mx-auto" max-width="344" raised style>
+          <v-card
+            class="mx-auto"
+            max-width="344"
+            raised
+            style="border:1px solid red"
+          >
             <v-list-item @click="detailPost(item)" three-line>
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
@@ -171,6 +176,11 @@ export default {
     //   console.log(response)
     // },
     detailPost(item) {
+      this.$axios.get('/api/posts/viewsUpdate', {
+        params: {
+          postIdx: item.idx
+        }
+      })
       this.$refs.DetailPost.open(item)
     }
   }

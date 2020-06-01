@@ -1,6 +1,6 @@
 const crypto = require('crypto')
+const _ = require('lodash')
 const models = require('../models')
-
 const commentInsert = (params) => {
   // params = params || {}
   const CommentPassword = params.password
@@ -61,25 +61,35 @@ const commentPaging = (params) => {
       }
     ]
   }).then((commentsPaging) => {
-    // views update
-    // const postIdx = params.postIdx
-    // return models.Posts.findOne({
-    //   where: {
-    //     idx: postIdx
-    //   },
-    //   raw: true
-    // }).then((postViews) => {
-    //   const views = postViews.views
-    //   return models.Posts.update(
-    //     { views: views + 1 },
-    //     { where: { idx: postIdx } }
-    //   ).then((PostsViews) => {
-    //     return commentsPaging
-    //     // console.log(PostsViews)
-    //     // return false
-    //   })
-    // })
-    return commentsPaging
+    // Posts views update
+    const postIdx = params.postIdx || 0
+    return models.Posts.findOne({
+      where: {
+        idx: postIdx
+      },
+      raw: true
+    }).then((postViews) => {
+      // const views = postViews.views
+
+      return commentsPaging
+      // const views = postViews.views || 0
+      // console.log(views)
+      //   const updated = models.Posts.update(
+      //     { views: views + 1 },
+      //     { where: { idx: postIdx } }
+      //   )
+      //   console.log(updated)
+      // })
+      // return Promise.all([updatedViwes, selectedView]).then((ref) => {
+      //   const users = ref[0]
+      //   const contents = ref[1]
+      //   _.forEach(posts.rows, (post) => {
+      //     post.user = _.find(users, { idx: post.post_user_idx })
+      //     post.contents = _.filter(contents, { post_idx: post.post_idx })
+      //   })
+      //   return posts
+    })
+    // return commentsPaging
   })
 }
 

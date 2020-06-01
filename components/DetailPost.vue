@@ -75,9 +75,9 @@
                 <v-row class="px-4" style="border:1px solid red">
                   <v-col v-for="(content, j) in chunk" :key="j" cols="2">
                     <div style="height:50px; margin:30px;">
-                      <span style="font-size:20px;border:1px solid grey">{{
-                        item.content
-                      }}</span>
+                      <span style="font-size:20px;border:1px solid grey">
+                        {{ item.content }}
+                      </span>
                     </div>
                   </v-col>
                 </v-row>
@@ -236,7 +236,7 @@ export default {
       this.$refs.AddCommentDialog.open(postIdx)
     },
     async loadData() {
-      const postIdx = this.post.idx || 1
+      const postIdx = this.post.idx || 0
       try {
         // const postIdx = this.post.idx
         this.loading = true
@@ -250,16 +250,17 @@ export default {
       } catch (error) {
         alert(error)
       }
-      try {
-        const viewsCount = await this.$axios.get('/api/posts/viewsCount', {
-          params: {
-            postIdx
-          }
-        })
-        console.log(viewsCount)
-      } catch (error) {
-        alert(error)
-      }
+      // 조회수 증가
+      // try {
+      //   const viewsCount = await this.$axios.get('/api/posts/viewsCount', {
+      //     params: {
+      //       postIdx
+      //     }
+      //   })
+      //   console.log(viewsCount)
+      // } catch (error) {
+      //   alert(error)
+      // }
     },
     commentsChunks(comments) {
       return _.chunk(comments, 4)

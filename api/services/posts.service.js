@@ -162,21 +162,26 @@ const fileUpload = (params) => {
   // })
 }
 
-// const newLikeCount = (params) => {
-//   const postIdx = params.postIdx
-//   return models.PostsLikes.findAndCountAll({
-//     where: { post_idx: postIdx }
-//   }).then((count) => {
-//     count.postIdx = postIdx
-//     return count
-//   })
-// }
+const viewsUpdate = (params) => {
+  const postIdx = params.postIdx
+  return models.Posts.findOne({
+    where: {
+      idx: postIdx
+    }
+  }).then((postViews) => {
+    const views = postViews.views
+    return models.Posts.update(
+      { views: views + 1 },
+      { where: { idx: postIdx } }
+    )
+  })
+}
 
 module.exports = {
   // postCreate,
   findAndCountAll,
   addLikePost,
   fileUpload,
-  addCountComment
-  // newLikeCount
+  addCountComment,
+  viewsUpdate
 }

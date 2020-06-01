@@ -133,6 +133,7 @@ export default {
             this.dialog = false
             this.mainImg = ''
             alert('입력되었습니다.')
+            this.clear()
           }
         })
 
