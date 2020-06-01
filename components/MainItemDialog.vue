@@ -1,13 +1,7 @@
 <template>
   <v-row>
     <v-row>
-      <v-flex
-        v-for="item in posts"
-        :key="item.idx"
-        xs12
-        sm4
-        style="border:1px solid red"
-      >
+      <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
         <v-col cols="auto">
           <v-card class="mx-auto" max-width="344" raised>
             <v-list-item @click="detailPost(item)" three-line>

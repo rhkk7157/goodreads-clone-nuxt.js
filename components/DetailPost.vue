@@ -5,7 +5,7 @@
     transition="dialog-bottom-transition"
     max-width="900"
   >
-    <v-card style="border:1px solid red;">
+    <v-card>
       <v-toolbar dark color="black">
         <v-btn @click="dialog = false" icon dark>
           <v-icon>mdi-close</v-icon>
@@ -80,7 +80,7 @@
                 v-for="(chunk, i) in commentsChunks(item)"
                 :key="i"
               >
-                <v-row class="px-4" style=":1px solid red">
+                <v-row class="px-4">
                   <v-col v-for="(content, j) in chunk" :key="j" cols="2">
                     <div style="height:50px; margin:30px;">
                       <span style="font-size:20px;border:1px solid grey">
