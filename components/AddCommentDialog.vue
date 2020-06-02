@@ -108,6 +108,7 @@ export default {
             this.comment = ''
             this.password = ''
           }
+          this.$emit('reloadComment')
         })
     },
     formValidation() {

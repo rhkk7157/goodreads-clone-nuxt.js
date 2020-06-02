@@ -13,12 +13,13 @@
       </v-toolbar>
       <v-row align="center" justify="center">
         <v-img
-          :src="`/` + fileName"
+          :src="`/uploads/` + fileName"
           v-bind:fileName="fileName"
           contain
           max-width="344"
           max-height="400"
         ></v-img>
+        <div v-bind:fileName="fileName">{{ fileName }}</div>
       </v-row>
       <v-card-title>{{ this.post.title }}</v-card-title>
       <v-card-text>
@@ -115,6 +116,7 @@
         </template>
         <template v-slot:item.commentUpdate="{ item }">
           <v-btn @click="commentUpdate(item)">수정</v-btn>
+          <!-- <v-btn @click="commentUpdate(item)">수정</v-btn> -->
         </template>
       </v-data-table>
       <v-pagination
@@ -125,7 +127,10 @@
         @previous="previousPage"
         total-visible="12"
       ></v-pagination>
-      <add-comment-dialog ref="AddCommentDialog"></add-comment-dialog>
+      <add-comment-dialog
+        ref="AddCommentDialog"
+        v-on:reloadComment="loadData"
+      ></add-comment-dialog>
       <comment-input-password
         ref="CommentInputPassword"
       ></comment-input-password>
@@ -156,6 +161,8 @@ export default {
     expanded: [],
     contents: [],
     fileName: null,
+    commentUserIdx: null,
+    loginUserIdx: null,
     headers: [
       {
         text: 'Idx',
@@ -213,6 +220,7 @@ export default {
     }
   },
   mounted() {
+    this.loginUserIdx = this.$cookies.get('authUser').idx
     this.loadData()
   },
   methods: {
@@ -256,6 +264,7 @@ export default {
         this.comments = _.get(response, 'data.rows', [])
         this.total = _.get(response, 'data.count', 0)
         this.searchParams.page = _.get(response, 'data.page', 1)
+        this.commentUserIdx = this.comments.user_idx
       } catch (error) {
         alert(error)
       }
