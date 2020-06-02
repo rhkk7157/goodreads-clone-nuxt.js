@@ -68,7 +68,6 @@ export default {
       this.commentPost = _.cloneDeep(item)
       this.comment = this.commentPost.content
       this.dialog = true
-      console.log(this.commentPost)
     },
     close() {
       this.dialog = false
@@ -79,7 +78,7 @@ export default {
     },
     async commentUpdate() {
       // const postIdx = this.commentPost.idx
-      await this.$axios.get('/api/comment/updated/', {
+      const updated = await this.$axios.get('/api/comment/updated/', {
         params: {
           user_idx: this.$cookies.get('authUser').idx,
           comment: this.comment,
@@ -88,6 +87,11 @@ export default {
           postIdx: this.commentPost.post_idx
         }
       })
+      if (updated.status === 200) {
+        alert('수정되었습니다.')
+        this.dialog = false
+      }
+      this.$emit('updated')
     }
   }
 }

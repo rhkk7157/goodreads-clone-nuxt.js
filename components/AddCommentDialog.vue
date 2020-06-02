@@ -110,16 +110,16 @@ export default {
           }
           this.$emit('reloadComment')
         })
-    },
-    formValidation() {
-      if (!this.$refs.Comment.validate(true)) {
-        return false
-      }
-      if (!this.$refs.Password.validate(true)) {
-        return false
-      }
-      return true
     }
+    // formValidation() {
+    //   if (!this.$refs.Comment.validate(true)) {
+    //     return false
+    //   }
+    //   if (!this.$refs.Password.validate(true)) {
+    //     return false
+    //   }
+    //   return true
+    // }
   }
 }
 </script>

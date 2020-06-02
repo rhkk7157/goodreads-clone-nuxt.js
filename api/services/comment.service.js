@@ -122,7 +122,7 @@ const dislikeComments = (params) => {
     })
   })
 }
-
+// 비번체크
 const commentUpdate = (params) => {
   params = params || {}
   console.log(params)
@@ -146,9 +146,8 @@ const commentUpdate = (params) => {
     return false
   })
 }
+// 비밀번호 체크없음. 내용, 비번 update됨.
 const updatedComment = (params) => {
-  console.log(params)
-
   const CommentPassword = params.password
   const salt = Math.round(new Date().valueOf() * Math.random()) + ''
 
@@ -156,13 +155,14 @@ const updatedComment = (params) => {
     .createHash('sha256')
     .update(CommentPassword + salt)
     .digest('hex')
-  return models.Comments.update(
+  const updated = models.Comments.update(
     {
       content: params.comment,
       password: hashPassword
     },
     { where: { post_idx: params.postIdx, idx: params.commentIdx } }
   )
+  return updated
 }
 module.exports = {
   commentInsert,

@@ -134,7 +134,10 @@
       <comment-input-password
         ref="CommentInputPassword"
       ></comment-input-password>
-      <comment-update-dialog ref="CommentUpdateDialog"></comment-update-dialog>
+      <comment-update-dialog
+        ref="CommentUpdateDialog"
+        v-on:updated="close"
+      ></comment-update-dialog>
     </v-card>
   </v-dialog>
 </template>
