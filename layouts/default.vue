@@ -1,6 +1,7 @@
 <template>
   <v-app dark>
     <v-card>
+      <p>HOME TEST</p>
       <v-card style="height:70px;" color="primary">
         <v-card-title class="text-center justify-center py-1">
           <v-spacer />
@@ -111,11 +112,11 @@
   </v-app>
 </template>
 <script>
-import _ from 'lodash'
 import SignInDialog from '../components/SignInDialog'
 import SignUpDialog from '../components/SignUpDialog'
 import MainItemDialog from '../components/MainItemDialog'
 import InsertBook from '../components/InsertBook'
+import _ from 'lodash'
 
 export default {
   components: {

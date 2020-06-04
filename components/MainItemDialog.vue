@@ -58,8 +58,8 @@
   </v-row>
 </template>
 <script>
-import _ from 'lodash'
 import DetailPost from './DetailPost'
+import _ from 'lodash'
 
 export default {
   name: 'MainItemDialog',

@@ -145,10 +145,10 @@
   </v-dialog>
 </template>
 <script>
-import _ from 'lodash'
 import AddCommentDialog from '@/components/AddCommentDialog'
 import CommentInputPassword from '@/components/CommentInputPassword'
 import CommentUpdateDialog from '@/components/CommentUpdateDialog'
+import _ from 'lodash'
 export default {
   components: {
     AddCommentDialog,
