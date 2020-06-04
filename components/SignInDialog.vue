@@ -35,7 +35,7 @@
           label="아이디저장"
           class="fill-height"
         ></v-checkbox>
-        <!-- <v-card-text v-html="errorMessage" style="border:1px solid solid" /> -->
+        <!-- <v-card-text v-html="errorMessage" style="border:3px solid solid" /> -->
       </v-card-actions>
       <v-card-actions>
         <v-btn @click="signIn" color block dark>Login</v-btn>
@@ -71,6 +71,7 @@ export default {
     id: null,
     password: null,
     errorMessage: '',
+    returnMsg: null,
     Errordialog: false
   }),
   mounted() {
@@ -116,7 +117,9 @@ export default {
             this.redirect()
           })
           .catch((error) => {
+            console.log(error)
             const errorName = _.get(error, 'response.data.name', null)
+
             if (errorName) {
               this.errorMessage = '아이디와 비밀번호를 확인해주세요'
               this.Errordialog = true

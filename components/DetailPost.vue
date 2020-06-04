@@ -12,6 +12,8 @@
         </v-btn>
       </v-toolbar>
       <v-row align="center" justify="center">
+        {{ fileName }}
+        <!-- lazy-src="/.png" -->
         <v-img
           :src="`/uploads/` + fileName"
           v-bind:fileName="fileName"
@@ -30,6 +32,7 @@
             :value="4"
             readonly
           ></v-rating>
+
           <!-- 별점 readonly -->
           <!-- <v-rating
             :value="4.5"
@@ -163,7 +166,7 @@ export default {
     comments: [],
     expanded: [],
     contents: [],
-    fileName: null,
+    fileName: '',
     commentUserIdx: null,
     loginUserIdx: null,
     headers: [
@@ -223,8 +226,11 @@ export default {
     }
   },
   mounted() {
+    console.log('-------------1')
+    console.log(this.$route.path)
     this.loginUserIdx = this.$cookies.get('authUser').idx
     this.loadData()
+    console.log('-------------2')
   },
   methods: {
     onPage(val) {
@@ -279,6 +285,8 @@ export default {
         })
         this.contents = _.get(contents, 'data', [])
         this.fileName = this.contents.fileName
+
+        console.log('-------------3')
       } catch (error) {}
     },
     commentsChunks(comments) {

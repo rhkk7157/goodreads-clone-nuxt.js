@@ -3,7 +3,12 @@
     <v-row>
       <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
         <v-col cols="auto">
-          <v-card class="mx-auto" max-width="344" raised>
+          <v-card
+            class="mx-auto"
+            max-width="344"
+            raised
+            style="border:1px solid red"
+          >
             <v-list-item @click="detailPost(item)" three-line>
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
@@ -75,6 +80,7 @@ export default {
     posts: [],
     totalLikes: 0,
     newLikeCount: [],
+    // show: false,
     searchParams: {
       page: 1,
       limit: 12
@@ -119,7 +125,6 @@ export default {
       this.total = _.get(response, 'data.count', 0)
       this.searchParams.page = _.get(response, 'data.page', 1)
       this.url = this.posts.fileName
-      // console.log(this.posts)
     },
 
     async likePost(item) {

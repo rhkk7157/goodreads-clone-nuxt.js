@@ -17,6 +17,8 @@ router.post('/signin', (req, res, next) => {
       password
     })
     .then((r) => {
+      if (r === undefined) {
+      }
       req.session.authUser = r
       res.json(r)
     })

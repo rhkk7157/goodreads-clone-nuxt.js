@@ -13,9 +13,10 @@
               <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                   <div v-on="on" text style="cursor: pointer; margin-top:5px">
-                    <span class="font-weight-white"
+                    <span v-if="adminUserName != ''" class="font-weight-white"
                       >{{ adminUserName }} 님</span
                     >
+                    <span v-else></span>
                   </div>
                 </template>
                 <v-list>
@@ -77,7 +78,7 @@
     </v-navigation-drawer>-->
     <!-- /header -->
 
-    <v-footer :fixed="fixed" app>
+    <!-- <v-footer :fixed="fixed" app>
       <span>&copy; Hyeri</span>
       <v-switch
         v-model="$vuetify.theme.dark"
@@ -103,7 +104,7 @@
           >
         </v-card>
       </v-dialog>
-    </v-footer>
+    </v-footer> -->
     <SignInDialog ref="SignInDialog"></SignInDialog>
     <SignUpDialog ref="SignUpDialog"></SignUpDialog>
     <InsertBook ref="InsertBook"></InsertBook>
@@ -156,10 +157,8 @@ export default {
   },
   computed: {
     adminUserName() {
+      // console.log(this.$store.state)
       return _.get(this.$store.state, 'authUser.username', 'null') || 'null'
-    },
-    imgPath() {
-      return require()
     }
   },
   methods: {
