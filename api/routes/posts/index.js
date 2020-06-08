@@ -56,6 +56,10 @@ const upload = multer({
 //     fileSize: 500000
 //   }
 // })
+router.post('/updated/upload', upload.single('img'), (req, res, next) => {
+  console.log(req.body)
+  console.log(req.file)
+})
 
 router.post('/insert/upload', upload.single('img'), (req, res, next) => {
   const userIdx = req.body.user_idx || ''

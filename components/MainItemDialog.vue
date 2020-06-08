@@ -153,32 +153,11 @@ export default {
         this.posts = _.get(response, 'data.rows', [])
         this.total = _.get(response, 'data.count', 0)
         this.searchParams.page = _.get(response, 'data.page', 1)
-
-        // const newLikeCount = await this.$axios.get('/api/posts/likeCount', {
-        //   params: {
-        //     postIdx
-        //   }
-        // })
-        // this.newLikeCount = _.get(newLikeCount, 'data', [])
-        // console.log(newLikeCount)
       } catch (error) {
         alert(error)
       }
     },
-    // async countViews(item) {
-    //   const response = await this.$axios.get('/api/posts/countComment', {
-    //     params: {
-    //       postIdx: item.idx
-    //     }
-    //   })
-    //   console.log(response)
-    // },
     detailPost(item) {
-      this.$axios.get('/api/posts/viewsUpdate', {
-        params: {
-          postIdx: item.idx
-        }
-      })
       this.$refs.DetailPost.open(item)
     }
   }

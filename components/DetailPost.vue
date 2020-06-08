@@ -22,6 +22,7 @@
           max-height="400"
         ></v-img>
         <div v-bind:fileName="fileName">{{ fileName }}</div>
+        <v-btn @click="PostAndContentUpdate()">수정</v-btn>
       </v-row>
       <v-card-title>{{ this.post.title }}</v-card-title>
       <v-card-text>
@@ -87,9 +88,9 @@
                 <v-row class="px-4">
                   <v-col v-for="(content, j) in chunk" :key="j" cols="2">
                     <div style="height:50px; margin:30px;">
-                      <span style="font-size:20px;border:1px solid grey">
-                        {{ item.content }}
-                      </span>
+                      <span style="font-size:20px;border:1px solid grey">{{
+                        item.content
+                      }}</span>
                     </div>
                   </v-col>
                 </v-row>
@@ -141,6 +142,10 @@
         ref="CommentUpdateDialog"
         v-on:updated="close"
       ></comment-update-dialog>
+      <post-update-dialog
+        ref="PostUpdateDialog"
+        @onClosed="cancel()"
+      ></post-update-dialog>
     </v-card>
   </v-dialog>
 </template>
@@ -148,12 +153,14 @@
 import AddCommentDialog from '@/components/AddCommentDialog'
 import CommentInputPassword from '@/components/CommentInputPassword'
 import CommentUpdateDialog from '@/components/CommentUpdateDialog'
+import PostUpdateDialog from '@/components/PostUpdateDialog'
 import _ from 'lodash'
 export default {
   components: {
     AddCommentDialog,
     CommentInputPassword,
-    CommentUpdateDialog
+    CommentUpdateDialog,
+    PostUpdateDialog
   },
   data: () => ({
     dialog: false,
@@ -226,11 +233,8 @@ export default {
     }
   },
   mounted() {
-    console.log('-------------1')
-    console.log(this.$route.path)
     this.loginUserIdx = this.$cookies.get('authUser').idx
     this.loadData()
-    console.log('-------------2')
   },
   methods: {
     onPage(val) {
@@ -277,16 +281,23 @@ export default {
       } catch (error) {
         alert(error)
       }
+      //  조회수
+      try {
+        this.$axios.get('/api/posts/viewsUpdate', {
+          params: {
+            postIdx
+          }
+        })
+      } catch (error) {}
       try {
         const contents = await this.$axios.get('/api/posts/findContents', {
           params: {
             postIdx
           }
         })
+        console.log('-------------1')
         this.contents = _.get(contents, 'data', [])
         this.fileName = this.contents.fileName
-
-        console.log('-------------3')
       } catch (error) {}
     },
     commentsChunks(comments) {
@@ -327,28 +338,11 @@ export default {
     },
     commentUpdate(item) {
       this.$refs.CommentUpdateDialog.open(item)
+    },
+    PostAndContentUpdate() {
+      const item = this.post
+      this.$refs.PostUpdateDialog.open(item)
     }
-
-    // commentUpdate(item) {
-    //   this.$refs.CommentInputPassword.open(item)
-    // }
-
-    // async commentUpdate(item) {
-    //   // console.log(item)
-    //   const loginUserIdx = item.user_idx // commentUserIdx
-    //   const idx = item.idx
-    //   const response = await this.$axios.get(
-    //     '/api/comment/commentUpdate/' + idx,
-    //     {
-    //       params: {
-    //         loginUserIdx,
-    //         postIdx: item.post_idx,
-    //         content: item.content
-    //       }
-    //     }
-    //   )
-    //   console.log(response)
-    // }
   }
 }
 </script>

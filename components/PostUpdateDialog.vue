@@ -6,7 +6,7 @@
     max-width="700"
   >
     <v-card fluid class="pa-4 mt-2">
-      <v-card-title>insert</v-card-title>
+      <v-card-title>수정</v-card-title>
       <v-card-text>
         <!-- <ValidationObserver
           ref="observer"
@@ -60,7 +60,9 @@
           />
           <v-row>
             <v-col cols="12" md="6">
-              <v-btn @click="insertBook" color="primary" block dark>Save</v-btn>
+              <v-btn @click="postUpdate()" color="primary" block dark
+                >Save</v-btn
+              >
             </v-col>
             <v-col cols="12" md="6">
               <v-btn @click="clear" block dark>Clear</v-btn>
@@ -75,24 +77,23 @@
 import _ from 'lodash'
 export default {
   data: () => ({
-    user: {},
+    posts: {},
     dialog: false,
     mainImg: '',
     MainTitle: null,
     SubTitle: null,
     Content: null,
-    // message: null,
     selectItems: ['Cook', 'Travel', 'Art', 'WebToon'],
     selectValue: ['Cook', 'Travel', 'Art', 'WebToon']
   }),
   methods: {
-    open(data) {
-      this.user = _.cloneDeep(data)
+    open(item) {
       this.dialog = true
-    },
-    close() {
-      this.dialog = false
-      this.$emit('onClosed')
+      this.posts = _.cloneDeep(item)
+      this.MainTitle = this.posts.title
+      this.Content = this.posts.content
+      this.SubTitle = this.posts.sub_title
+      this.selectValue = this.posts.category
     },
     cancel() {
       this.dialog = false
@@ -103,57 +104,9 @@ export default {
       this.Content = ''
       this.mainImg = ''
       this.selectValue = ''
-      // this.$refs.observer.reset()
     },
     onFileSelected($event) {
       this.mainImg = this.$refs.inputUpload.files[0]
-    },
-    insertBook() {
-      const valid = this.formValidation()
-      if (!valid) return false
-
-      const formData = new FormData()
-      formData.append('img', this.mainImg || '')
-      formData.append('user_idx', this.user.idx || '')
-      formData.append('title', this.MainTitle || '')
-      formData.append('sub_title', this.SubTitle || '')
-      formData.append('content', this.Content || '')
-      formData.append('category', this.selectValue || '')
-      // for (const val of formData.values()) {
-      //   console.log(val)
-      // }
-      this.$axios
-        .post('/api/posts/insert/upload/', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            this.dialog = false
-            this.mainImg = ''
-            alert('입력되었습니다.')
-            this.clear()
-          }
-        })
-
-      // const authUser = this.$cookies.get('authUser')
-      // try {
-      //   const response = await this.$axios.get('/api/posts/insert/', {
-      //     params: {
-      //       user_idx: this.user.idx,
-      //       title: this.MainTitle,
-      //       sub_title: this.SubTitle,
-      //       content: this.Content,
-      //       category: this.selectValue
-      //     }
-      //   })
-      //   this.dialog = false
-      //   if (response.request.status === 200) {
-      //     alert('저장되었습니다.')
-      //     this.redirect()
-      //   }
-      // } catch (error) {}
     },
     formValidation() {
       if (!this.$refs.title.validate(true)) {
@@ -172,11 +125,30 @@ export default {
       }
       return true
     },
-    redirect() {
-      this.$router.push('/')
+    postUpdate() {
+      const valid = this.formValidation()
+      if (!valid) return false
+
+      const formData = new FormData()
+      formData.append('img', this.mainImg || '')
+      formData.append('user_idx', this.user.idx || '')
+      formData.append('title', this.MainTitle || '')
+      formData.append('sub_title', this.SubTitle || '')
+      formData.append('content', this.Content || '')
+      formData.append('category', this.selectValue || '')
+      for (const val of formData.values()) {
+        console.log(val)
+      }
+      this.$axios
+        .post('/api/posts/updated/upload/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then((response) => {
+          console.log(response)
+        })
     }
   }
 }
 </script>
-
-<style></style>

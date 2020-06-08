@@ -150,36 +150,27 @@ const fileUpload = (params) => {
       return contents
     })
   })
-  // return models.Posts.create({
-  //   user_idx: params.userIdx,
-  //   title: params.title,
-  //   sub_title: params.subTitle,
-  //   content: params.content,
-  //   category: params.category
-  //   // created_at: today
-  // }).then((posts) => {
-  //   return posts
-  // })
 }
 
 const viewsUpdate = (params) => {
-  const postIdx = params.postIdx
-  return models.Posts.findOne({
-    where: {
-      idx: postIdx
-    }
-  }).then((postViews) => {
-    const views = postViews.views
-    return models.Posts.update(
-      { views: views + 1 },
-      { where: { idx: postIdx } }
-    )
-  })
+  if (params.postIdx !== '0') {
+    const postIdx = params.postIdx
+    return models.Posts.findOne({
+      where: {
+        idx: postIdx
+      }
+    }).then((postViews) => {
+      const views = postViews.views
+      return models.Posts.update(
+        { views: views + 1 },
+        { where: { idx: postIdx } }
+      )
+    })
+  }
 }
 
 const findContents = (params) => {
   const postIdx = params.postIdx
-
   return models.Contents.findOne({
     where: {
       post_idx: postIdx
