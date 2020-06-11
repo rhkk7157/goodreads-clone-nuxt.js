@@ -19,12 +19,13 @@ router.get('/insert', (req, res, next) => {
     })
 })
 router.get('/updated', (req, res, next) => {
+  console.log(req.query)
   const userIdx = req.query.user_idx
   const comment = req.query.comment
   const password = req.query.password
   const postIdx = req.query.postIdx
   const commentIdx = req.query.commentIdx
-
+  console.log('---------------check')
   commentService
     .updatedComment({
       userIdx,

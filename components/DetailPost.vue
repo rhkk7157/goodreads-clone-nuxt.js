@@ -88,9 +88,9 @@
                 <v-row class="px-4">
                   <v-col v-for="(content, j) in chunk" :key="j" cols="2">
                     <div style="height:50px; margin:30px;">
-                      <span style="font-size:20px;border:1px solid grey">{{
-                        item.content
-                      }}</span>
+                      <span style="font-size:20px;border:1px solid grey">
+                        {{ item.content }}
+                      </span>
                     </div>
                   </v-col>
                 </v-row>
@@ -295,7 +295,7 @@ export default {
             postIdx
           }
         })
-        console.log('-------------1')
+
         this.contents = _.get(contents, 'data', [])
         this.fileName = this.contents.fileName
       } catch (error) {}

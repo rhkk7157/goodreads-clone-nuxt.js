@@ -77,6 +77,7 @@ export default {
       this.dialog = false
     },
     async commentUpdate() {
+      alert('저장')
       // const postIdx = this.commentPost.idx
       const updated = await this.$axios.get('/api/comment/updated/', {
         params: {

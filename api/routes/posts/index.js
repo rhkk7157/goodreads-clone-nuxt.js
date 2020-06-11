@@ -96,6 +96,7 @@ router.get('/viewsUpdate', (req, res, next) => {
     postIdx
   })
 })
+
 router.get('/findContents', (req, res, next) => {
   const postIdx = req.query.postIdx
   postsService
