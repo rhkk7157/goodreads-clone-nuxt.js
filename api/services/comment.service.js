@@ -148,6 +148,8 @@ const commentUpdate = (params) => {
 }
 // 비밀번호 체크없음. 내용, 비번 update됨.
 const updatedComment = (params) => {
+  console.log('------------------1')
+  console.log(params)
   const CommentPassword = params.password
   const salt = Math.round(new Date().valueOf() * Math.random()) + ''
 
@@ -164,6 +166,7 @@ const updatedComment = (params) => {
   )
   return updated
 }
+
 module.exports = {
   commentInsert,
   commentPaging,

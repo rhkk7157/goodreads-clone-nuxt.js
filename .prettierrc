@@ -4,5 +4,5 @@
   "singleQuote": true,
   "editor.formatOnSave": true,
   "endOfLine": "auto",
-  "prettier.printWidth": 60
+  "prettier.printWidth": 50
 }
