@@ -13,7 +13,6 @@
       </v-toolbar>
       <v-row align="center" justify="center">
         {{ fileName }}
-        <!-- lazy-src="/.png" -->
         <v-img
           :src="`/uploads/` + fileName"
           v-bind:fileName="fileName"
@@ -33,7 +32,6 @@
             :value="4"
             readonly
           ></v-rating>
-
           <!-- 별점 readonly -->
           <!-- <v-rating
             :value="4.5"
@@ -250,6 +248,7 @@ export default {
       this.loadData()
     },
     open(data) {
+      alert('open')
       this.post = _.cloneDeep(data)
       this.dialog = true
       this.loadData()
