@@ -1,6 +1,7 @@
 <template>
   <v-row>
     <v-row>
+      <p>heroku test</p>
       <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
         <v-col cols="auto">
           <v-card
@@ -12,12 +13,12 @@
             <v-list-item @click="detailPost(item)" three-line>
               <v-list-item-content>
                 <div class="overline mb-4">{{ item.category }}</div>
-                <v-list-item-title class="headline mb-2">{{
-                  item.title
-                }}</v-list-item-title>
-                <v-list-item-subtitle>{{
-                  item.sub_title
-                }}</v-list-item-subtitle>
+                <v-list-item-title class="headline mb-2">
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ item.sub_title }}
+                </v-list-item-subtitle>
               </v-list-item-content>
               <template>
                 <v-img :src="`/uploads/` + item.fileName"></v-img>
