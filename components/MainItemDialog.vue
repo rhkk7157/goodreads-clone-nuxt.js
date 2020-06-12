@@ -1,7 +1,6 @@
 <template>
   <v-row>
     <v-row>
-      <p>heroku test</p>
       <v-flex v-for="item in posts" :key="item.idx" xs12 sm4>
         <v-col cols="auto">
           <v-card

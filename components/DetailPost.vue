@@ -12,8 +12,8 @@
         </v-btn>
       </v-toolbar>
       <v-row align="center" justify="center">
-        {{ fileName }}
         <v-img
+          v-if="fileName != null"
           :src="`/uploads/` + fileName"
           v-bind:fileName="fileName"
           contain
@@ -294,7 +294,6 @@ export default {
             postIdx
           }
         })
-
         this.contents = _.get(contents, 'data', [])
         this.fileName = this.contents.fileName
       } catch (error) {}
