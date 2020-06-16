@@ -112,6 +112,21 @@ const addLikePost = (params) => {
   })
 }
 
+const postUpdate = (params) => {
+  // console.log(params)
+  const postIdx = params.postIdx
+  // console.log(postIdx)
+
+  return models.Posts.update(
+    { title: params.title },
+    { sub_title: params.subTitle },
+    { content: params.content },
+    { where: { idx: postIdx } }
+  ).then((updated) => {
+    // console.log(updated)
+  })
+}
+
 const addCountComment = (params) => {
   const postIdx = params.postIdx
   return models.Posts.findOne({
@@ -187,5 +202,6 @@ module.exports = {
   fileUpload,
   addCountComment,
   viewsUpdate,
-  findContents
+  findContents,
+  postUpdate
 }

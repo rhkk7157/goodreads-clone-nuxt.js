@@ -126,19 +126,19 @@ export default {
       return true
     },
     postUpdate() {
-      const valid = this.formValidation()
-      if (!valid) return false
+      // const valid = this.formValidation()
+      // if (!valid) return false
 
       const formData = new FormData()
       formData.append('img', this.mainImg || '')
-      formData.append('user_idx', this.user.idx || '')
+      formData.append('post_idx', this.posts.idx || '')
       formData.append('title', this.MainTitle || '')
       formData.append('sub_title', this.SubTitle || '')
       formData.append('content', this.Content || '')
       formData.append('category', this.selectValue || '')
-      for (const val of formData.values()) {
-        console.log(val)
-      }
+      // for (const val of formData.values()) {
+      //   console.log(val)
+      // }
       this.$axios
         .post('/api/posts/updated/upload/', formData, {
           headers: {

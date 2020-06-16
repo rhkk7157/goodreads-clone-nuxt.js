@@ -57,8 +57,34 @@ const upload = multer({
 //   }
 // })
 router.post('/updated/upload', upload.single('img'), (req, res, next) => {
-  console.log(req.body)
-  console.log(req.file)
+  // console.log(req.body)
+  // console.log(req.file)
+  const postIdx = req.body.post_idx || ''
+  const title = req.body.title || ''
+  const subTitle = req.body.sub_title || ''
+  const content = req.body.content || ''
+  const category = req.body.category || ''
+
+  const fileName = req.file.filename || ''
+  const filePath = req.file.path || ''
+  const originalName = req.file.originalname || ''
+  const size = req.file.size || ''
+
+  postsService
+    .postUpdate({
+      postIdx,
+      title,
+      subTitle,
+      content,
+      category,
+      fileName,
+      filePath,
+      originalName,
+      size
+    })
+    .then((results) => {
+      // console.log(results)
+    })
 })
 
 router.post('/insert/upload', upload.single('img'), (req, res, next) => {

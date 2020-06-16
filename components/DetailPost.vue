@@ -3,7 +3,7 @@
     v-model="dialog"
     hide-overlay
     transition="dialog-bottom-transition"
-    max-width="900"
+    max-width="1200"
   >
     <v-card>
       <v-toolbar dark color="black">
@@ -86,9 +86,9 @@
                 <v-row class="px-4">
                   <v-col v-for="(content, j) in chunk" :key="j" cols="2">
                     <div style="height:50px; margin:30px;">
-                      <span style="font-size:20px;border:1px solid grey">
-                        {{ item.content }}
-                      </span>
+                      <span style="font-size:20px;border:1px solid grey">{{
+                        item.content
+                      }}</span>
                     </div>
                   </v-col>
                 </v-row>
@@ -248,8 +248,8 @@ export default {
       this.loadData()
     },
     open(data) {
-      alert('open')
       this.post = _.cloneDeep(data)
+      this.fileName = this.post.fileName
       this.dialog = true
       this.loadData()
     },
@@ -295,7 +295,6 @@ export default {
           }
         })
         this.contents = _.get(contents, 'data', [])
-        this.fileName = this.contents.fileName
       } catch (error) {}
     },
     commentsChunks(comments) {
