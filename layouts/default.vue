@@ -111,11 +111,11 @@
   </v-app>
 </template>
 <script>
-import _ from 'lodash'
 import SignInDialog from '../components/SignInDialog'
 import SignUpDialog from '../components/SignUpDialog'
 import MainItemDialog from '../components/MainItemDialog'
 import InsertBook from '../components/InsertBook'
+import _ from 'lodash'
 
 export default {
   components: {
