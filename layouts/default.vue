@@ -132,7 +132,7 @@ export default {
       MenuTab: null,
       categoryIndex: 0,
       items: [
-        { tab: 'Cook' },
+        // { tab: 'Cook' },
         { tab: 'Travel' },
         { tab: 'Art' },
         { tab: 'Webtoon' }

@@ -82,8 +82,8 @@ export default {
     SubTitle: null,
     Content: null,
     // message: null,
-    selectItems: ['Cook', 'Travel', 'Art', 'WebToon'],
-    selectValue: ['Cook', 'Travel', 'Art', 'WebToon']
+    selectItems: ['Travel', 'Art', 'WebToon'],
+    selectValue: ['Travel', 'Art', 'WebToon']
   }),
   methods: {
     open(data) {
